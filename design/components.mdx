@@ -1,0 +1,479 @@
+---
+title: Components
+description: Reusable UI components and design patterns in the DNI Cita Previa application
+---
+
+## Overview
+
+This page documents the reusable component patterns found throughout the DNI Cita Previa application, including buttons, cards, forms, info boxes, and more.
+
+## Buttons
+
+### Primary Button
+
+Used for primary actions and main call-to-action elements.
+
+```css
+.opcion-cita > a {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 40px;
+    border-radius: 10px;
+    background-color: var(--primary-blue);
+    color: var(--white);
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.opcion-cita > a:hover {
+    opacity: .9;
+    scale: .99;
+}
+```
+
+**Usage:** Main action buttons on index and iniciar-solicitud pages.
+
+### Secondary Button
+
+Used for alternative or less emphasized actions.
+
+```css
+.opcion-cita:nth-child(2) > a {
+    background-color: var(--border-light);
+    color: var(--text-gray-dark);
+}
+```
+
+### Form Buttons
+
+#### Continue Button
+
+```css
+#btn-continuar {
+    background-color: var(--primary-blue);
+    color: var(--white);
+}
+
+#btn-continuar:hover {
+    background-color: var(--primary-blue-dark);
+    opacity: .9;
+    scale: .99;
+}
+```
+
+#### Back Button
+
+```css
+#btn-volver {
+    background-color: var(--border-light);
+    color: var(--text-gray);
+}
+
+#btn-volver:hover {
+    background-color: var(--neutral-dark);
+    opacity: .9;
+    scale: .99;
+}
+```
+
+### Success Button
+
+Used for confirmation actions.
+
+```css
+#btn-confirmar {
+    background-color: var(--success-green);
+    color: var(--white);
+}
+
+#btn-confirmar:hover {
+    background-color: var(--success-green-dark);
+    opacity: .9;
+    scale: .99;
+}
+```
+
+### Button Container
+
+```css
+.botones-formulario {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.botones-formulario a,
+.botones-formulario button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 150px;
+    justify-content: center;
+}
+```
+
+## Cards
+
+### Option Card
+
+Used for presenting selectable options on the index and iniciar-solicitud pages.
+
+```css
+#opciones-cita > div {
+    width: 50%;
+    background-color: var(--white);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 50px;
+    border-radius: 10px;
+}
+
+.opcion-cita > h2 {
+    margin-bottom: 20px;
+    color: var(--primary-blue);
+}
+
+.opcion-cita > p {
+    margin-bottom: 15px;
+    color: var(--text-gray-light);
+}
+```
+
+**Responsive behavior:**
+
+```css
+@media (width <= 1024px) {
+    #opciones-cita > div {
+        width: 100%;
+    }
+}
+```
+
+### Summary Card
+
+Used to display appointment confirmation and details.
+
+```css
+.contenedor-resumen {
+    background-color: var(--white);
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+```
+
+## Form Components
+
+### Form Container
+
+```css
+#formulario-cita {
+    background-color: var(--white);
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+```
+
+### Form Section
+
+```css
+.seccion-formulario {
+    margin-bottom: 40px;
+    text-align: left;
+}
+
+.seccion-formulario h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--primary-blue);
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border-light);
+}
+```
+
+### Input Fields
+
+```css
+.campo-formulario input,
+.campo-formulario select,
+.campo-formulario textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border-light);
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+}
+
+.campo-formulario input:focus,
+.campo-formulario select:focus,
+.campo-formulario textarea:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
+}
+
+.campo-formulario input:invalid {
+    border-color: #ef4444;
+}
+```
+
+### Form Labels
+
+```css
+.campo-formulario label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-gray);
+}
+```
+
+### Textarea
+
+```css
+.campo-formulario textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+```
+
+### Radio and Checkbox Inputs
+
+```css
+.opciones-radio {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.label-radio,
+.label-checkbox {
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.campo-formulario input[type="checkbox"],
+.campo-formulario input[type="radio"] {
+    width: auto;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+}
+```
+
+### Multi-column Form Fields
+
+```css
+.campos-fila {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.campos-fila .campo-formulario {
+    flex: 1;
+    min-width: 200px;
+}
+```
+
+## Info Box
+
+Used to display important information or instructions.
+
+```css
+.info {
+    margin-block: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    background-color: var(--bg-blue-light);
+    text-align: left;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.info > h3 {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    align-items: center;
+    color: var(--primary-blue);
+    margin-bottom: 15px;
+}
+
+.info > div > p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+```
+
+## Status Indicator
+
+Used to display appointment confirmation status.
+
+```css
+.estado-cita {
+    text-align: center;
+    padding: 30px;
+    margin-bottom: 40px;
+    background: linear-gradient(135deg, var(--bg-blue-light) 0%, var(--bg-blue-lighter) 100%);
+    border-radius: 12px;
+    border: 2px solid var(--border-blue);
+}
+
+.icono-estado svg {
+    color: var(--success-green);
+    width: 48px;
+    height: 48px;
+}
+
+.estado-cita h2 {
+    color: var(--primary-blue);
+    margin: 0 0 10px 0;
+    font-size: 1.5rem;
+}
+
+.codigo-cita strong {
+    color: var(--primary-blue);
+    font-size: 1.2rem;
+}
+```
+
+## Table
+
+Used for displaying key-value pairs in the summary page.
+
+```css
+.tabla-resumen {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.tabla-resumen td {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-lighter);
+    vertical-align: top;
+}
+
+.tabla-resumen td:first-child {
+    color: var(--text-gray-light);
+    font-weight: 500;
+    width: 35%;
+    padding-right: 20px;
+}
+
+.tabla-resumen td:last-child {
+    color: var(--text-gray);
+    font-weight: 400;
+}
+
+.tabla-resumen tr:last-child td {
+    border-bottom: none;
+}
+```
+
+## Navigation
+
+### Header Navigation
+
+```css
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+```
+
+### Mobile Menu Toggle
+
+```css
+#menu-toggle {
+    display: none;
+}
+
+@media (width <= 480px) {
+    #menu-toggle {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background-color: transparent;
+    }
+
+    #menu-toggle > img {
+        width: 40px;
+        height: 40px;
+    }
+
+    nav {
+        display: none;
+        width: 100%;
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px 0;
+    }
+}
+```
+
+## Component Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Consistent Spacing" icon="ruler">
+    Use consistent padding (30px for cards, 20px-50px for components) and gap values (10px, 15px, 20px, 25px)
+  </Card>
+  
+  <Card title="Border Radius" icon="circle">
+    Standard border-radius values: 8px for small elements (inputs, buttons), 10px for cards, 12px for special containers
+  </Card>
+  
+  <Card title="Transitions" icon="wand-magic-sparkles">
+    Use `transition: all 0.3s ease` for hover effects on interactive elements
+  </Card>
+  
+  <Card title="Hover States" icon="hand-pointer">
+    Apply `opacity: .9` and `scale: .99` for subtle hover feedback on buttons
+  </Card>
+</CardGroup>
+
+<Note>
+All interactive components should include focus states for accessibility, using the primary blue color with a subtle box-shadow.
+</Note>

@@ -1,0 +1,542 @@
+---
+title: Footer Component
+description: Documentation for the footer component with logo, links, and copyright information
+---
+
+## Overview
+
+The footer component displays the national police logo, useful links organized in columns, and copyright information. It's fully responsive and adapts from a three-column desktop layout to a single-column mobile layout.
+
+## HTML Structure
+
+The footer consists of two main sections:
+
+1. **Content section** - Logo and two link columns
+2. **Copyright section** - Copyright text centered at bottom
+
+### Complete HTML
+
+```html
+<footer>
+    <div id="content">
+        <div id="logo-footer">
+            <picture>
+                <source srcset="./images/logo-polia-nacional.avif" type="image/avif">
+                <source srcset="./images/logo-polia-nacional.webp" type="image/webp">
+                <img src="./images/logo-polia-nacional.jpeg" alt="Logo Policía Nacional">
+            </picture>
+            <p>Gobierno de España</p>
+            <p>Ministerio del Interior</p>
+        </div>
+        <div class="enlaces-footer">
+            <h3>Enlaces de interés</h3>
+            <a href="https://www.policia.es/" target="_blank" rel="noopener noreferrer">Policía Nacional</a>
+            <a href="https://www.dnielectronico.es/PortalDNIe/" target="_blank" rel="noopener noreferrer">Portal del
+                DNIe</a>
+            <a href="https://sede.policia.gob.es/" target="_blank" rel="noopener noreferrer">Sede Electrónica</a>
+            <a href="https://www.dnielectronico.es/portaldnie/prf1_cons02.action?pag=ref_9030" target="_blank"
+                rel="noopener noreferrer">Localización de
+                oficinas</a>
+        </div>
+        <div class="enlaces-footer">
+            <h3>Contacto y ayuda</h3>
+            <a href="https://www.citapreviadnie.es/citaPreviaDni/doc/43CITAPREVIAnivelinternet.pdf" target="_blank"
+                rel="noopener noreferrer">Ayuda</a>
+            <a href="mailto:sac@dnielectronico.es?subject=Consulta%C2%A0Cita%C2%A0Previa%C2%A0DNI">Contacto</a>
+            <a href="https://www.citapreviadnie.es/citaPreviaDni/avisoLegal.jsp" target="_blank"
+                rel="noopener noreferrer">Aviso
+                Legal</a>
+            <a href="https://www.citapreviadnie.es/citaPreviaDni/accesibilidad.jsp" target="_blank"
+                rel="noopener noreferrer">Accesibilidad</a>
+            <a href="https://www.dnielectronico.es/portaldnie/prf1_cons02.action?pag=ref_9030" target="_blank"
+                rel="noopener noreferrer">Mapa Web</a>
+        </div>
+    </div>
+    <div id="copyright">
+        <p>&copy; 2025 - Dirección General de la Policía</p>
+    </div>
+</footer>
+```
+
+## CSS Styles
+
+The footer uses styles from `headerfooter.css` and color variables from `style.css`.
+
+### Base Styles
+
+```css
+footer {
+    background-color: var(--footer-background-blue);
+    color: var(--white);
+    padding: 0 50px;
+}
+
+footer > #content,
+footer > #copyright {
+    display: flex;
+    flex-direction: row;
+}
+
+footer > #content {
+    gap: 5%;
+    padding: 30px 50px;
+}
+
+footer > #content > div {
+    width: 30%;
+}
+
+#logo-footer > picture > img {
+    width: 80px;
+    aspect-ratio: 1;
+    margin-bottom: 15px;
+    align-self: center;
+}
+
+footer > #copyright {
+    justify-content: center;
+    padding: 20px 40px;
+    width: 100%;
+    border-top: 1px solid var(--white);
+    text-align: center;
+    text-wrap: balance;
+}
+
+.enlaces-footer {
+    display: flex;
+    flex-direction: column;
+}
+
+.enlaces-footer > h3 {
+    margin-bottom: 10px;
+}
+
+.enlaces-footer > a {
+    margin-bottom: 5px;
+}
+
+.enlaces-footer > a:hover {
+    opacity: .8;
+}
+```
+
+### Mobile Styles (480px and below)
+
+```css
+@media (width <= 480px) {
+    footer > #content {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        padding-inline: 0;
+    }
+
+    footer > #content > div {
+        width: 100%;
+    }
+
+    #logo-footer {
+        margin-bottom: 20px;
+    }
+
+    .enlaces-footer > h3 {
+        margin-bottom: 15px;
+    }
+
+    .enlaces-footer > a {
+        margin-bottom: 10px;
+    }
+
+    #logo-footer > picture > img {
+        margin-bottom: 10px;
+        width: 70px;
+    }
+
+    footer > #copyright {
+        padding: 20px 0;
+        text-wrap: initial;
+    }
+}
+```
+
+## Color Variables
+
+From `css/style.css`:
+
+```css
+:root {
+    --footer-background-blue: #1f2937;
+    --white: #ffffff;
+}
+```
+
+## Usage Examples
+
+### Basic Implementation
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/headerfooter.css">
+</head>
+<body>
+    <!-- Page content -->
+    
+    <footer>
+        <div id="content">
+            <div id="logo-footer">
+                <picture>
+                    <source srcset="./images/logo-polia-nacional.avif" type="image/avif">
+                    <source srcset="./images/logo-polia-nacional.webp" type="image/webp">
+                    <img src="./images/logo-polia-nacional.jpeg" alt="Logo Policía Nacional">
+                </picture>
+                <p>Gobierno de España</p>
+                <p>Ministerio del Interior</p>
+            </div>
+            <div class="enlaces-footer">
+                <h3>Enlaces de interés</h3>
+                <a href="#">Link 1</a>
+                <a href="#">Link 2</a>
+            </div>
+            <div class="enlaces-footer">
+                <h3>Contacto y ayuda</h3>
+                <a href="#">Ayuda</a>
+                <a href="mailto:contact@example.com">Contacto</a>
+            </div>
+        </div>
+        <div id="copyright">
+            <p>&copy; 2025 - Dirección General de la Policía</p>
+        </div>
+    </footer>
+</body>
+</html>
+```
+
+### Two-Column Footer
+
+<CodeGroup>
+
+```html Two Columns
+<footer>
+    <div id="content">
+        <div id="logo-footer">
+            <picture>
+                <source srcset="./images/logo-polia-nacional.avif" type="image/avif">
+                <source srcset="./images/logo-polia-nacional.webp" type="image/webp">
+                <img src="./images/logo-polia-nacional.jpeg" alt="Logo Policía Nacional">
+            </picture>
+            <p>Gobierno de España</p>
+            <p>Ministerio del Interior</p>
+        </div>
+        <div class="enlaces-footer">
+            <h3>Enlaces importantes</h3>
+            <a href="#">Ayuda</a>
+            <a href="#">Aviso Legal</a>
+            <a href="#">Accesibilidad</a>
+        </div>
+    </div>
+    <div id="copyright">
+        <p>&copy; 2025 - Gobierno de España</p>
+    </div>
+</footer>
+```
+
+```css Adjust Widths
+/* For two-column layout */
+footer > #content > div {
+    width: 50%;  /* Change from 30% to 50% */
+}
+
+/* Or for unequal widths */
+#logo-footer {
+    width: 40%;
+}
+
+.enlaces-footer {
+    width: 60%;
+}
+```
+
+</CodeGroup>
+
+## Customization
+
+### Changing Background Color
+
+```css
+:root {
+    --footer-background-blue: #2c3e50;  /* Darker blue */
+    /* or */
+    --footer-background-blue: #0f172a;  /* Slate color */
+}
+```
+
+### Adding Social Media Icons
+
+```html
+<div class="enlaces-footer">
+    <h3>Síguenos</h3>
+    <div class="social-links">
+        <a href="https://twitter.com/example" target="_blank" rel="noopener noreferrer">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <!-- Twitter icon SVG path -->
+            </svg>
+            Twitter
+        </a>
+        <a href="https://facebook.com/example" target="_blank" rel="noopener noreferrer">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <!-- Facebook icon SVG path -->
+            </svg>
+            Facebook
+        </a>
+    </div>
+</div>
+```
+
+```css
+.social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.social-links a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.social-links a:hover {
+    opacity: 0.8;
+}
+```
+
+### Custom Logo Size
+
+```css
+#logo-footer > picture > img {
+    width: 100px;  /* Increase from 80px */
+    aspect-ratio: 1;
+    margin-bottom: 15px;
+}
+```
+
+### Adding Email Link Styling
+
+```html
+<a href="mailto:sac@dnielectronico.es?subject=Consulta%20Cita%20Previa%20DNI">
+    Contacto
+</a>
+```
+
+The `?subject=` parameter pre-fills the email subject line with "Consulta Cita Previa DNI".
+
+## Responsive Behavior
+
+### Desktop (> 480px)
+
+- Three-column layout (logo + 2 link columns)
+- Each column: 30% width with 5% gap
+- Logo: 80px wide
+- Horizontal spacing: padding 0 50px
+
+### Mobile (≤ 480px)
+
+- Single-column stack layout
+- Each section: 100% width
+- Logo: 70px wide
+- Reduced spacing between elements
+- No horizontal padding on content
+
+## Accessibility Features
+
+<Accordion title="Semantic HTML">
+  - Uses `<footer>` landmark element
+  - Proper heading hierarchy (`<h3>` for section titles)
+  - Descriptive alt text on images
+  - Meaningful link text (not "click here")
+</Accordion>
+
+<Accordion title="External Links">
+  All external links include:
+  ```html
+  <a href="https://example.com" 
+     target="_blank" 
+     rel="noopener noreferrer">
+      Link Text
+  </a>
+  ```
+  
+  - `target="_blank"` - Opens in new tab
+  - `rel="noopener"` - Security: prevents access to window.opener
+  - `rel="noreferrer"` - Privacy: doesn't send referrer header
+</Accordion>
+
+<Accordion title="ARIA Enhancements (Optional)">
+  ```html
+  <footer role="contentinfo">
+      <div id="content">
+          <div id="logo-footer" aria-label="Government branding">
+              <!-- logo content -->
+          </div>
+          <nav class="enlaces-footer" aria-label="Useful links">
+              <h3>Enlaces de interés</h3>
+              <!-- links -->
+          </nav>
+          <nav class="enlaces-footer" aria-label="Help and contact">
+              <h3>Contacto y ayuda</h3>
+              <!-- links -->
+          </nav>
+      </div>
+      <div id="copyright">
+          <p>&copy; 2025 - Dirección General de la Policía</p>
+      </div>
+  </footer>
+  ```
+</Accordion>
+
+<Accordion title="Keyboard Navigation">
+  - All links are keyboard accessible via Tab key
+  - Link focus states are visible (slight opacity change)
+  - Logical tab order: left to right, top to bottom
+  - Enter key activates links
+</Accordion>
+
+## Image Optimization
+
+The footer logo uses modern image formats:
+
+```html
+<picture>
+    <!-- AVIF: Best compression, newest format -->
+    <source srcset="./images/logo-polia-nacional.avif" type="image/avif">
+    
+    <!-- WebP: Good compression, wide support -->
+    <source srcset="./images/logo-polia-nacional.webp" type="image/webp">
+    
+    <!-- JPEG: Fallback for all browsers -->
+    <img src="./images/logo-polia-nacional.jpeg" alt="Logo Policía Nacional">
+</picture>
+```
+
+<Tip>
+  **File Size Comparison** (approximate):
+  - JPEG: 100% (baseline)
+  - WebP: ~30% smaller than JPEG
+  - AVIF: ~50% smaller than JPEG
+  
+  Using modern formats significantly improves page load times.
+</Tip>
+
+## Layout Flexibility
+
+### Four-Column Footer
+
+```html
+<footer>
+    <div id="content">
+        <div id="logo-footer">...</div>
+        <div class="enlaces-footer">...</div>
+        <div class="enlaces-footer">...</div>
+        <div class="enlaces-footer">...</div>  <!-- New column -->
+    </div>
+    <div id="copyright">...</div>
+</footer>
+```
+
+```css
+footer > #content > div {
+    width: 25%;  /* 100% / 4 columns */
+}
+
+@media (width <= 768px) {
+    footer > #content > div {
+        width: 50%;  /* 2 columns on tablet */
+    }
+}
+
+@media (width <= 480px) {
+    footer > #content > div {
+        width: 100%;  /* 1 column on mobile */
+    }
+}
+```
+
+## Common Issues
+
+### Footer Not Sticking to Bottom
+
+**Problem:** Footer appears in middle of page on short pages.
+
+**Solution:** Use flexbox on body:
+
+```css
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+```
+
+### Links Not Visible
+
+**Problem:** Link color blends with background.
+
+**Solution:** Ensure sufficient contrast:
+
+```css
+.enlaces-footer > a {
+    color: var(--white);  /* White text on dark background */
+}
+```
+
+### Logo Not Displaying
+
+**Problem:** Logo appears broken or missing.
+
+**Solutions:**
+- Verify image files exist in `images/` folder
+- Check file paths relative to HTML file
+- Ensure correct file extensions (.jpeg, not .jpg)
+- Check browser console for 404 errors
+
+### Mobile Layout Broken
+
+**Problem:** Columns don't stack on mobile.
+
+**Solution:** Verify media query syntax:
+
+```css
+/* Correct syntax */
+@media (width <= 480px) {
+    footer > #content {
+        flex-direction: column;
+    }
+}
+```
+
+## Related Components
+
+- [Header Component](/components/header) - Matching header with similar structure
+- [Cards Component](/components/cards) - For content layout
+- [Navigation Component](/components/navigation) - Mobile menu behavior
+
+## Examples in Project
+
+The footer component appears on all pages:
+
+- `index.html` - index.html:114-153
+- `iniciar-solicitud.html` - iniciar-solicitud.html:106-145  
+- `seleccionar-cita.html` - seleccionar-cita.html:283-322
+- `resumen.html` - Similar implementation
+
+<Note>
+  The footer is consistent across all pages. Update all instances when making changes to maintain uniformity.
+</Note>

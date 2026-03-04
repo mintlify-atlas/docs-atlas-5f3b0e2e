@@ -1,0 +1,668 @@
+---
+title: Card Components
+description: Documentation for interactive card components including opcion-cita and opcion-identificacion cards
+---
+
+## Overview
+
+Card components are used throughout the application to present options and actions in a visually appealing, clickable format. There are two main card variations:
+
+1. **opcion-cita** - Appointment action cards (used on homepage)
+2. **opcion-identificacion** - Identification method cards (used on iniciar-solicitud page)
+
+## Appointment Cards (opcion-cita)
+
+Used on the homepage to present options for starting or managing appointments.
+
+### HTML Structure
+
+```html
+<div id="opciones-cita">
+    <div class="opcion-cita">
+        <h2>Iniciar Solicitud de Cita</h2>
+        <p>Puede iniciar la solicitud con los datos de su DNI/NIE o sin ellos si lo ha perdido o se lo han
+            robado.</p>
+        <a href="./iniciar-solicitud.html">
+            <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M12.5 21h-6.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v5" />
+                    <path d="M16 3v4" />
+                    <path d="M8 3v4" />
+                    <path d="M4 11h16" />
+                    <path d="M16 19h6" />
+                    <path d="M19 16v6" />
+                </svg></span>
+            <span>Iniciar Solicitud</span>
+        </a>
+    </div>
+    <div class="opcion-cita">
+        <h2>Anular / Consultar Cita</h2>
+        <p>Si ya dispone de una cita, puede consultarla o anularla desde aquí.</p>
+        <a href="./iniciar-solicitud.html">
+            <span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M12.5 21h-6.5a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v8" />
+                    <path d="M16 3v4" />
+                    <path d="M8 3v4" />
+                    <path d="M4 11h16" />
+                    <path d="M16 19h6" />
+                </svg></span>
+            <span>Anular o Consultar</span>
+        </a>
+    </div>
+</div>
+```
+
+### CSS Styles
+
+From `css/index.css`:
+
+```css
+#opciones-cita {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 25px;
+}
+
+.opcion-cita span {
+    display: flex;
+}
+
+#opciones-cita > div {
+    width: 50%;
+    background-color: var(--white);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 50px;
+    border-radius: 10px;
+}
+
+.opcion-cita > h2 {
+    margin-bottom: 20px;
+    color: var(--primary-blue);
+}
+
+.opcion-cita > p {
+    margin-bottom: 15px;
+    color: var(--text-gray-light);
+}
+
+.opcion-cita > a {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 40px;
+    border-radius: 10px;
+    background-color: var(--primary-blue);
+    color: var(--white);
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.opcion-cita > a:hover {
+    opacity: .9;
+    scale: .99;
+}
+
+.opcion-cita:nth-child(2) > a {
+    background-color: var(--border-light);
+    color: var(--text-gray-dark);
+}
+```
+
+### Responsive Behavior
+
+```css
+/* Breakpoints para tablets o más pequeño */
+@media (width <= 1024px) {
+    #opciones-cita {
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    #opciones-cita > div {
+        width: 100%;
+    }
+}
+```
+
+## Identification Cards (opcion-identificacion)
+
+Used on the "Iniciar Solicitud" page to choose authentication method.
+
+### HTML Structure
+
+```html
+<div id="opciones-identificacion">
+    <div class="opcion-identificacion">
+        <h2>Con datos del DNI/NIE</h2>
+        <p>Acceda utilizando los datos de su Documento Nacional de Identidad o Número de Identificación de
+            Extranjero.</p>
+        <a href="./seleccionar-cita.html">
+            <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
+                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                    <path stroke="none" d="M0 0h24v24H0z" />
+                    <path d="M7 12h3v4H7z" />
+                    <path d="M10 6H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-6" />
+                    <path
+                        d="M10 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zM14 16h2M14 12h4" />
+                </svg></span>
+            <span>Continuar con DNI/NIE</span>
+        </a>
+    </div>
+    <div class="opcion-identificacion">
+        <h2>Con certificado electrónico</h2>
+        <p>Utilice su certificado electrónico o DNIe para un acceso más rápido y seguro.</p>
+        <a href="./seleccionar-cita.html">
+            <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor"
+                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                    <path stroke="none" d="M0 0h24v24H0z" />
+                    <path
+                        d="m16.555 3.843 3.602 3.602a2.877 2.877 0 0 1 0 4.069l-2.643 2.643a2.877 2.877 0 0 1-4.069 0l-.301-.301-6.558 6.558a2 2 0 0 1-1.239.578L5.172 21H4a1 1 0 0 1-.993-.883L3 20v-1.172a2 2 0 0 1 .467-1.284l.119-.13L4 17h2v-2h2v-2l2.144-2.144-.301-.301a2.877 2.877 0 0 1 0-4.069l2.643-2.643a2.877 2.877 0 0 1 4.069 0zM15 9h.01" />
+                </svg></span>
+            <span>Continuar con Cl@ve</span>
+        </a>
+    </div>
+</div>
+```
+
+### CSS Styles
+
+From `css/iniciar-solicitud.css`:
+
+```css
+#opciones-identificacion {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 25px;
+}
+
+.opcion-identificacion span {
+    display: flex;
+}
+
+#opciones-identificacion > div {
+    width: 50%;
+    background-color: var(--white);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 50px;
+    border-radius: 10px;
+}
+
+.opcion-identificacion > h2 {
+    margin-bottom: 20px;
+    color: var(--primary-blue);
+}
+
+.opcion-identificacion > p {
+    margin-bottom: 15px;
+    color: var(--text-gray-light);
+}
+
+.opcion-identificacion > a {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 40px;
+    border-radius: 10px;
+    background-color: var(--primary-blue);
+    color: var(--white);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.opcion-identificacion > a:hover {
+    opacity: .9;
+    scale: .99;
+}
+
+.opcion-identificacion:nth-child(2) > a {
+    background-color: var(--border-light);
+    color: var(--text-gray-dark);
+}
+```
+
+### Responsive Behavior
+
+```css
+@media (width <= 1024px) {
+    #opciones-identificacion {
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    #opciones-identificacion > div {
+        width: 100%;
+    }
+}
+```
+
+## Card Anatomy
+
+Each card consists of:
+
+1. **Container** - `.opcion-cita` or `.opcion-identificacion`
+2. **Heading** - `<h2>` with card title
+3. **Description** - `<p>` with explanatory text
+4. **Action Link** - `<a>` styled as button with icon and text
+
+## Color Variations
+
+The second card in each group has different button styling:
+
+```css
+/* First card - Primary blue button */
+.opcion-cita > a {
+    background-color: var(--primary-blue);
+    color: var(--white);
+}
+
+/* Second card - Gray button */
+.opcion-cita:nth-child(2) > a {
+    background-color: var(--border-light);
+    color: var(--text-gray-dark);
+}
+```
+
+## Usage Examples
+
+### Basic Two-Card Layout
+
+```html
+<div id="opciones-cita">
+    <div class="opcion-cita">
+        <h2>Option 1 Title</h2>
+        <p>Description of option 1.</p>
+        <a href="./page1.html">
+            <span>
+                <svg><!-- icon --></svg>
+            </span>
+            <span>Button Text</span>
+        </a>
+    </div>
+    <div class="opcion-cita">
+        <h2>Option 2 Title</h2>
+        <p>Description of option 2.</p>
+        <a href="./page2.html">
+            <span>
+                <svg><!-- icon --></svg>
+            </span>
+            <span>Button Text</span>
+        </a>
+    </div>
+</div>
+```
+
+### Three-Card Layout
+
+<CodeGroup>
+
+```html HTML
+<div id="opciones-cita">
+    <div class="opcion-cita">
+        <h2>Option 1</h2>
+        <p>Description</p>
+        <a href="#"><span>Action</span></a>
+    </div>
+    <div class="opcion-cita">
+        <h2>Option 2</h2>
+        <p>Description</p>
+        <a href="#"><span>Action</span></a>
+    </div>
+    <div class="opcion-cita">
+        <h2>Option 3</h2>
+        <p>Description</p>
+        <a href="#"><span>Action</span></a>
+    </div>
+</div>
+```
+
+```css CSS
+/* Adjust width for 3 cards */
+#opciones-cita > div {
+    width: 33.333%;  /* Change from 50% */
+}
+
+@media (width <= 1024px) {
+    #opciones-cita > div {
+        width: 100%;  /* Stack on tablet/mobile */
+    }
+}
+```
+
+</CodeGroup>
+
+### Single Card (Full Width)
+
+```html
+<div id="opciones-cita">
+    <div class="opcion-cita" style="width: 100%;">
+        <h2>Single Action</h2>
+        <p>This is the only available option.</p>
+        <a href="./next-page.html">
+            <span>Continue</span>
+        </a>
+    </div>
+</div>
+```
+
+## Customization
+
+### Changing Card Background
+
+```css
+.opcion-cita {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+```
+
+### Adding Shadows
+
+```css
+#opciones-cita > div {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+#opciones-cita > div:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+```
+
+### Custom Button Colors
+
+```css
+/* Green button for first card */
+.opcion-cita:first-child > a {
+    background-color: #10b981;
+}
+
+/* Red button for second card */
+.opcion-cita:nth-child(2) > a {
+    background-color: #ef4444;
+    color: white;
+}
+```
+
+### Icon-Only Button
+
+```html
+<a href="./page.html" class="icon-only">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <!-- icon path -->
+    </svg>
+</a>
+```
+
+```css
+a.icon-only {
+    padding: 15px;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+}
+```
+
+## Responsive Breakpoints
+
+### Desktop (> 1024px)
+- Two-column side-by-side layout
+- Each card: 50% width
+- Gap: 25px between cards
+- Padding: 50px inside each card
+
+### Tablet & Mobile (≤ 1024px)
+- Single-column stacked layout
+- Each card: 100% width
+- Cards stack vertically
+- Same 25px gap maintained
+
+## Accessibility Features
+
+<Accordion title="Semantic HTML">
+  - Uses semantic heading tags (`<h2>`) for titles
+  - Descriptive link text (not "click here")
+  - Icons wrapped in `<span>` elements
+  - Proper link elements with `href` attributes
+</Accordion>
+
+<Accordion title="Keyboard Navigation">
+  - Cards are keyboard accessible via Tab key
+  - Enter/Space activates links
+  - Focus states visible with outline
+  - Logical tab order (left to right, top to bottom)
+</Accordion>
+
+<Accordion title="Screen Reader Support">
+  ```html
+  <a href="./iniciar-solicitud.html" aria-label="Iniciar solicitud de cita para DNI o Pasaporte">
+      <span aria-hidden="true">
+          <svg><!-- decorative icon --></svg>
+      </span>
+      <span>Iniciar Solicitud</span>
+  </a>
+  ```
+  
+  - Decorative icons marked with `aria-hidden="true"`
+  - Descriptive `aria-label` on links if needed
+  - Text content provides context
+</Accordion>
+
+<Accordion title="Visual Enhancements">
+  Add focus indicator for better accessibility:
+  
+  ```css
+  .opcion-cita > a:focus {
+      outline: 3px solid var(--primary-blue);
+      outline-offset: 2px;
+  }
+  
+  .opcion-cita > a:focus-visible {
+      outline: 3px solid var(--primary-blue);
+      outline-offset: 2px;
+  }
+  ```
+</Accordion>
+
+## Interactive States
+
+### Hover Effect
+
+```css
+.opcion-cita > a:hover {
+    opacity: .9;
+    scale: .99;
+}
+```
+
+**Effect:**
+- Slight transparency (90% opacity)
+- Slight scale down (99% size)
+- Creates "pressed" button effect
+
+### Active State
+
+```css
+.opcion-cita > a:active {
+    scale: .97;
+    opacity: .85;
+}
+```
+
+### Disabled State (Optional)
+
+```html
+<a href="#" class="disabled" aria-disabled="true">
+    <span>Coming Soon</span>
+</a>
+```
+
+```css
+.opcion-cita > a.disabled {
+    background-color: #d1d5db;
+    color: #6b7280;
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.6;
+}
+```
+
+## Advanced Features
+
+### Loading State
+
+```html
+<a href="#" class="loading">
+    <span class="spinner"></span>
+    <span>Loading...</span>
+</a>
+```
+
+```css
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+```
+
+### Badge/Notification
+
+```html
+<div class="opcion-cita">
+    <h2>
+        Iniciar Solicitud de Cita
+        <span class="badge">Nuevo</span>
+    </h2>
+    <p>Description</p>
+    <a href="#"><span>Action</span></a>
+</div>
+```
+
+```css
+.badge {
+    display: inline-block;
+    background-color: #ef4444;
+    color: white;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+```
+
+## Common Issues
+
+### Cards Not Side-by-Side
+
+**Problem:** Cards stack vertically on desktop.
+
+**Solution:** Check flex properties:
+
+```css
+#opciones-cita {
+    display: flex;
+    flex-direction: row;  /* Not column */
+    flex-wrap: wrap;
+}
+```
+
+### Uneven Card Heights
+
+**Problem:** Cards have different heights.
+
+**Solution:** Use flexbox stretch:
+
+```css
+#opciones-cita {
+    align-items: stretch;  /* Default, but ensure it's set */
+}
+
+#opciones-cita > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.opcion-cita > a {
+    margin-top: auto;  /* Push button to bottom */
+}
+```
+
+### Button Not Clickable
+
+**Problem:** Link doesn't respond to clicks.
+
+**Solutions:**
+- Remove `pointer-events: none` if present
+- Check for overlapping elements (z-index)
+- Verify `href` attribute is set
+- Check JavaScript isn't preventing default
+
+## Best Practices
+
+<Tip>
+  **Design:**
+  1. Limit to 2-3 cards per row for readability
+  2. Keep card heights consistent
+  3. Use icons that clearly represent the action
+  4. Maintain adequate spacing between cards
+  5. Ensure text is concise and actionable
+</Tip>
+
+<Tip>
+  **Development:**
+  1. Use semantic HTML (headings, links, not divs)
+  2. Include descriptive link text
+  3. Test keyboard navigation
+  4. Verify responsive behavior on all screen sizes
+  5. Add focus states for accessibility
+  6. Use CSS transitions for smooth interactions
+</Tip>
+
+## Related Components
+
+- [Forms Component](/components/forms) - For input-based interactions
+- [Header Component](/components/header) - Page-level navigation
+- [Navigation Component](/components/navigation) - Menu systems
+
+## Examples in Project
+
+### Homepage Cards
+Location: `index.html` (lines 51-86)
+- "Iniciar Solicitud de Cita" card
+- "Anular / Consultar Cita" card
+
+### Identification Cards  
+Location: `iniciar-solicitud.html` (lines 51-86)
+- "Con datos del DNI/NIE" card
+- "Con certificado electrónico" card
+
+<Note>
+  Both card types share similar structure and styling but are used in different contexts. The CSS is nearly identical, allowing for easy reuse across pages.
+</Note>

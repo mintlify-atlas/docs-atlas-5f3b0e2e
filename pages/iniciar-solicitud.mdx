@@ -1,0 +1,260 @@
+---
+title: "Iniciar Solicitud Page"
+description: "Identity verification page - Choose authentication method to begin appointment booking"
+---
+
+# Iniciar Solicitud Page (iniciar-solicitud.html)
+
+The "Iniciar Solicitud" (Start Request) page is the second step in the appointment booking flow, where users choose their preferred method of identity verification before proceeding with the appointment form.
+
+## Purpose
+
+This page serves to:
+- Provide multiple authentication paths for different user needs
+- Allow users to proceed with DNI/NIE data
+- Offer secure electronic certificate authentication (Cl@ve)
+- Set the stage for the appointment booking form
+
+## Page Structure
+
+### Header
+
+Identical to the home page header, maintaining consistent navigation throughout the application.
+
+### Main Title Section
+
+```html
+<div id="titulo">
+    <h1>Iniciar Solicitud</h1>
+    <p>Bienvenido al servicio de solicitud de cita previa para la obtención o renovación de su DNIe o Pasaporte.
+        Para iniciar el proceso, seleccione una de las siguientes opciones:</p>
+</div>
+```
+
+## Authentication Options
+
+The page presents two authentication methods:
+
+<Accordion title="Con datos del DNI/NIE">
+  
+**Purpose**: Standard authentication using identity document information
+
+**Target Users**: 
+- Citizens with current DNI/NIE
+- Users comfortable providing document details
+
+**HTML Structure**:
+
+```html
+<div class="opcion-identificacion">
+    <h2>Con datos del DNI/NIE</h2>
+    <p>Acceda utilizando los datos de su Documento Nacional de Identidad o Número de Identificación de
+        Extranjero.</p>
+    <a href="./seleccionar-cita.html">
+        <span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" 
+                 stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" 
+                 stroke-width="2">
+                <path stroke="none" d="M0 0h24v24H0z" />
+                <path d="M7 12h3v4H7z" />
+                <path d="M10 6H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1h-6" />
+                <path d="M10 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zM14 16h2M14 12h4" />
+            </svg>
+        </span>
+        <span>Continuar con DNI/NIE</span>
+    </a>
+</div>
+```
+
+**Navigation**: Proceeds to `seleccionar-cita.html`
+
+**Icon**: ID card SVG icon for visual recognition
+
+</Accordion>
+
+<Accordion title="Con certificado electrónico">
+  
+**Purpose**: Enhanced authentication using electronic certificate (Cl@ve system)
+
+**Target Users**: 
+- Users with electronic DNI (DNIe)
+- Citizens with digital certificates
+- Users seeking faster, more secure authentication
+
+**HTML Structure**:
+
+```html
+<div class="opcion-identificacion">
+    <h2>Con certificado electrónico</h2>
+    <p>Utilice su certificado electrónico o DNIe para un acceso más rápido y seguro.</p>
+    <a href="./seleccionar-cita.html">
+        <span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" 
+                 stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" 
+                 stroke-width="2">
+                <path stroke="none" d="M0 0h24v24H0z" />
+                <path d="m16.555 3.843 3.602 3.602a2.877 2.877 0 0 1 0 4.069l-2.643 2.643a2.877 2.877 0 0 1-4.069 0l-.301-.301-6.558 6.558a2 2 0 0 1-1.239.578L5.172 21H4a1 1 0 0 1-.993-.883L3 20v-1.172a2 2 0 0 1 .467-1.284l.119-.13L4 17h2v-2h2v-2l2.144-2.144-.301-.301a2.877 2.877 0 0 1 0-4.069l2.643-2.643a2.877 2.877 0 0 1 4.069 0zM15 9h.01" />
+            </svg>
+        </span>
+        <span>Continuar con Cl@ve</span>
+    </a>
+</div>
+```
+
+**Navigation**: Proceeds to `seleccionar-cita.html`
+
+**Icon**: Key SVG icon representing secure access
+
+<Note>
+**Cl@ve** is Spain's electronic identification system that allows citizens to access public administration services online using their digital certificate or electronic DNI.
+</Note>
+
+</Accordion>
+
+## Information Section
+
+```html
+<div class="info">
+    <h3>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+            <path d="M12 9h.01" />
+            <path d="M11 12h1v4h1" />
+        </svg>
+        Información Importante
+    </h3>
+    <div>
+        <p>Recuerde que para la expedición del DNIe es imprescindible la presencia física de la persona a quien
+            se haya de expedir. La cita es personal e intransferible.</p>
+    </div>
+</div>
+```
+
+<Note>
+**Critical Reminder**: 
+- Physical presence is mandatory for DNI issuance
+- Appointments are personal and non-transferable
+</Note>
+
+## User Flow
+
+<Steps>
+
+<Step title="User arrives from home page">
+  User clicks "Iniciar Solicitud" on the home page
+</Step>
+
+<Step title="Review authentication options">
+  User evaluates the two authentication methods:
+  - Standard DNI/NIE data entry
+  - Electronic certificate (Cl@ve)
+</Step>
+
+<Step title="Select authentication method">
+  User chooses their preferred authentication path based on:
+  - Available credentials
+  - Comfort level with technology
+  - Desired speed and security
+</Step>
+
+<Step title="Proceed to appointment form">
+  Both options lead to the appointment booking form (seleccionar-cita.html)
+</Step>
+
+</Steps>
+
+## Visual Design
+
+### Layout
+
+- **Two-column grid**: Options displayed side-by-side on desktop
+- **Responsive**: Stacks vertically on mobile devices
+- **Card-based design**: Each option presented as a distinct card
+
+### Icons
+
+- **ID Card icon**: Represents traditional document authentication
+- **Key icon**: Represents secure electronic authentication
+- **Info icon**: Highlights important information
+
+### Styling
+
+The page uses three CSS files:
+- `style.css` - Base styles
+- `headerfooter.css` - Header and footer styling
+- `iniciar-solicitud.css` - Page-specific styles for authentication options
+
+## Technical Implementation
+
+### Meta Information
+
+```html
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Rediseño de la web de cita previa DNI">
+<title>DNI - Iniciar Solicitud</title>
+```
+
+### Navigation Links
+
+Both authentication options currently link to the same destination:
+
+```html
+<a href="./seleccionar-cita.html">
+```
+
+<Note>
+In a production implementation, the electronic certificate option would likely integrate with Spain's Cl@ve authentication service before proceeding to the form.
+</Note>
+
+### JavaScript
+
+Includes `index.js` for:
+- Mobile menu functionality
+- Interactive UI elements
+
+## Accessibility Features
+
+- Semantic HTML with proper heading hierarchy
+- SVG icons with descriptive paths
+- High contrast between text and background
+- Clear, actionable button labels
+- Keyboard navigation support
+
+## Security Considerations
+
+### Standard Authentication (DNI/NIE)
+- Users will enter sensitive document information on the next page
+- Data should be transmitted over HTTPS
+- Input validation required on form submission
+
+### Electronic Certificate (Cl@ve)
+- Integrates with Spanish government authentication system
+- Provides higher security through certificate validation
+- May auto-fill user information from certificate data
+
+## Design Decisions
+
+### Why Two Options?
+
+1. **Accessibility**: Not all users have electronic certificates
+2. **User preference**: Some prefer traditional methods
+3. **Technical capability**: Electronic certificates require card readers or compatible software
+4. **Inclusivity**: Ensures all citizens can access the service
+
+### Equal Visual Weight
+
+Both options are presented with equal visual importance:
+- Same card size and styling
+- Similar icon complexity
+- No visual hierarchy suggesting preference
+
+This neutral presentation allows users to choose based on their circumstances rather than interface bias.
+
+## Related Pages
+
+- [Home](/pages/home) - Previous step
+- [Seleccionar Cita](/pages/seleccionar-cita) - Next step for both authentication paths
+- [Resumen](/pages/resumen) - Final confirmation page

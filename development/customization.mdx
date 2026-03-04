@@ -1,0 +1,888 @@
+---
+title: "Customization Guide"
+description: "How to customize colors, fonts, layout, images, and content in the DNI Cita Previa redesign"
+---
+
+## Overview
+
+This guide shows you how to customize every aspect of the DNI Cita Previa redesign project. Since it's built with vanilla HTML/CSS/JavaScript, customization is straightforward—just edit the source files.
+
+## Customizing Colors
+
+All colors are defined as CSS custom properties in `css/style.css`. Change them once to update the entire site.
+
+### Step-by-Step Color Customization
+
+<Steps>
+  <Step title="Open the styles file">
+    Navigate to `source/css/style.css` and locate the `:root` section (lines 1-31).
+  </Step>
+  
+  <Step title="Modify color variables">
+    Update the hex values while keeping the variable names:
+    
+    ```css
+    :root {
+        /* Example: Change primary blue to a custom brand color */
+        --primary-blue: #003366;      /* Original */
+        --primary-blue: #1e40af;      /* New blue */
+        --primary-blue-dark: #002244; /* Original dark */
+        --primary-blue-dark: #1e3a8a; /* New dark */
+    }
+    ```
+  </Step>
+  
+  <Step title="Test across all pages">
+    Open each HTML page in a browser to verify the color changes look consistent.
+  </Step>
+</Steps>
+
+### Common Color Customizations
+
+<Tabs>
+  <Tab title="Brand Colors">
+    Update primary colors to match your organization:
+    
+    ```css
+    :root {
+        /* Header */
+        --header-yellow: #your-header-color;
+        
+        /* Primary brand color */
+        --primary-blue: #your-brand-color;
+        --primary-blue-dark: #your-brand-color-dark;
+        
+        /* Footer */
+        --footer-background-blue: #your-footer-color;
+    }
+    ```
+  </Tab>
+  
+  <Tab title="Text Colors">
+    Adjust text and UI element colors:
+    
+    ```css
+    :root {
+        --text-gray-light: #6a6f7b;  /* Secondary text */
+        --text-gray: #374151;        /* Primary text */
+        --text-gray-dark: #1f2937;   /* Headings */
+    }
+    ```
+  </Tab>
+  
+  <Tab title="Backgrounds">
+    Change background and surface colors:
+    
+    ```css
+    :root {
+        --background-gray: #f5f5f5;   /* Page background */
+        --white: #ffffff;             /* Card backgrounds */
+        --bg-blue-light: #eff6ff;     /* Info boxes */
+        --bg-blue-lighter: #dbeafe;   /* Highlights */
+    }
+    ```
+  </Tab>
+  
+  <Tab title="Accents">
+    Modify success states and borders:
+    
+    ```css
+    :root {
+        --success-green: #059669;      /* Success actions */
+        --success-green-dark: #047857; /* Success hover */
+        --border-light: #e5e7eb;       /* Borders */
+        --border-blue: #bfdbfe;        /* Blue borders */
+    }
+    ```
+  </Tab>
+</Tabs>
+
+### Color Scheme Examples
+
+<AccordionGroup>
+  <Accordion title="Dark Mode Palette">
+    ```css
+    :root {
+        --primary-blue: #60a5fa;
+        --primary-blue-dark: #3b82f6;
+        --background-gray: #111827;
+        --white: #1f2937;
+        --text-gray-light: #9ca3af;
+        --text-gray: #d1d5db;
+        --text-gray-dark: #f3f4f6;
+        --border-light: #374151;
+        --bg-blue-light: #1e3a8a;
+    }
+    ```
+    
+    <Warning>
+    For a full dark mode, you'll also need to update text colors on light backgrounds (like buttons) to ensure sufficient contrast.
+    </Warning>
+  </Accordion>
+  
+  <Accordion title="Green Palette">
+    ```css
+    :root {
+        --header-yellow: #86efac;
+        --primary-blue: #059669;
+        --primary-blue-dark: #047857;
+        --footer-background-blue: #064e3b;
+        --success-green: #10b981;
+        --success-green-dark: #059669;
+        --bg-blue-light: #d1fae5;
+        --bg-blue-lighter: #a7f3d0;
+        --border-blue: #6ee7b7;
+    }
+    ```
+  </Accordion>
+  
+  <Accordion title="Purple Palette">
+    ```css
+    :root {
+        --header-yellow: #e9d5ff;
+        --primary-blue: #7c3aed;
+        --primary-blue-dark: #6d28d9;
+        --footer-background-blue: #4c1d95;
+        --success-green: #8b5cf6;
+        --success-green-dark: #7c3aed;
+        --bg-blue-light: #f5f3ff;
+        --bg-blue-lighter: #ede9fe;
+        --border-blue: #c4b5fd;
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
+
+<Tip>
+**Color Contrast:** Ensure sufficient contrast for accessibility (WCAG AA requires 4.5:1 for normal text, 3:1 for large text). Use tools like [WebAIM's Contrast Checker](https://webaim.org/resources/contrastchecker/) to verify.
+</Tip>
+
+## Customizing Typography
+
+The project uses system fonts by default. Here's how to change fonts:
+
+### Adding Custom Fonts
+
+<Steps>
+  <Step title="Choose a font source">
+    Options:
+    - **Google Fonts** (easiest, CDN-hosted)
+    - **Self-hosted fonts** (better performance and privacy)
+    - **System font stack** (fastest, no download)
+  </Step>
+  
+  <Step title="Add font import (Google Fonts example)">
+    In each HTML file's `<head>`, add before the CSS links:
+    
+    ```html
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    ```
+  </Step>
+  
+  <Step title="Update CSS font-family">
+    In `css/style.css`, update the body font:
+    
+    ```css
+    body {
+        font-family: 'Inter', Arial, Helvetica, sans-serif;
+    }
+    ```
+    
+    Also update form elements in `css/seleccionar-cita.css:57`:
+    
+    ```css
+    .campo-formulario input,
+    .campo-formulario select,
+    .campo-formulario textarea {
+        font-family: 'Inter', Arial, Helvetica, sans-serif;
+    }
+    ```
+    
+    And buttons in `css/seleccionar-cita.css:126`:
+    
+    ```css
+    .botones-formulario a,
+    .botones-formulario button {
+        font-family: 'Inter', Arial, Helvetica, sans-serif;
+    }
+    ```
+  </Step>
+</Steps>
+
+### Self-Hosting Fonts
+
+<Tabs>
+  <Tab title="Download Fonts">
+    1. Download font files (.woff2, .woff) from [Google Fonts](https://fonts.google.com/) or [Font Squirrel](https://www.fontsquirrel.com/)
+    2. Create `source/fonts/` directory
+    3. Place font files inside
+  </Tab>
+  
+  <Tab title="Create @font-face">
+    In `css/style.css`, add before the `:root` section:
+    
+    ```css
+    @font-face {
+        font-family: 'Inter';
+        src: url('../fonts/Inter-Regular.woff2') format('woff2'),
+             url('../fonts/Inter-Regular.woff') format('woff');
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+    }
+    
+    @font-face {
+        font-family: 'Inter';
+        src: url('../fonts/Inter-Bold.woff2') format('woff2'),
+             url('../fonts/Inter-Bold.woff') format('woff');
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+    }
+    ```
+  </Tab>
+  
+  <Tab title="Update font-family">
+    Follow Step 3 from "Adding Custom Fonts" above to update all `font-family` declarations.
+  </Tab>
+</Tabs>
+
+### Typography Scale
+
+Adjust font sizes by targeting specific elements:
+
+```css
+/* Headings */
+h1 { font-size: 2rem; }      /* Default varies */
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.25rem; }
+
+/* Body text */
+body { font-size: 16px; }
+
+/* Form labels */
+.campo-formulario label { font-size: 14px; }
+
+/* Buttons */
+.botones-formulario button { font-size: 16px; }
+```
+
+<Note>
+The project doesn't define global heading sizes, so they use browser defaults. Add explicit sizes to `css/style.css` for consistency.
+</Note>
+
+## Customizing Layout
+
+### Container Width
+
+The main content container has a max-width of 900px. To adjust:
+
+```css
+/* In css/style.css:66-71 */
+main {
+    display: flex;
+    flex-direction: column;
+    margin: 0px auto;
+    max-width: 900px;  /* Change this value */
+}
+```
+
+Common widths:
+- **1200px** - Wide layout
+- **1024px** - Standard desktop
+- **900px** - Current (narrow, focused)
+- **768px** - Tablet-friendly
+
+### Padding & Spacing
+
+Adjust spacing throughout the site:
+
+**Global padding (tablets and smaller):**
+
+```css
+/* In css/style.css:119-123 */
+@media (width <=1024px) {
+    main {
+        padding-inline: 1rem;  /* Adjust this */
+    }
+}
+```
+
+**Header padding:**
+
+```css
+/* Desktop: css/headerfooter.css:7 */
+header {
+    padding: 25px 100px;  /* Vertical | Horizontal */
+}
+
+/* Tablet: css/headerfooter.css:50 */
+@media (width <=1024px) {
+    header {
+        padding: 25px 45px;
+    }
+}
+```
+
+**Card padding:**
+
+```css
+/* css/index.css:18 */
+#opciones-cita > div {
+    padding: 50px;  /* Adjust internal card spacing */
+}
+```
+
+### Border Radius
+
+Control roundness of corners:
+
+```css
+/* Cards and containers */
+.opcion-cita { border-radius: 10px; }  /* css/index.css:19 */
+.info { border-radius: 10px; }         /* css/style.css:102 */
+
+/* Form elements */
+.campo-formulario input { border-radius: 8px; }  /* css/seleccionar-cita.css:53 */
+
+/* Buttons */
+.botones-formulario button { border-radius: 8px; }  /* css/seleccionar-cita.css:119 */
+```
+
+For a more squared design, reduce all values to `4px` or `0px`.
+
+### Responsive Breakpoints
+
+Modify when layouts change:
+
+```css
+/* Current breakpoints */
+@media (width <=480px) { /* Mobile */ }
+@media (480px < width <=1024px) { /* Tablet */ }
+@media (width <=1024px) { /* Tablet and mobile */ }
+
+/* Custom breakpoints */
+@media (width <=640px) { /* Small mobile */ }
+@media (width <=768px) { /* Mobile */ }
+@media (width <=1280px) { /* Tablet */ }
+```
+
+<Warning>
+If you change breakpoints, update them consistently across all CSS files:
+- `css/style.css`
+- `css/headerfooter.css`
+- `css/index.css`
+- `css/iniciar-solicitud.css`
+- `css/seleccionar-cita.css`
+- `css/resumen.css`
+</Warning>
+
+## Customizing Images
+
+### Replacing Logos
+
+<Steps>
+  <Step title="Prepare new logo files">
+    Create versions in modern formats:
+    - **AVIF** (best compression, modern browsers)
+    - **WebP** (good compression, wide support)
+    - **PNG/JPEG** (fallback for older browsers)
+    
+    Maintain the same aspect ratios:
+    - Ministry logo: 445:103 (wide horizontal)
+    - Police logo: 1:1 (square)
+  </Step>
+  
+  <Step title="Replace files in images folder">
+    Replace these files in `source/images/`:
+    - `logo-ministerio.avif`
+    - `logo-ministerio.webp`
+    - `logo-ministerio.png`
+    - `logo-polia-nacional.avif`
+    - `logo-polia-nacional.webp`
+    - `logo-polia-nacional.jpeg`
+    - `logo.png` (favicon)
+  </Step>
+  
+  <Step title="Update HTML if needed">
+    If you change the file format or aspect ratio, update the `<picture>` elements:
+    
+    ```html
+    <!-- Header logo: all HTML files -->
+    <picture>
+        <source srcset="./images/logo-ministerio.avif" type="image/avif">
+        <source srcset="./images/logo-ministerio.webp" type="image/webp">
+        <img src="./images/logo-ministerio.png" alt="Your organization name">
+    </picture>
+    ```
+  </Step>
+  
+  <Step title="Adjust CSS sizing">
+    Update logo dimensions in `css/headerfooter.css:16-18`:
+    
+    ```css
+    header img {
+        height: 55px;
+        aspect-ratio: 445/103;  /* Change to match your logo */
+    }
+    ```
+  </Step>
+</Steps>
+
+### Optimizing Images
+
+Tools for creating optimized image formats:
+
+<CardGroup cols={2}>
+  <Card title="Squoosh" icon="image" href="https://squoosh.app/">
+    Browser-based image compression tool from Google
+  </Card>
+  
+  <Card title="ImageMagick" icon="terminal">
+    Command-line tool for batch conversion:
+    ```bash
+    convert logo.png -quality 90 logo.webp
+    ```
+  </Card>
+</CardGroup>
+
+### Adding a Favicon
+
+Replace `source/images/logo.png` with your favicon (recommended size: 32x32 or 64x64 pixels).
+
+For better browser support, add additional favicon formats:
+
+```html
+<!-- Add to <head> of all HTML files -->
+<link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="./images/apple-touch-icon.png">
+```
+
+## Customizing Content
+
+### Changing Text Content
+
+All content is in the HTML files. To update:
+
+<Tabs>
+  <Tab title="Page Titles">
+    Update `<title>` and `<h1>` elements:
+    
+    ```html
+    <!-- In <head> -->
+    <title>DNI - Inicio</title>
+    
+    <!-- In <main> -->
+    <div id="titulo">
+        <h1>Cita Previa para DNI y Pasaporte</h1>
+        <p>Your new description here...</p>
+    </div>
+    ```
+  </Tab>
+  
+  <Tab title="Navigation Links">
+    Update header navigation in all HTML files:
+    
+    ```html
+    <nav id="nav-normal">
+        <ul>
+            <li><a href="./index.html">Inicio</a></li>
+            <li><a href="#">Your Link</a></li>
+            <!-- Add or remove items -->
+        </ul>
+    </nav>
+    ```
+  </Tab>
+  
+  <Tab title="Footer Content">
+    Update footer sections in all HTML files:
+    
+    ```html
+    <div class="enlaces-footer">
+        <h3>Enlaces de interés</h3>
+        <a href="#">Your Link</a>
+        <!-- Add more links -->
+    </div>
+    ```
+  </Tab>
+  
+  <Tab title="Info Boxes">
+    Update information panels on each page:
+    
+    ```html
+    <div class="info">
+        <h3>
+            <svg><!-- Icon --></svg>
+            Información Importante
+        </h3>
+        <div>
+            <p>Your important information here...</p>
+        </div>
+    </div>
+    ```
+  </Tab>
+</Tabs>
+
+### Translating to Another Language
+
+<Steps>
+  <Step title="Update lang attribute">
+    In all HTML files, change:
+    
+    ```html
+    <html lang="es">  <!-- Spanish -->
+    ```
+    
+    to:
+    
+    ```html
+    <html lang="en">  <!-- English -->
+    <html lang="fr">  <!-- French -->
+    <html lang="de">  <!-- German -->
+    ```
+  </Step>
+  
+  <Step title="Translate all text content">
+    Translate:
+    - Page titles
+    - Headings
+    - Paragraphs
+    - Button text
+    - Form labels
+    - Placeholder text
+    - Alt text for images
+  </Step>
+  
+  <Step title="Update meta descriptions">
+    ```html
+    <meta name="description" content="Your translated description">
+    ```
+  </Step>
+  
+  <Step title="Test text overflow">
+    Some languages (like German) use longer words. Test all pages to ensure text doesn't break layouts.
+  </Step>
+</Steps>
+
+### Form Customization
+
+**Add/remove form fields** in `seleccionar-cita.html`:
+
+```html
+<!-- Add a new field -->
+<div class="campo-formulario">
+    <label for="new-field">Field Label:</label>
+    <input type="text" id="new-field" name="new-field" required>
+</div>
+```
+
+**Modify select options:**
+
+```html
+<select id="provincia" name="provincia" required>
+    <option value="">-- Seleccione una provincia --</option>
+    <option value="your-value">Your Option</option>
+    <!-- Add more options -->
+</select>
+```
+
+**Change form action:**
+
+```html
+<!-- Current: navigates to resumen.html -->
+<form id="formulario-cita" action="./resumen.html" method="get">
+
+<!-- Change to submit to a backend -->
+<form id="formulario-cita" action="/api/submit" method="post">
+```
+
+<Warning>
+The current form uses `method="get"` which appends data to the URL. For production use with actual data submission, change to `method="post"` and implement backend processing.
+</Warning>
+
+## Customizing Icons
+
+All icons are inline SVG elements. To replace them:
+
+<Steps>
+  <Step title="Find icon sources">
+    The project uses icons from [Tabler Icons](https://tabler-icons.io/). You can:
+    - Browse Tabler Icons for replacements
+    - Use other icon sets like [Heroicons](https://heroicons.com/) or [Lucide](https://lucide.dev/)
+    - Create custom SVG icons
+  </Step>
+  
+  <Step title="Copy SVG code">
+    Get the SVG code for your chosen icon (ensure it uses `stroke="currentColor"` for color inheritance).
+  </Step>
+  
+  <Step title="Replace in HTML">
+    Find the icon you want to replace and swap the SVG code:
+    
+    ```html
+    <!-- Old icon -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" ...>
+        <path d="..." />
+    </svg>
+    
+    <!-- New icon -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" ...>
+        <path d="your-new-icon-path" />
+    </svg>
+    ```
+  </Step>
+</Steps>
+
+<Tip>
+**Icon Size Consistency:**
+- Header/section icons: 24x24
+- Large status icons: 48x48
+- Button icons: 20x20
+
+Maintain these sizes for visual consistency.
+</Tip>
+
+## Advanced Customizations
+
+### Adding Animation
+
+Add custom animations using CSS:
+
+```css
+/* Define animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Apply to elements */
+.opcion-cita {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Stagger animations */
+.opcion-cita:nth-child(1) { animation-delay: 0.1s; }
+.opcion-cita:nth-child(2) { animation-delay: 0.2s; }
+```
+
+### Adding JavaScript Functionality
+
+Extend `js/index.js` or create new files:
+
+**Form validation example:**
+
+```javascript
+// Add to js/index.js or create js/form-validation.js
+const form = document.getElementById('formulario-cita');
+
+if (form) {
+    form.addEventListener('submit', function(e) {
+        // Custom validation logic
+        const dni = document.getElementById('numero-dni').value;
+        
+        if (!validateDNI(dni)) {
+            e.preventDefault();
+            alert('DNI format is invalid');
+        }
+    });
+}
+
+function validateDNI(dni) {
+    const dniRegex = /^[0-9]{8}[A-Za-z]$/;
+    return dniRegex.test(dni);
+}
+```
+
+Then add to `seleccionar-cita.html`:
+
+```html
+<script src="./js/index.js"></script>
+<script src="./js/form-validation.js"></script>
+```
+
+### Adding Analytics
+
+Insert tracking code before closing `</head>` tag:
+
+```html
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'GA_MEASUREMENT_ID');
+</script>
+```
+
+### Creating a Print Stylesheet
+
+Add print-specific styles:
+
+```css
+/* Add to css/style.css */
+@media print {
+    /* Hide navigation and footer when printing */
+    header nav,
+    footer,
+    .botones-formulario,
+    .botones-accion {
+        display: none;
+    }
+    
+    /* Optimize for print */
+    body {
+        background: white;
+    }
+    
+    main {
+        max-width: 100%;
+    }
+    
+    /* Show URLs for links */
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+}
+```
+
+## Testing Your Customizations
+
+<Steps>
+  <Step title="Test in multiple browsers">
+    Verify changes in:
+    - Chrome/Edge (Chromium)
+    - Firefox
+    - Safari (if on macOS)
+  </Step>
+  
+  <Step title="Test responsive layouts">
+    Use browser DevTools to test:
+    - Mobile (320px, 375px, 414px)
+    - Tablet (768px, 1024px)
+    - Desktop (1280px, 1920px)
+  </Step>
+  
+  <Step title="Validate HTML/CSS">
+    - [W3C HTML Validator](https://validator.w3.org/)
+    - [W3C CSS Validator](https://jigsaw.w3.org/css-validator/)
+  </Step>
+  
+  <Step title="Check accessibility">
+    - [WAVE Tool](https://wave.webaim.org/)
+    - [Lighthouse](https://developers.google.com/web/tools/lighthouse) in Chrome DevTools
+    - Test with screen readers
+  </Step>
+</Steps>
+
+## Deployment After Customization
+
+After making changes:
+
+<Steps>
+  <Step title="Test locally">
+    Open all HTML files in a browser to verify changes.
+  </Step>
+  
+  <Step title="Deploy to server">
+    Upload the entire `source/` directory to your web server or hosting platform.
+  </Step>
+  
+  <Step title="Clear cache">
+    If styles don't update, clear browser cache or add cache-busting:
+    
+    ```html
+    <link rel="stylesheet" href="./css/style.css?v=1.1">
+    ```
+  </Step>
+</Steps>
+
+## Common Customization Recipes
+
+<AccordionGroup>
+  <Accordion title="Recipe: Darker Header">
+    ```css
+    /* css/style.css */
+    :root {
+        --header-yellow: #1f2937;
+    }
+    
+    /* css/headerfooter.css - Add after header rules */
+    header,
+    header a {
+        color: #ffffff;
+    }
+    
+    #menu-toggle > img {
+        filter: invert(1);  /* Make menu icon white */
+    }
+    ```
+  </Accordion>
+  
+  <Accordion title="Recipe: Remove Info Boxes">
+    ```css
+    /* css/style.css - Add at end */
+    .info {
+        display: none;
+    }
+    ```
+    
+    Or delete the `.info` HTML elements from each page.
+  </Accordion>
+  
+  <Accordion title="Recipe: Single-Column Cards">
+    ```css
+    /* css/index.css */
+    #opciones-cita {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    #opciones-cita > div {
+        width: 100%;
+        max-width: 500px;
+    }
+    ```
+  </Accordion>
+  
+  <Accordion title="Recipe: Sticky Header">
+    ```css
+    /* css/headerfooter.css - Add to header rule */
+    header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    ```
+  </Accordion>
+</AccordionGroup>
+
+## Need Help?
+
+If you run into issues while customizing:
+
+<CardGroup cols={2}>
+  <Card title="Project Structure" href="/development/structure">
+    Review the file organization and component structure
+  </Card>
+  
+  <Card title="Styling Guide" href="/development/styling">
+    Understand the CSS architecture and methodology
+  </Card>
+  
+  <Card title="Features Overview" href="/features">
+    See how the user journey flows through the pages
+  </Card>
+  
+  <Card title="Getting Started" href="/getting-started">
+    Revisit the setup and basic usage instructions
+  </Card>
+</CardGroup>
+
+<Tip>
+**Pro Tip:** Make incremental changes and test frequently. It's easier to identify what broke when you change one thing at a time.
+</Tip>

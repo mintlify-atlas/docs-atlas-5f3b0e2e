@@ -1,0 +1,134 @@
+---
+title: Introduction
+description: Learn about the DNI Cita Previa redesign project - a modern, accessible frontend redesign of Spain's national ID and passport appointment booking system
+---
+
+## What is DNI Cita Previa Redesign?
+
+The **DNI Cita Previa Redesign** is a modern frontend redesign of Spain's official online appointment booking system for obtaining or renewing the Spanish National Identity Document (DNI) and Passport. This project reimagines the user experience with a focus on accessibility, usability, and modern web standards.
+
+<Note>
+  This is a **redesign project** created to demonstrate improved UX/UI patterns for government services. It is not affiliated with the official Spanish government website.
+</Note>
+
+## Project Purpose
+
+The original DNI appointment booking system (citapreviadnie.es) serves millions of Spanish citizens annually. This redesign addresses common usability challenges while maintaining the essential functionality users need:
+
+- **Improved Navigation**: Streamlined multi-step process from start to appointment confirmation
+- **Modern Design**: Clean, accessible interface following contemporary web design principles
+- **Responsive Layout**: Optimized experience across desktop, tablet, and mobile devices
+- **Enhanced Accessibility**: WCAG-compliant markup and navigation patterns
+
+## Key Objectives
+
+### User-Centric Design
+
+The redesign prioritizes user needs with:
+
+- Clear visual hierarchy using CSS custom properties
+- Intuitive form layouts with proper validation
+- Consistent component patterns throughout the booking flow
+- Helpful contextual information at each step
+
+### Technical Excellence
+
+```css
+/* CSS Custom Properties for consistent theming */
+:root {
+    --primary-blue: #003366;
+    --primary-blue-dark: #002244;
+    --background-gray: #f5f5f5;
+    --text-gray: #374151;
+    --border-light: #e5e7eb;
+    --success-green: #059669;
+}
+```
+
+The project demonstrates:
+
+- **Semantic HTML5**: Proper use of form elements, navigation, and content structure
+- **Modern CSS**: Custom properties, flexbox layouts, and responsive design
+- **Progressive Enhancement**: Functional core experience with enhanced interactivity
+- **Performance Optimization**: Optimized images with modern formats (WebP, AVIF)
+
+### Accessibility First
+
+<Card title="Accessibility Features" icon="universal-access">
+  - Keyboard navigation support
+  - Screen reader-friendly markup
+  - High contrast color schemes
+  - Mobile-responsive navigation with toggle menu
+  - Form validation with clear error messages
+</Card>
+
+## Project Structure
+
+The application follows a logical flow matching the real-world appointment booking process:
+
+<Steps>
+  <Step title="Landing Page">
+    Users choose between booking a new appointment or managing an existing one
+  </Step>
+  
+  <Step title="Identification Selection">
+    Choose authentication method: DNI/NIE data or electronic certificate (Cl@ve)
+  </Step>
+  
+  <Step title="Appointment Form">
+    Complete the detailed form with personal data, document information, and appointment preferences
+  </Step>
+  
+  <Step title="Summary & Confirmation">
+    Review all details and receive a confirmation code for the appointment
+  </Step>
+</Steps>
+
+## Technology Stack
+
+<CardGroup cols={3}>
+  <Card title="HTML5" icon="code">
+    Semantic markup with proper form structures
+  </Card>
+  
+  <Card title="CSS3" icon="paintbrush">
+    Custom properties, flexbox, responsive design
+  </Card>
+  
+  <Card title="Vanilla JavaScript" icon="square-js">
+    Lightweight interactivity for navigation
+  </Card>
+</CardGroup>
+
+## Government Context
+
+This system serves the **Dirección General de la Policía** (General Directorate of Police) under Spain's **Ministerio del Interior** (Ministry of Interior). The redesign maintains official branding while modernizing the user interface:
+
+```html
+<!-- Official government header -->
+<header>
+    <div>
+        <picture>
+            <source srcset="./images/logo-ministerio.avif" type="image/avif">
+            <source srcset="./images/logo-ministerio.webp" type="image/webp">
+            <img src="./images/logo-ministerio.png" alt="Logo ministerio del interior">
+        </picture>
+    </div>
+</header>
+```
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Explore Features" icon="list-check" href="/features">
+    Discover all the features and improvements in the redesign
+  </Card>
+  
+  <Card title="Get Started" icon="rocket" href="/getting-started">
+    Learn how to set up and run the project locally
+  </Card>
+</CardGroup>
+
+<Note>
+  **Important**: The appointment booking service is completely free. No organization or person can charge for this service. Always verify you are using official government channels.
+</Note>

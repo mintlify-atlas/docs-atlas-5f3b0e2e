@@ -1,0 +1,478 @@
+---
+title: Features
+description: Detailed overview of all features and improvements in the DNI Cita Previa redesign including responsive design, form validation, and accessibility enhancements
+---
+
+## Overview
+
+The DNI Cita Previa redesign incorporates modern web development practices to create a seamless, accessible appointment booking experience. This page details all major features with real code examples from the project.
+
+## Design System
+
+### CSS Custom Properties
+
+The entire application uses a consistent design system built with CSS custom properties:
+
+```css
+:root {
+    /* Header and footer colors */
+    --header-yellow: #ffce00;
+    --footer-background-blue: #1f2937;
+
+    /* Primary colors */
+    --primary-blue: #003366;
+    --primary-blue-dark: #002244;
+    --background-gray: #f5f5f5;
+    --white: #ffffff;
+
+    /* Text colors */
+    --text-gray-light: #6a6f7b;
+    --text-gray: #374151;
+    --text-gray-dark: #1f2937;
+
+    /* Borders and backgrounds */
+    --border-light: #e5e7eb;
+    --bg-blue-light: #eff6ff;
+    --border-blue: #bfdbfe;
+
+    /* Status colors */
+    --success-green: #059669;
+    --success-green-dark: #047857;
+}
+```
+
+<Note>
+  These custom properties ensure consistent theming across all pages and make it easy to maintain a cohesive visual identity.
+</Note>
+
+## Page-by-Page Features
+
+### 1. Landing Page (index.html)
+
+<Card title="Main Options" icon="home">
+  The landing page presents two primary pathways for users
+</Card>
+
+#### Two-Path Navigation
+
+```html
+<div id="opciones-cita">
+    <div class="opcion-cita">
+        <h2>Iniciar Solicitud de Cita</h2>
+        <p>Puede iniciar la solicitud con los datos de su DNI/NIE o sin ellos 
+           si lo ha perdido o se lo han robado.</p>
+        <a href="./iniciar-solicitud.html">
+            <span><!-- SVG icon --></span>
+            <span>Iniciar Solicitud</span>
+        </a>
+    </div>
+    <div class="opcion-cita">
+        <h2>Anular / Consultar Cita</h2>
+        <p>Si ya dispone de una cita, puede consultarla o anularla desde aquí.</p>
+        <a href="./iniciar-solicitud.html">
+            <span><!-- SVG icon --></span>
+            <span>Anular o Consultar</span>
+        </a>
+    </div>
+</div>
+```
+
+#### Responsive Card Layout
+
+```css
+#opciones-cita {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 25px;
+}
+
+#opciones-cita > div {
+    width: 50%;
+    background-color: var(--white);
+    padding: 50px;
+    border-radius: 10px;
+}
+
+@media (width <= 1024px) {
+    #opciones-cita {
+        flex-wrap: wrap;
+        width: 100%;
+    }
+    #opciones-cita > div {
+        width: 100%;
+    }
+}
+```
+
+#### Information Sections
+
+Each page includes contextual help:
+
+```html
+<div class="info">
+    <h3>
+        <svg><!-- Info icon --></svg>
+        Información Importante
+    </h3>
+    <div>
+        <p>La cita para el DNI y/o Pasaporte es <strong>totalmente gratuita</strong>. 
+           Ningún organismo o persona puede cobrarle por este servicio.</p>
+        <p>Recuerde que el pago de las tasas se realiza preferentemente con 
+           tarjeta de crédito/débito en la propia oficina de expedición.</p>
+    </div>
+</div>
+```
+
+### 2. Identification Selection (iniciar-solicitud.html)
+
+<CardGroup cols={2}>
+  <Card title="DNI/NIE Option" icon="id-card">
+    Traditional authentication using document numbers
+  </Card>
+  <Card title="Electronic Certificate" icon="key">
+    Secure authentication using Cl@ve or DNI electrónico
+  </Card>
+</CardGroup>
+
+```html
+<div id="opciones-identificacion">
+    <div class="opcion-identificacion">
+        <h2>Con datos del DNI/NIE</h2>
+        <p>Acceda utilizando los datos de su Documento Nacional de Identidad 
+           o Número de Identificación de Extranjero.</p>
+        <a href="./seleccionar-cita.html">
+            <span><!-- ID card SVG icon --></span>
+            <span>Continuar con DNI/NIE</span>
+        </a>
+    </div>
+    <div class="opcion-identificacion">
+        <h2>Con certificado electrónico</h2>
+        <p>Utilice su certificado electrónico o DNIe para un acceso más rápido y seguro.</p>
+        <a href="./seleccionar-cita.html">
+            <span><!-- Key SVG icon --></span>
+            <span>Continuar con Cl@ve</span>
+        </a>
+    </div>
+</div>
+```
+
+### 3. Appointment Selection Form (seleccionar-cita.html)
+
+<Card title="Comprehensive Form" icon="clipboard-list">
+  A well-structured, multi-section form with validation and semantic HTML
+</Card>
+
+#### Form Structure
+
+The form is divided into logical sections:
+
+<Steps>
+  <Step title="Tipo de Trámite">
+    Select document type: DNI, Passport, or both
+  </Step>
+  <Step title="Datos del DNI">
+    Enter current DNI details with validation patterns
+  </Step>
+  <Step title="Datos de la Cita">
+    Choose province, office, date, and time
+  </Step>
+  <Step title="Datos de Contacto">
+    Provide contact information and renewal reason
+  </Step>
+</Steps>
+
+#### Form Validation
+
+```html
+<!-- DNI number with pattern validation -->
+<div class="campo-formulario">
+    <label for="numero-dni">Número de DNI:</label>
+    <input type="text" 
+           id="numero-dni" 
+           name="numero-dni" 
+           placeholder="12345678X"
+           pattern="[0-9]{8}[A-Za-z]" 
+           required>
+</div>
+
+<!-- Date selection -->
+<div class="campo-formulario">
+    <label for="fecha-cita">Día de la cita:</label>
+    <input type="date" 
+           id="fecha-cita" 
+           name="fecha-cita" 
+           required>
+</div>
+
+<!-- Province selection -->
+<div class="campo-formulario">
+    <label for="provincia">Provincia:</label>
+    <select id="provincia" name="provincia" required>
+        <option value="">-- Seleccione una provincia --</option>
+        <option value="madrid">Madrid</option>
+        <option value="barcelona">Barcelona</option>
+        <option value="valencia">Valencia</option>
+        <!-- More options... -->
+    </select>
+</div>
+```
+
+#### Time Slot Selection
+
+```html
+<div class="campo-formulario">
+    <label for="hora-cita">Hora de la cita:</label>
+    <select id="hora-cita" name="hora-cita" required>
+        <option value="">-- Seleccione una hora --</option>
+        <option value="09:00">09:00</option>
+        <option value="09:30">09:30</option>
+        <option value="10:00">10:00</option>
+        <option value="10:30">10:30</option>
+        <option value="11:00">11:00</option>
+        <!-- More time slots... -->
+    </select>
+</div>
+```
+
+#### Radio Button Groups
+
+```html
+<div class="campo-formulario">
+    <label>Motivo de renovación:</label>
+    <div class="opciones-radio">
+        <label class="label-radio">
+            <input type="radio" name="motivo" value="caducidad" required>
+            Caducidad del documento
+        </label>
+        <label class="label-radio">
+            <input type="radio" name="motivo" value="perdida">
+            Pérdida o sustracción
+        </label>
+        <label class="label-radio">
+            <input type="radio" name="motivo" value="deterioro">
+            Deterioro del documento
+        </label>
+        <label class="label-radio">
+            <input type="radio" name="motivo" value="otros">
+            Otros motivos
+        </label>
+    </div>
+</div>
+```
+
+#### Terms and Conditions
+
+```html
+<div class="campo-formulario">
+    <label class="label-checkbox">
+        <input type="checkbox" 
+               id="acepto-terminos" 
+               name="acepto-terminos" 
+               required>
+        Acepto los términos y condiciones y confirmo que los datos 
+        proporcionados son correctos
+    </label>
+</div>
+```
+
+### 4. Summary Page (resumen.html)
+
+<Card title="Appointment Confirmation" icon="check-circle">
+  Displays a complete summary of the booked appointment with all relevant details
+</Card>
+
+#### Confirmation Status
+
+```html
+<div class="estado-cita">
+    <div class="icono-estado">
+        <svg><!-- Success checkmark icon --></svg>
+    </div>
+    <h2>Cita Pendiente de Confirmación</h2>
+    <p class="codigo-cita">Código de referencia: 
+       <strong>REF-2025-10-001234</strong>
+    </p>
+</div>
+```
+
+#### Data Tables
+
+```html
+<div class="seccion-resumen">
+    <h3>
+        <svg><!-- Document icon --></svg>
+        Datos del DNI
+    </h3>
+    <table class="tabla-resumen">
+        <tr>
+            <td>Número de DNI:</td>
+            <td><strong>12345678X</strong></td>
+        </tr>
+        <tr>
+            <td>Equipo de expedición:</td>
+            <td><strong>ABC123</strong></td>
+        </tr>
+        <tr>
+            <td>Fecha de validez:</td>
+            <td><strong>15/03/2030</strong></td>
+        </tr>
+    </table>
+</div>
+```
+
+#### Action Buttons
+
+```html
+<div class="botones-accion">
+    <a href="./seleccionar-cita.html" id="btn-modificar">
+        <svg><!-- Edit icon --></svg>
+        Modificar Datos
+    </a>
+    <a href="./index.html" id="btn-confirmar">
+        <svg><!-- Check icon --></svg>
+        Confirmar Cita
+    </a>
+    <a href="./index.html" id="btn-imprimir">
+        <svg><!-- Print icon --></svg>
+        Imprimir Resumen
+    </a>
+</div>
+```
+
+## Responsive Navigation
+
+### Mobile Menu Toggle
+
+The navigation adapts to mobile devices with a hamburger menu:
+
+```javascript
+const $button = document.getElementById('menu-toggle');
+const $nav = document.getElementById('nav-normal');
+
+let active = false;
+
+$button.addEventListener('click', function () {
+    active = !active;
+    if (active) {
+        $nav.classList.add("visible-nav");
+    } else {
+        $nav.classList.remove("visible-nav");
+    }
+});
+```
+
+### Responsive Breakpoints
+
+```css
+@media (width <= 480px) {
+    #menu-toggle {
+        display: flex;
+        background-color: transparent;
+    }
+    
+    nav {
+        display: none;
+        width: 100%;
+    }
+    
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px 0;
+    }
+}
+```
+
+## Image Optimization
+
+<Note>
+  The project uses modern image formats with fallbacks for maximum performance and compatibility
+</Note>
+
+```html
+<picture>
+    <source srcset="./images/logo-ministerio.avif" type="image/avif">
+    <source srcset="./images/logo-ministerio.webp" type="image/webp">
+    <img src="./images/logo-ministerio.png" alt="Logo ministerio del interior">
+</picture>
+```
+
+## Accessibility Features
+
+<CardGroup cols={2}>
+  <Card title="Semantic HTML" icon="code">
+    Proper use of form labels, landmarks, and ARIA attributes
+  </Card>
+  
+  <Card title="Keyboard Navigation" icon="keyboard">
+    Full keyboard support for all interactive elements
+  </Card>
+  
+  <Card title="High Contrast" icon="circle-half-stroke">
+    Color combinations meet WCAG AA standards
+  </Card>
+  
+  <Card title="Screen Readers" icon="audio-description">
+    Descriptive labels and proper heading hierarchy
+  </Card>
+</CardGroup>
+
+### Form Accessibility
+
+```html
+<!-- Properly associated labels -->
+<label for="email">Email de contacto:</label>
+<input type="email" 
+       id="email" 
+       name="email" 
+       placeholder="ejemplo@correo.com" 
+       required>
+
+<!-- Descriptive alt text for icons -->
+<img src="./images/logo-ministerio.png" 
+     alt="Logo ministerio del interior">
+```
+
+## Footer Component
+
+The footer provides comprehensive navigation and government contact information:
+
+```html
+<footer>
+    <div id="content">
+        <div id="logo-footer">
+            <picture>
+                <source srcset="./images/logo-polia-nacional.avif" type="image/avif">
+                <source srcset="./images/logo-polia-nacional.webp" type="image/webp">
+                <img src="./images/logo-polia-nacional.jpeg" 
+                     alt="Logo Policía Nacional">
+            </picture>
+            <p>Gobierno de España</p>
+            <p>Ministerio del Interior</p>
+        </div>
+        <div class="enlaces-footer">
+            <h3>Enlaces de interés</h3>
+            <a href="https://www.policia.es/" target="_blank" 
+               rel="noopener noreferrer">Policía Nacional</a>
+            <a href="https://www.dnielectronico.es/PortalDNIe/" target="_blank" 
+               rel="noopener noreferrer">Portal del DNIe</a>
+        </div>
+    </div>
+    <div id="copyright">
+        <p>&copy; 2025 - Dirección General de la Policía</p>
+    </div>
+</footer>
+```
+
+<Note>
+  All external links include `target="_blank"` and `rel="noopener noreferrer"` for security best practices.
+</Note>
+
+## Performance Features
+
+- **Minimal JavaScript**: Only 13 lines of vanilla JS for menu toggle
+- **CSS-based animations**: Smooth transitions using CSS instead of JS
+- **Optimized images**: WebP and AVIF formats with PNG fallbacks
+- **No external dependencies**: No frameworks or libraries required
+- **Fast load times**: Minimal HTTP requests and small file sizes

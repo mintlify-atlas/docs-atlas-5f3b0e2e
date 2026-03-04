@@ -1,0 +1,238 @@
+---
+title: Typography
+description: Font families, sizes, weights, and text styles used in the DNI Cita Previa application
+---
+
+## Font Family
+
+The application uses a simple, accessible sans-serif font stack:
+
+```css
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+```
+
+This font family is also explicitly set on form elements to ensure consistency:
+
+```css
+.campo-formulario input,
+.campo-formulario select,
+.campo-formulario textarea {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.botones-formulario a,
+.botones-formulario button {
+    font-family: Arial, Helvetica, sans-serif;
+}
+```
+
+## Font Sizes
+
+### Headings
+
+| Element | Font Size | Location | Usage |
+|---------|-----------|----------|-------|
+| Section headings (h2) | `1.3rem` | `seleccionar-cita.css:19` | Form section titles |
+| Summary headings (h3) | `1.25rem` | `resumen.css:63` | Summary section headings |
+| Success state heading | `1.5rem` | `resumen.css:32` | Appointment confirmation heading |
+
+**Responsive adjustments:**
+
+```css
+/* Mobile (≤768px) */
+.seccion-resumen h3 {
+    font-size: 1.1rem;
+}
+
+/* Small mobile (≤480px) */
+.estado-cita h2 {
+    font-size: 1.3rem;
+}
+```
+
+### Body Text
+
+| Element | Font Size | Location | Usage |
+|---------|-----------|----------|-------|
+| Buttons (primary/secondary) | `15px` | `index.css:42` | Call-to-action buttons on index |
+| Form buttons | `16px` | `seleccionar-cita.css:120` | Form navigation buttons |
+| Action buttons | `14px` | `resumen.css:122` | Summary page action buttons |
+| Form inputs | `16px` | `seleccionar-cita.css:54` | Input fields, selects, textareas |
+| Confirmation code (strong) | `1.2rem` | `resumen.css:43` | Appointment code display |
+| Confirmation code (label) | `1.1rem` | `resumen.css:37` | Appointment code label |
+
+**Responsive adjustments:**
+
+```css
+/* Small mobile (≤480px) */
+.tabla-resumen {
+    font-size: 14px;
+}
+
+.botones-accion a {
+    font-size: 16px;
+}
+
+.codigo-cita {
+    font-size: 1rem;
+}
+
+.codigo-cita strong {
+    font-size: 1.1rem;
+}
+```
+
+## Font Weights
+
+| Weight | Value | Usage |
+|--------|-------|-------|
+| Normal | `400` | Default body text, table data |
+| Medium | `500` | Table labels, emphasized text |
+| Semi-bold | `600` | Form labels, headings, button text |
+| Bold | `700` | Primary button text (iniciar-solicitud) |
+
+### Font Weight Applications
+
+```css
+/* Form labels */
+.campo-formulario label {
+    font-weight: 600;
+}
+
+/* Button text */
+.botones-formulario a,
+.botones-formulario button {
+    font-weight: 600;
+}
+
+/* Section headings */
+.seccion-resumen h3 {
+    font-weight: 600;
+}
+
+/* Table labels */
+.tabla-resumen td:first-child {
+    font-weight: 500;
+}
+
+/* Primary action buttons */
+.opcion-identificacion > a {
+    font-weight: 700;
+}
+```
+
+## Line Height
+
+Line height is used sparingly for improved readability:
+
+```css
+.info > div > p {
+    line-height: 1.6;
+}
+```
+
+## Text Colors
+
+Typography uses the color system defined in the design tokens. See the [Colors](/design/colors) page for complete color documentation.
+
+### Common Text Color Applications
+
+```css
+/* Primary headings */
+#titulo > h1 {
+    color: var(--primary-blue);
+}
+
+/* Section headings */
+.seccion-formulario h2 {
+    color: var(--primary-blue);
+}
+
+/* Descriptive text */
+#titulo > p {
+    color: var(--text-gray-light);
+}
+
+/* Form labels */
+.campo-formulario label {
+    color: var(--text-gray);
+}
+
+/* Strong emphasis */
+.tabla-resumen strong {
+    color: var(--primary-blue);
+    font-weight: 600;
+}
+```
+
+## Text Utilities
+
+### Text Wrapping
+
+```css
+/* Default */
+footer > #copyright {
+    text-wrap: balance;
+}
+
+/* Mobile override */
+@media (width <= 480px) {
+    footer > #copyright {
+        text-wrap: initial;
+    }
+}
+```
+
+### Text Decoration
+
+```css
+/* Remove default link underline */
+a {
+    text-decoration: none;
+}
+
+/* Add underline on header link hover */
+header a:hover {
+    text-decoration: underline;
+}
+```
+
+## Typography Best Practices
+
+<Card title="Accessibility" icon="universal-access">
+The 16px minimum font size for form inputs ensures better readability and prevents automatic zoom on mobile devices.
+</Card>
+
+<Card title="Consistency" icon="check">
+Always use the Arial, Helvetica, sans-serif font stack for all text elements, including form controls and buttons.
+</Card>
+
+<Card title="Hierarchy" icon="layer-group">
+Maintain visual hierarchy using font sizes: 1.5rem for primary headings, 1.25-1.3rem for section headings, and 14-16px for body text.
+</Card>
+
+## Example Usage
+
+```html
+<!-- Page title -->
+<div id="titulo">
+    <h1>Cita Previa DNI</h1>
+    <p>Descriptive text using text-gray-light color</p>
+</div>
+
+<!-- Form section -->
+<div class="seccion-formulario">
+    <h2>Datos Personales</h2>
+    <div class="campo-formulario">
+        <label>Nombre</label>
+        <input type="text" placeholder="Ingrese su nombre">
+    </div>
+</div>
+
+<!-- Action button -->
+<button class="btn-continuar">
+    Continuar
+</button>
+```

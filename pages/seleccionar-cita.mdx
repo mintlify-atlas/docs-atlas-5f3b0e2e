@@ -1,0 +1,494 @@
+---
+title: "Seleccionar Cita Page"
+description: "Appointment booking form - Complete form with personal data, document information, and appointment preferences"
+---
+
+# Seleccionar Cita Page (seleccionar-cita.html)
+
+The "Seleccionar Cita" (Select Appointment) page is the core of the appointment booking system, featuring a comprehensive form where users provide their information and select their appointment details.
+
+## Purpose
+
+This page serves to:
+- Collect user identity information
+- Verify DNI/NIE document details
+- Allow users to select appointment location and time
+- Gather contact information for notifications
+- Ensure users understand terms and conditions
+
+## Form Structure
+
+The page contains a single comprehensive form with multiple sections:
+
+```html
+<form id="formulario-cita" action="./resumen.html" method="get">
+```
+
+<Note>
+The form uses `method="get"` for demonstration purposes. In production, this should be `method="post"` with proper server-side validation and CSRF protection.
+</Note>
+
+## Form Sections
+
+### 1. Tipo de Trámite (Type of Procedure)
+
+**Purpose**: Determine which documents the user needs
+
+```html
+<div class="seccion-formulario">
+    <h2>
+        <svg>...</svg>
+        Tipo de Trámite
+    </h2>
+    <div class="campo-formulario">
+        <label for="tipo-tramite">Seleccione el tipo de trámite:</label>
+        <select id="tipo-tramite" name="tipo-tramite" required>
+            <option value="">-- Seleccione una opción --</option>
+            <option value="expedicion-dni">Expedición/Renovación DNI</option>
+            <option value="expedicion-pasaporte">Expedición/Renovación Pasaporte</option>
+            <option value="expedicion-ambos">Expedición DNI y Pasaporte</option>
+        </select>
+    </div>
+</div>
+```
+
+<Accordion title="Available Options">
+  
+1. **Expedición/Renovación DNI**: Issue or renew National ID only
+2. **Expedición/Renovación Pasaporte**: Issue or renew Passport only  
+3. **Expedición DNI y Pasaporte**: Issue or renew both documents simultaneously
+
+</Accordion>
+
+### 2. Datos del DNI (DNI Data)
+
+**Purpose**: Verify current document information
+
+```html
+<div class="seccion-formulario">
+    <h2>
+        <svg>...</svg>
+        Datos del DNI
+    </h2>
+    <div class="campos-fila">
+        <div class="campo-formulario">
+            <label for="numero-dni">Número de DNI:</label>
+            <input type="text" id="numero-dni" name="numero-dni" 
+                   placeholder="12345678X" pattern="[0-9]{8}[A-Za-z]" required>
+        </div>
+        <div class="campo-formulario">
+            <label for="equipo-expedicion">Equipo de expedición:</label>
+            <input type="text" id="equipo-expedicion" name="equipo-expedicion" 
+                   placeholder="ABC123" required>
+        </div>
+    </div>
+    <div class="campos-fila">
+        <div class="campo-formulario">
+            <label for="fecha-validez">Fecha de validez:</label>
+            <input type="date" id="fecha-validez" name="fecha-validez" required>
+        </div>
+        <div class="campo-formulario">
+            <label for="numero-soporte">Número de soporte:</label>
+            <input type="text" id="numero-soporte" name="numero-soporte" 
+                   placeholder="ABC123456789" required>
+        </div>
+    </div>
+</div>
+```
+
+<Accordion title="Field Descriptions">
+  
+**Número de DNI**:
+- Format: 8 digits + 1 letter (e.g., 12345678X)
+- Validation: Pattern `[0-9]{8}[A-Za-z]`
+- Required: Yes
+
+**Equipo de expedición**:
+- The code of the equipment that issued the current DNI
+- Found on the physical DNI card
+- Required: Yes
+
+**Fecha de validez**:
+- Expiration date of current DNI
+- Input type: date picker
+- Required: Yes
+
+**Número de soporte**:
+- Support number from the DNI card
+- Alphanumeric identifier
+- Required: Yes
+
+</Accordion>
+
+### 3. Datos de la Cita (Appointment Data)
+
+**Purpose**: Select appointment location and time
+
+```html
+<div class="seccion-formulario">
+    <h2>
+        <svg>...</svg>
+        Datos de la Cita
+    </h2>
+    <div class="campos-fila">
+        <div class="campo-formulario">
+            <label for="provincia">Provincia:</label>
+            <select id="provincia" name="provincia" required>
+                <option value="">-- Seleccione una provincia --</option>
+                <option value="madrid">Madrid</option>
+                <option value="barcelona">Barcelona</option>
+                <option value="valencia">Valencia</option>
+                <option value="sevilla">Sevilla</option>
+                <option value="bilbao">Bilbao</option>
+                <option value="malaga">Málaga</option>
+                <option value="murcia">Murcia</option>
+                <option value="las-palmas">Las Palmas</option>
+                <option value="valladolid">Valladolid</option>
+                <option value="cordoba">Córdoba</option>
+            </select>
+        </div>
+        <div class="campo-formulario">
+            <label for="oficina">Oficina:</label>
+            <select id="oficina" name="oficina" required>
+                <option value="">-- Seleccione una oficina --</option>
+                <option value="bilbao-centro">Bilbao - Centro</option>
+                <option value="bilbao-getxo">Getxo</option>
+                <option value="bilbao-barakaldo">Barakaldo</option>
+            </select>
+        </div>
+    </div>
+    <div class="campos-fila">
+        <div class="campo-formulario">
+            <label for="fecha-cita">Día de la cita:</label>
+            <input type="date" id="fecha-cita" name="fecha-cita" required>
+        </div>
+        <div class="campo-formulario">
+            <label for="hora-cita">Hora de la cita:</label>
+            <select id="hora-cita" name="hora-cita" required>
+                <option value="">-- Seleccione una hora --</option>
+                <option value="09:00">09:00</option>
+                <option value="09:30">09:30</option>
+                <option value="10:00">10:00</option>
+                <option value="10:30">10:30</option>
+                <option value="11:00">11:00</option>
+                <option value="11:30">11:30</option>
+                <option value="12:00">12:00</option>
+                <option value="12:30">12:30</option>
+                <option value="16:00">16:00</option>
+                <option value="16:30">16:30</option>
+                <option value="17:00">17:00</option>
+                <option value="17:30">17:30</option>
+                <option value="18:00">18:00</option>
+            </select>
+        </div>
+    </div>
+</div>
+```
+
+<Accordion title="Location Selection">
+  
+**Province Selection**:
+- Available provinces: Madrid, Barcelona, Valencia, Sevilla, Bilbao, Málaga, Murcia, Las Palmas, Valladolid, Córdoba
+- Drives the office selection dropdown
+
+**Office Selection**:
+- Currently shows Bilbao area offices as example:
+  - Bilbao - Centro
+  - Getxo
+  - Barakaldo
+- Should dynamically populate based on selected province
+
+<Note>
+In production, the office dropdown should be dynamically populated via JavaScript based on the selected province.
+</Note>
+
+</Accordion>
+
+<Accordion title="Time Selection">
+  
+**Available Time Slots**:
+
+Morning:
+- 09:00, 09:30, 10:00, 10:30, 11:00, 11:30, 12:00, 12:30
+
+Afternoon:
+- 16:00, 16:30, 17:00, 17:30, 18:00
+
+**Scheduling Gap**: Notice the gap between 12:30 and 16:00 (lunch break)
+
+</Accordion>
+
+### 4. Datos de Contacto (Contact Data)
+
+**Purpose**: Enable communication and additional information collection
+
+```html
+<div class="seccion-formulario">
+    <h2>
+        <svg>...</svg>
+        Datos de Contacto
+    </h2>
+    <div class="campos-fila">
+        <div class="campo-formulario">
+            <label for="email">Email de contacto:</label>
+            <input type="email" id="email" name="email" 
+                   placeholder="ejemplo@correo.com" required>
+        </div>
+        <div class="campo-formulario">
+            <label for="telefono">Teléfono de contacto:</label>
+            <input type="number" id="telefono" name="telefono" 
+                   placeholder="600123456" required>
+        </div>
+    </div>
+    <div class="campo-formulario">
+        <label for="observaciones">Observaciones adicionales:</label>
+        <textarea id="observaciones" name="observaciones" rows="4"
+            placeholder="Indique cualquier información adicional que considere relevante..."></textarea>
+    </div>
+    <!-- Radio buttons and checkboxes continue -->
+</div>
+```
+
+#### Motivo de Renovación (Reason for Renewal)
+
+```html
+<div class="campo-formulario">
+    <label>Motivo de renovación:</label>
+    <div class="opciones-radio">
+        <label class="label-radio">
+            <input type="radio" name="motivo" value="caducidad" required>
+            Caducidad del documento
+        </label>
+        <label class="label-radio">
+            <input type="radio" name="motivo" value="perdida">
+            Pérdida o sustracción
+        </label>
+        <label class="label-radio">
+            <input type="radio" name="motivo" value="deterioro">
+            Deterioro del documento
+        </label>
+        <label class="label-radio">
+            <input type="radio" name="motivo" value="otros">
+            Otros motivos
+        </label>
+    </div>
+</div>
+```
+
+<Accordion title="Renewal Reasons">
+  
+1. **Caducidad del documento**: Document expiration (most common)
+2. **Pérdida o sustracción**: Loss or theft
+3. **Deterioro del documento**: Document damage
+4. **Otros motivos**: Other reasons
+
+</Accordion>
+
+#### Terms and Conditions
+
+```html
+<div class="campo-formulario">
+    <label class="label-checkbox">
+        <input type="checkbox" id="acepto-terminos" name="acepto-terminos" required>
+        Acepto los términos y condiciones y confirmo que los datos proporcionados son correctos
+    </label>
+</div>
+<div class="campo-formulario">
+    <label class="label-checkbox">
+        <input type="checkbox" id="acepto-politica" name="acepto-politica">
+        Deseo recibir comunicaciones sobre el estado de mi trámite
+    </label>
+</div>
+```
+
+<Note>
+- First checkbox is **required** - users must accept terms
+- Second checkbox is **optional** - opt-in for communications
+</Note>
+
+### Form Actions
+
+```html
+<div class="botones-formulario">
+    <a href="./iniciar-solicitud.html" id="btn-volver">
+        <svg>...</svg>
+        Volver
+    </a>
+    <button type="submit" id="btn-continuar">
+        Solicitar Cita
+        <svg>...</svg>
+    </button>
+</div>
+```
+
+## Information Section
+
+```html
+<div class="info">
+    <h3>
+        <svg>...</svg>
+        Información Importante
+    </h3>
+    <div>
+        <p>Asegúrese de introducir correctamente todos los datos de su DNI actual. La información debe coincidir
+            exactamente con la que aparece en su documento.</p>
+        <p>Una vez seleccionada la cita, recibirá un código de confirmación que deberá presentar el día de la
+            cita junto con la documentación requerida.</p>
+        <p>Recuerde que la cita es personal e intransferible. Debe acudir puntualmente a la hora seleccionada.</p>
+    </div>
+</div>
+```
+
+<Note>
+**Critical Reminders**:
+- Data must match current DNI exactly
+- Confirmation code will be provided
+- Appointments are personal and non-transferable
+- Punctuality is required
+</Note>
+
+## User Flow
+
+<Steps>
+
+<Step title="Arrive at form page">
+  User reaches this page from the authentication selection
+</Step>
+
+<Step title="Select procedure type">
+  Choose DNI, Passport, or both
+</Step>
+
+<Step title="Enter DNI information">
+  Complete all four DNI-related fields with data from current document
+</Step>
+
+<Step title="Select appointment details">
+  Choose province, office, date, and time for appointment
+</Step>
+
+<Step title="Provide contact information">
+  Enter email and phone for notifications
+</Step>
+
+<Step title="Specify renewal reason">
+  Select why the document needs renewal
+</Step>
+
+<Step title="Accept terms">
+  Check required terms and conditions checkbox
+</Step>
+
+<Step title="Submit form">
+  Click "Solicitar Cita" to proceed to summary page
+</Step>
+
+</Steps>
+
+## Validation
+
+### Client-Side Validation
+
+**HTML5 Validation Attributes**:
+
+```html
+<!-- DNI pattern validation -->
+pattern="[0-9]{8}[A-Za-z]"
+
+<!-- Email validation -->
+type="email"
+
+<!-- Required fields -->
+required
+
+<!-- Date inputs -->
+type="date"
+
+<!-- Number inputs -->
+type="number"
+```
+
+### Field Requirements
+
+| Field | Type | Required | Validation |
+|-------|------|----------|------------|
+| Tipo de trámite | Select | Yes | Must select option |
+| Número DNI | Text | Yes | Pattern: 8 digits + letter |
+| Equipo expedición | Text | Yes | - |
+| Fecha validez | Date | Yes | Valid date |
+| Número soporte | Text | Yes | - |
+| Provincia | Select | Yes | Must select option |
+| Oficina | Select | Yes | Must select option |
+| Fecha cita | Date | Yes | Valid date |
+| Hora cita | Select | Yes | Must select time |
+| Email | Email | Yes | Valid email format |
+| Teléfono | Number | Yes | - |
+| Observaciones | Textarea | No | - |
+| Motivo | Radio | Yes | One must be selected |
+| Acepto términos | Checkbox | Yes | Must be checked |
+| Acepto política | Checkbox | No | - |
+
+## Visual Design
+
+### Layout Structure
+
+- **Section-based**: Form divided into logical sections with icons
+- **Two-column layout**: Fields arranged in rows (`campos-fila`)
+- **Responsive**: Adapts to single column on mobile
+- **Visual hierarchy**: Clear headings with SVG icons
+
+### Styling
+
+CSS files:
+- `style.css` - Base styles
+- `headerfooter.css` - Header and footer
+- `seleccionar-cita.css` - Form-specific styling
+
+## Technical Implementation
+
+### Form Configuration
+
+```html
+<form id="formulario-cita" action="./resumen.html" method="get">
+```
+
+- **Action**: Submits to `resumen.html`
+- **Method**: GET (should be POST in production)
+- **ID**: `formulario-cita` for JavaScript targeting
+
+### JavaScript Enhancement
+
+Includes `index.js` which likely handles:
+- Province-office dependency
+- Date validation (no past dates)
+- Available time slot filtering
+- Form submission handling
+
+## Accessibility Features
+
+- Proper label-input associations using `for` attribute
+- Required fields marked with `required` attribute
+- Placeholder text providing format examples
+- Clear error messages via HTML5 validation
+- Semantic form structure
+- Keyboard navigation support
+
+## Security Considerations
+
+<Note>
+**Important**: The following security measures should be implemented in production:
+
+- Use POST instead of GET for sensitive data
+- Implement CSRF tokens
+- Server-side validation for all fields
+- Sanitize all inputs
+- Encrypt data transmission (HTTPS)
+- Rate limiting to prevent abuse
+- CAPTCHA for bot prevention
+</Note>
+
+## Related Pages
+
+- [Iniciar Solicitud](/pages/iniciar-solicitud) - Previous page
+- [Resumen](/pages/resumen) - Next page (form submission destination)
+- [Home](/pages/home) - Return to start

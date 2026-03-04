@@ -1,0 +1,848 @@
+---
+title: Form Components
+description: Complete documentation for form inputs, selects, textareas, radio buttons, checkboxes, and form validation
+---
+
+## Overview
+
+The form components provide a complete appointment booking interface with multiple input types, validation, and responsive behavior. The main form is located in `seleccionar-cita.html`.
+
+## Form Structure
+
+The appointment form (`#formulario-cita`) is divided into four sections:
+
+1. **Tipo de Trámite** - Procedure type selection
+2. **Datos del DNI** - ID card information
+3. **Datos de la Cita** - Appointment details
+4. **Datos de Contacto** - Contact information
+
+## Complete Form HTML
+
+```html
+<form id="formulario-cita" action="./resumen.html" method="get">
+    <!-- Form sections go here -->
+</form>
+```
+
+## Input Types
+
+### Text Input
+
+Used for DNI number, equipment code, and support number.
+
+```html
+<div class="campo-formulario">
+    <label for="numero-dni">Número de DNI:</label>
+    <input type="text" 
+           id="numero-dni" 
+           name="numero-dni" 
+           placeholder="12345678X"
+           pattern="[0-9]{8}[A-Za-z]" 
+           required>
+</div>
+```
+
+**Attributes:**
+- `type="text"` - Text input field
+- `pattern="[0-9]{8}[A-Za-z]"` - Regex validation (8 digits + 1 letter)
+- `placeholder` - Example text shown when empty
+- `required` - Field must be filled
+
+### Select Dropdown
+
+Used for procedure type, province, office, and time selection.
+
+```html
+<div class="campo-formulario">
+    <label for="tipo-tramite">Seleccione el tipo de trámite:</label>
+    <select id="tipo-tramite" name="tipo-tramite" required>
+        <option value="">-- Seleccione una opción --</option>
+        <option value="expedicion-dni">Expedición/Renovación DNI</option>
+        <option value="expedicion-pasaporte">Expedición/Renovación Pasaporte</option>
+        <option value="expedicion-ambos">Expedición DNI y Pasaporte</option>
+    </select>
+</div>
+```
+
+**Usage:**
+- First option has empty value to force selection
+- Each option has a unique `value` attribute
+- Display text can be different from value
+
+### Date Input
+
+Used for validity date and appointment date.
+
+```html
+<div class="campo-formulario">
+    <label for="fecha-validez">Fecha de validez:</label>
+    <input type="date" 
+           id="fecha-validez" 
+           name="fecha-validez" 
+           required>
+</div>
+```
+
+**Features:**
+- Native date picker on supported browsers
+- Format: YYYY-MM-DD
+- Can add `min` and `max` attributes for date ranges
+
+### Email Input
+
+Used for contact email.
+
+```html
+<div class="campo-formulario">
+    <label for="email">Email de contacto:</label>
+    <input type="email" 
+           id="email" 
+           name="email" 
+           placeholder="ejemplo@correo.com" 
+           required>
+</div>
+```
+
+**Features:**
+- Automatic email validation
+- Mobile keyboards show @ and .com keys
+- Browser validates email format
+
+### Number Input
+
+Used for phone number.
+
+```html
+<div class="campo-formulario">
+    <label for="telefono">Teléfono de contacto:</label>
+    <input type="number" 
+           id="telefono" 
+           name="telefono" 
+           placeholder="600123456" 
+           required>
+</div>
+```
+
+<Note>
+  For phone numbers, consider using `type="tel"` instead of `type="number"` for better mobile support and to allow formatting like spaces or dashes.
+</Note>
+
+### Textarea
+
+Used for additional observations.
+
+```html
+<div class="campo-formulario">
+    <label for="observaciones">Observaciones adicionales:</label>
+    <textarea id="observaciones" 
+              name="observaciones" 
+              rows="4"
+              placeholder="Indique cualquier información adicional que considere relevante..."></textarea>
+</div>
+```
+
+**Attributes:**
+- `rows="4"` - Initial height (4 lines)
+- `resize: vertical` - CSS allows vertical resizing only
+- Not required (optional field)
+
+### Radio Buttons
+
+Used for renovation reason selection.
+
+```html
+<div class="campo-formulario">
+    <label>Motivo de renovación:</label>
+    <div class="opciones-radio">
+        <label class="label-radio">
+            <input type="radio" name="motivo" value="caducidad" required>
+            Caducidad del documento
+        </label>
+        <label class="label-radio">
+            <input type="radio" name="motivo" value="perdida">
+            Pérdida o sustracción
+        </label>
+        <label class="label-radio">
+            <input type="radio" name="motivo" value="deterioro">
+            Deterioro del documento
+        </label>
+        <label class="label-radio">
+            <input type="radio" name="motivo" value="otros">
+            Otros motivos
+        </label>
+    </div>
+</div>
+```
+
+**Key Points:**
+- All options share same `name` attribute
+- Each has unique `value`
+- Only one option can be selected
+- `required` on first option makes at least one selection mandatory
+
+### Checkboxes
+
+Used for terms acceptance and communication preferences.
+
+```html
+<div class="campo-formulario">
+    <label class="label-checkbox">
+        <input type="checkbox" 
+               id="acepto-terminos" 
+               name="acepto-terminos" 
+               required>
+        Acepto los términos y condiciones y confirmo que los datos proporcionados son correctos
+    </label>
+</div>
+
+<div class="campo-formulario">
+    <label class="label-checkbox">
+        <input type="checkbox" 
+               id="acepto-politica" 
+               name="acepto-politica">
+        Deseo recibir comunicaciones sobre el estado de mi trámite
+    </label>
+</div>
+```
+
+**Differences:**
+- First checkbox: `required` (must be checked)
+- Second checkbox: optional
+- Each checkbox is independent
+
+## Form Sections
+
+### Section 1: Procedure Type
+
+```html
+<div class="seccion-formulario">
+    <h2>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+            <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+            <path d="M9 9l1 0" />
+            <path d="M9 13l6 0" />
+            <path d="M9 17l6 0" />
+        </svg>
+        Tipo de Trámite
+    </h2>
+    <div class="campo-formulario">
+        <label for="tipo-tramite">Seleccione el tipo de trámite:</label>
+        <select id="tipo-tramite" name="tipo-tramite" required>
+            <option value="">-- Seleccione una opción --</option>
+            <option value="expedicion-dni">Expedición/Renovación DNI</option>
+            <option value="expedicion-pasaporte">Expedición/Renovación Pasaporte</option>
+            <option value="expedicion-ambos">Expedición DNI y Pasaporte</option>
+        </select>
+    </div>
+</div>
+```
+
+### Section 2: ID Information
+
+Two-column layout for ID fields.
+
+```html
+<div class="seccion-formulario">
+    <h2>
+        <svg><!-- ID icon --></svg>
+        Datos del DNI
+    </h2>
+    <div class="campos-fila">
+        <div class="campo-formulario">
+            <label for="numero-dni">Número de DNI:</label>
+            <input type="text" id="numero-dni" name="numero-dni" 
+                   placeholder="12345678X" pattern="[0-9]{8}[A-Za-z]" required>
+        </div>
+        <div class="campo-formulario">
+            <label for="equipo-expedicion">Equipo de expedición:</label>
+            <input type="text" id="equipo-expedicion" name="equipo-expedicion" 
+                   placeholder="ABC123" required>
+        </div>
+    </div>
+    <div class="campos-fila">
+        <div class="campo-formulario">
+            <label for="fecha-validez">Fecha de validez:</label>
+            <input type="date" id="fecha-validez" name="fecha-validez" required>
+        </div>
+        <div class="campo-formulario">
+            <label for="numero-soporte">Número de soporte:</label>
+            <input type="text" id="numero-soporte" name="numero-soporte" 
+                   placeholder="ABC123456789" required>
+        </div>
+    </div>
+</div>
+```
+
+### Section 3: Appointment Details
+
+```html
+<div class="seccion-formulario">
+    <h2>
+        <svg><!-- Calendar icon --></svg>
+        Datos de la Cita
+    </h2>
+    <div class="campos-fila">
+        <div class="campo-formulario">
+            <label for="provincia">Provincia:</label>
+            <select id="provincia" name="provincia" required>
+                <option value="">-- Seleccione una provincia --</option>
+                <option value="madrid">Madrid</option>
+                <option value="barcelona">Barcelona</option>
+                <option value="valencia">Valencia</option>
+                <!-- More options -->
+            </select>
+        </div>
+        <div class="campo-formulario">
+            <label for="oficina">Oficina:</label>
+            <select id="oficina" name="oficina" required>
+                <option value="">-- Seleccione una oficina --</option>
+                <option value="bilbao-centro">Bilbao - Centro</option>
+                <option value="bilbao-getxo">Getxo</option>
+                <option value="bilbao-barakaldo">Barakaldo</option>
+            </select>
+        </div>
+    </div>
+    <!-- Date and time fields -->
+</div>
+```
+
+### Section 4: Contact Information
+
+```html
+<div class="seccion-formulario">
+    <h2>
+        <svg><!-- User icon --></svg>
+        Datos de Contacto
+    </h2>
+    <div class="campos-fila">
+        <div class="campo-formulario">
+            <label for="email">Email de contacto:</label>
+            <input type="email" id="email" name="email" 
+                   placeholder="ejemplo@correo.com" required>
+        </div>
+        <div class="campo-formulario">
+            <label for="telefono">Teléfono de contacto:</label>
+            <input type="number" id="telefono" name="telefono" 
+                   placeholder="600123456" required>
+        </div>
+    </div>
+    <!-- Textarea, radio buttons, checkboxes -->
+</div>
+```
+
+## Form Buttons
+
+```html
+<div class="botones-formulario">
+    <a href="./iniciar-solicitud.html" id="btn-volver">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" 
+             fill="none" stroke="currentColor" stroke-width="2" 
+             stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M15 6l-6 6l6 6" />
+        </svg>
+        Volver
+    </a>
+    <button type="submit" id="btn-continuar">
+        Solicitar Cita
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" 
+             fill="none" stroke="currentColor" stroke-width="2" 
+             stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M9 6l6 6l-6 6" />
+        </svg>
+    </button>
+</div>
+```
+
+## CSS Styles
+
+From `css/seleccionar-cita.css`:
+
+### Form Container
+
+```css
+#formulario-cita {
+    background-color: var(--white);
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+```
+
+### Form Sections
+
+```css
+.seccion-formulario {
+    margin-bottom: 40px;
+    text-align: left;
+}
+
+.seccion-formulario h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--primary-blue);
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border-light);
+}
+```
+
+### Form Fields
+
+```css
+.campo-formulario {
+    margin-bottom: 20px;
+}
+
+.campos-fila {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.campos-fila .campo-formulario {
+    flex: 1;
+    min-width: 200px;
+}
+
+.campo-formulario label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-gray);
+}
+```
+
+### Input Styling
+
+```css
+.campo-formulario input,
+.campo-formulario select,
+.campo-formulario textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border-light);
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.campo-formulario textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.campo-formulario input[type="checkbox"],
+.campo-formulario input[type="radio"] {
+    width: auto;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+}
+```
+
+### Focus States
+
+```css
+.campo-formulario input:focus,
+.campo-formulario select:focus,
+.campo-formulario textarea:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
+}
+```
+
+### Validation States
+
+```css
+.campo-formulario input:invalid {
+    border-color: #ef4444;
+}
+
+.campo-formulario input::placeholder {
+    color: #9ca3af;
+}
+```
+
+### Radio and Checkbox Layouts
+
+```css
+.opciones-radio {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.label-radio,
+.label-checkbox {
+    font-weight: normal;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+```
+
+### Button Styles
+
+```css
+.botones-formulario {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.botones-formulario a,
+.botones-formulario button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 150px;
+    justify-content: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#btn-volver {
+    background-color: var(--border-light);
+    color: var(--text-gray);
+}
+
+#btn-volver:hover {
+    background-color: var(--neutral-dark);
+    opacity: .9;
+    scale: .99;
+}
+
+#btn-continuar {
+    background-color: var(--primary-blue);
+    color: var(--white);
+}
+
+#btn-continuar:hover {
+    background-color: var(--primary-blue-dark);
+    opacity: .9;
+    scale: .99;
+}
+```
+
+### Mobile Responsive
+
+```css
+@media (width <= 768px) {
+    .campos-fila {
+        flex-direction: column;
+    }
+
+    .campos-fila .campo-formulario {
+        min-width: auto;
+    }
+
+    .botones-formulario {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .botones-formulario a,
+    .botones-formulario button {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    #formulario-cita {
+        padding: 20px;
+    }
+}
+```
+
+## Form Validation
+
+### HTML5 Validation
+
+Built-in validation using HTML attributes:
+
+```html
+<!-- Required field -->
+<input type="text" required>
+
+<!-- Pattern validation (DNI format) -->
+<input type="text" pattern="[0-9]{8}[A-Za-z]" 
+       title="8 dígitos seguidos de una letra">
+
+<!-- Email validation -->
+<input type="email" required>
+
+<!-- Min/Max for numbers -->
+<input type="number" min="600000000" max="799999999">
+
+<!-- Date range -->
+<input type="date" min="2025-01-01" max="2025-12-31">
+```
+
+### Custom JavaScript Validation (Example)
+
+```javascript
+const form = document.getElementById('formulario-cita');
+
+form.addEventListener('submit', function(event) {
+    // Validate DNI format
+    const dniInput = document.getElementById('numero-dni');
+    const dniPattern = /^[0-9]{8}[A-Za-z]$/;
+    
+    if (!dniPattern.test(dniInput.value)) {
+        event.preventDefault();
+        alert('Formato de DNI inválido. Use 8 dígitos y 1 letra (ej: 12345678X)');
+        dniInput.focus();
+        return false;
+    }
+    
+    // Validate phone number
+    const phoneInput = document.getElementById('telefono');
+    if (phoneInput.value.length !== 9) {
+        event.preventDefault();
+        alert('El teléfono debe tener 9 dígitos');
+        phoneInput.focus();
+        return false;
+    }
+    
+    // All validation passed
+    return true;
+});
+```
+
+### Dynamic Field Validation
+
+```javascript
+// Real-time DNI validation
+const dniInput = document.getElementById('numero-dni');
+
+dniInput.addEventListener('input', function() {
+    const pattern = /^[0-9]{8}[A-Za-z]$/;
+    
+    if (this.value && !pattern.test(this.value)) {
+        this.setCustomValidity('Formato: 8 dígitos + 1 letra');
+    } else {
+        this.setCustomValidity('');
+    }
+});
+```
+
+## Accessibility Features
+
+<Accordion title="Labels and Input Association">
+  All inputs have associated labels using `for` and `id`:
+  
+  ```html
+  <label for="numero-dni">Número de DNI:</label>
+  <input type="text" id="numero-dni" name="numero-dni">
+  ```
+  
+  This allows:
+  - Clicking label focuses input
+  - Screen readers announce label when input is focused
+  - Improves mobile usability (larger clickable area)
+</Accordion>
+
+<Accordion title="Required Field Indication">
+  ```html
+  <!-- Option 1: Asterisk in label -->
+  <label for="email">Email de contacto: *</label>
+  
+  <!-- Option 2: ARIA required -->
+  <input type="email" id="email" aria-required="true" required>
+  
+  <!-- Option 3: Visual indicator -->
+  <style>
+  .campo-formulario label[for] {
+      position: relative;
+  }
+  
+  input[required] + label::after {
+      content: ' *';
+      color: red;
+  }
+  </style>
+  ```
+</Accordion>
+
+<Accordion title="Error Messages">
+  ```html
+  <div class="campo-formulario">
+      <label for="numero-dni">Número de DNI:</label>
+      <input type="text" 
+             id="numero-dni" 
+             name="numero-dni"
+             pattern="[0-9]{8}[A-Za-z]"
+             title="8 dígitos seguidos de una letra (ej: 12345678X)"
+             aria-describedby="dni-error"
+             required>
+      <span id="dni-error" class="error-message" role="alert" hidden>
+          Formato inválido. Introduzca 8 dígitos y 1 letra
+      </span>
+  </div>
+  ```
+  
+  ```javascript
+  const input = document.getElementById('numero-dni');
+  const error = document.getElementById('dni-error');
+  
+  input.addEventListener('invalid', function() {
+      error.hidden = false;
+  });
+  
+  input.addEventListener('input', function() {
+      if (this.validity.valid) {
+          error.hidden = true;
+      }
+  });
+  ```
+</Accordion>
+
+## Usage Examples
+
+<CodeGroup>
+
+```html Simple Contact Form
+<form id="contact-form" action="#" method="post">
+    <div class="campo-formulario">
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" name="name" required>
+    </div>
+    
+    <div class="campo-formulario">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+    </div>
+    
+    <div class="campo-formulario">
+        <label for="message">Mensaje:</label>
+        <textarea id="message" name="message" rows="4" required></textarea>
+    </div>
+    
+    <div class="botones-formulario">
+        <button type="submit" id="btn-continuar">Enviar</button>
+    </div>
+</form>
+```
+
+```html Two-Column Layout
+<div class="campos-fila">
+    <div class="campo-formulario">
+        <label for="first-name">Nombre:</label>
+        <input type="text" id="first-name" name="first-name" required>
+    </div>
+    <div class="campo-formulario">
+        <label for="last-name">Apellidos:</label>
+        <input type="text" id="last-name" name="last-name" required>
+    </div>
+</div>
+```
+
+```html Custom Select Styling
+<style>
+.campo-formulario select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+}
+</style>
+```
+
+</CodeGroup>
+
+## Common Issues
+
+### Form Not Submitting
+
+**Problem:** Clicking submit button doesn't work.
+
+**Solutions:**
+- Check for JavaScript errors in console
+- Verify all required fields are filled
+- Check `action` attribute is set
+- Ensure button has `type="submit"`
+
+### Validation Not Working
+
+**Problem:** Invalid data is accepted.
+
+**Solutions:**
+- Add `required` attribute to mandatory fields
+- Check `pattern` attribute is correct regex
+- Ensure `type` attribute is appropriate (email, number, etc.)
+- Test with `novalidate` attribute removed from form
+
+### Mobile Layout Broken
+
+**Problem:** Two-column layout doesn't stack on mobile.
+
+**Solution:** Verify media query:
+
+```css
+@media (width <= 768px) {
+    .campos-fila {
+        flex-direction: column;
+    }
+}
+```
+
+## Best Practices
+
+<Tip>
+  **Form Validation:**
+  1. Use HTML5 validation attributes (required, pattern, type)
+  2. Provide clear error messages
+  3. Validate on both client and server side
+  4. Show validation errors near the field
+  5. Use appropriate input types for better mobile keyboards
+</Tip>
+
+<Tip>
+  **Accessibility:**
+  1. Always associate labels with inputs
+  2. Use semantic HTML (fieldset, legend for groups)
+  3. Provide helpful placeholder text
+  4. Ensure sufficient color contrast
+  5. Test with keyboard-only navigation
+  6. Support screen readers with ARIA attributes
+</Tip>
+
+<Tip>
+  **User Experience:**
+  1. Group related fields together
+  2. Use appropriate input types
+  3. Provide examples in placeholders
+  4. Show character limits where applicable
+  5. Save form data (localStorage) to prevent data loss
+  6. Provide clear feedback on submission
+</Tip>
+
+## Related Components
+
+- [Cards Component](/components/cards) - For grouping form sections visually
+- [Header Component](/components/header) - Page navigation
+- [Navigation Component](/components/navigation) - Multi-step form navigation
+
+<Note>
+  The form component is located in `seleccionar-cita.html` (lines 52-259). It demonstrates best practices for accessible, responsive form design.
+</Note>

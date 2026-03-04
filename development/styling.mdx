@@ -1,0 +1,829 @@
+---
+title: "Styling Architecture"
+description: "CSS organization, custom properties, and styling methodology for the DNI Cita Previa project"
+---
+
+## Overview
+
+The project uses a **component-based CSS architecture** with a centralized custom properties system. All styles are written in vanilla CSS with no preprocessors or CSS-in-JS frameworks.
+
+## CSS Custom Properties (Variables)
+
+All color values are defined as CSS custom properties in `css/style.css:1-31`:
+
+### Color System
+
+```css
+:root {
+    /* Colores del header y del footer */
+    --header-yellow: #ffce00;
+    --footer-background-blue: #1f2937;
+
+    /* Colores principales del sitio */
+    --primary-blue: #003366;
+    --primary-blue-dark: #002244;
+    --background-gray: #f5f5f5;
+    --white: #ffffff;
+
+    /* Colores de texto */
+    --text-gray-light: #6a6f7b;
+    --text-gray: #374151;
+    --text-gray-dark: #1f2937;
+
+    /* Colores de bordes y fondos */
+    --border-light: #e5e7eb;
+    --border-lighter: #f3f4f6;
+    --bg-blue-light: #eff6ff;
+    --bg-blue-lighter: #dbeafe;
+    --border-blue: #bfdbfe;
+
+    /* Colores de estado */
+    --success-green: #059669;
+    --success-green-dark: #047857;
+
+    /* Colores neutros */
+    --neutral-light: #f3f4f6;
+    --neutral-dark: #d1d5db;
+}
+```
+
+<Tip>
+**Why Custom Properties?**
+- **Single source of truth:** Change a color once, update everywhere
+- **Easy theming:** Swap out the color scheme by changing the `:root` values
+- **Better maintainability:** Semantic names like `--primary-blue` instead of `#003366`
+</Tip>
+
+### Color Usage Patterns
+
+| Variable | Usage | Examples |
+|----------|-------|----------|
+| `--primary-blue` | Primary actions, headings, links | Button backgrounds, h1-h3 titles |
+| `--primary-blue-dark` | Hover states for primary actions | Button hover effects |
+| `--header-yellow` | Header background | Top navigation bar |
+| `--footer-background-blue` | Footer background | Bottom section |
+| `--background-gray` | Page background | Body background color |
+| `--text-gray-light` | Secondary text, descriptions | Paragraph text, labels |
+| `--text-gray` | Primary text | Body copy |
+| `--border-light` | Dividers, input borders | Form field borders |
+| `--bg-blue-light` | Info boxes, highlights | Information panels |
+| `--success-green` | Success states, confirm buttons | Confirmation actions |
+
+## CSS Reset
+
+The project includes a minimal CSS reset in `css/style.css:33-59`:
+
+```css
+/* CSS Reset */
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+```
+
+<Note>
+This reset is intentionally minimal to:
+- Remove browser default styles
+- Set `box-sizing: border-box` globally (makes width calculations easier)
+- Normalize margins and padding
+- Remove list bullets
+- Remove link underlines (added back via hover states)
+</Note>
+
+## Global Styles
+
+Base layout and typography styles are defined in `css/style.css:61-123`:
+
+### Body & Layout
+
+```css
+body {
+    background-color: var(--background-gray);
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    margin: 0px auto;
+    max-width: 900px;
+}
+```
+
+**Key points:**
+- Light gray background for visual separation
+- Main content container centered with max-width of 900px
+- Flexbox column layout for vertical stacking
+
+### Typography
+
+The project uses **Arial, Helvetica, sans-serif** as the font stack:
+
+```css
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+```
+
+<Warning>
+No custom fonts are loaded. This keeps the project lightweight and ensures fast loading times. If you want to add custom fonts, see the [Customization guide](/development/customization#typography).
+</Warning>
+
+### Title Sections
+
+```css
+#titulo {
+    margin: 20px 0px;
+}
+
+#titulo > h1 {
+    color: var(--primary-blue);
+}
+
+#titulo > p {
+    margin-top: 20px;
+    color: var(--text-gray-light);
+}
+```
+
+Every page has a title section with:
+- Blue h1 heading
+- Gray descriptive paragraph
+- 20px spacing
+
+### Info Boxes
+
+```css
+.info {
+    margin-block: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    background-color: var(--bg-blue-light);
+    text-align: left;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.info > h3 {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    align-items: center;
+    color: var(--primary-blue);
+    margin-bottom: 15px;
+}
+```
+
+Consistent information panels across all pages with:
+- Light blue background
+- Icon + heading combination
+- 10px border radius
+- 30px padding
+
+## Component Styles
+
+### Header & Footer (`css/headerfooter.css`)
+
+#### Header Structure
+
+```css
+header {
+    background-color: var(--header-yellow);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 25px 100px;
+    align-content: center;
+}
+
+header img {
+    height: 55px;
+    aspect-ratio: 445/103;
+}
+```
+
+**Responsive behavior:**
+
+<Tabs>
+  <Tab title="Desktop (>1024px)">
+    - Horizontal layout with flex
+    - Logo on left, navigation on right
+    - 100px horizontal padding
+    - Menu button hidden
+  </Tab>
+  
+  <Tab title="Tablet (480-1024px)">
+    - Reduced padding (45px)
+    - Navigation wraps below logo
+    - Full-width navigation
+  </Tab>
+  
+  <Tab title="Mobile (≤480px)">
+    - Hamburger menu button visible
+    - Navigation hidden by default
+    - Toggle via `.visible-nav` class
+    - Vertical navigation list
+  </Tab>
+</Tabs>
+
+#### Mobile Navigation
+
+```css
+@media (width <=480px) {
+    #menu-toggle {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background-color: transparent;
+    }
+
+    nav {
+        display: none;
+        width: 100%;
+        background: var(--header-yellow);
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px 0;
+    }
+}
+```
+
+JavaScript toggles the `visible-nav` class:
+
+```css
+.visible-nav {
+    display: block;
+}
+```
+
+#### Footer Structure
+
+```css
+footer {
+    background-color: var(--footer-background-blue);
+    color: var(--white);
+    padding: 0 50px;
+}
+
+footer > #content {
+    display: flex;
+    flex-direction: row;
+    gap: 5%;
+    padding: 30px 50px;
+}
+
+footer > #content > div {
+    width: 30%;
+}
+```
+
+**Three-column layout:**
+1. Logo + government info (30%)
+2. Enlaces de interés (30%)
+3. Contacto y ayuda (30%)
+4. 5% gaps between columns
+
+On mobile (≤480px), switches to vertical stacking:
+
+```css
+@media (width <=480px) {
+    footer > #content {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        padding-inline: 0;
+    }
+
+    footer > #content > div {
+        width: 100%;
+    }
+}
+```
+
+### Option Cards (`css/index.css`, `css/iniciar-solicitud.css`)
+
+Both the homepage and start request page use similar card layouts:
+
+```css
+#opciones-cita {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 25px;
+}
+
+#opciones-cita > div {
+    width: 50%;
+    background-color: var(--white);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 50px;
+    border-radius: 10px;
+}
+```
+
+**Card buttons:**
+
+```css
+.opcion-cita > a {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 40px;
+    border-radius: 10px;
+    background-color: var(--primary-blue);
+    color: var(--white);
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.opcion-cita > a:hover {
+    opacity: .9;
+    scale: .99;
+}
+```
+
+<Tip>
+**Hover Effect Pattern:**
+- Reduce opacity to 0.9
+- Slightly scale down to 0.99
+- 0.3s ease transition
+
+This creates a subtle "press" effect that's used throughout the application.
+</Tip>
+
+**Primary vs Secondary Buttons:**
+
+```css
+/* Primary button (first card) */
+.opcion-cita > a {
+    background-color: var(--primary-blue);
+    color: var(--white);
+}
+
+/* Secondary button (second card) */
+.opcion-cita:nth-child(2) > a {
+    background-color: var(--border-light);
+    color: var(--text-gray-dark);
+}
+```
+
+### Form Styles (`css/seleccionar-cita.css`)
+
+#### Form Container
+
+```css
+#formulario-cita {
+    background-color: var(--white);
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+```
+
+Subtle shadow for depth (1px offset, 3px blur, 10% opacity).
+
+#### Form Sections
+
+```css
+.seccion-formulario h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--primary-blue);
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border-light);
+}
+```
+
+Section headings include:
+- Inline SVG icon
+- 10px gap between icon and text
+- Bottom border for visual separation
+
+#### Input Fields
+
+```css
+.campo-formulario input,
+.campo-formulario select,
+.campo-formulario textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border-light);
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+```
+
+**Focus states:**
+
+```css
+.campo-formulario input:focus,
+.campo-formulario select:focus,
+.campo-formulario textarea:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
+}
+```
+
+<Note>
+**Accessibility:** The blue focus ring (3px with 10% opacity) provides clear visual feedback while maintaining the design aesthetic.
+</Note>
+
+**Invalid states:**
+
+```css
+.campo-formulario input:invalid {
+    border-color: #ef4444;
+}
+```
+
+#### Two-Column Layout
+
+```css
+.campos-fila {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.campos-fila .campo-formulario {
+    flex: 1;
+    min-width: 200px;
+}
+```
+
+Flexible grid that:
+- Displays fields side-by-side on desktop
+- Wraps to single column when space is tight
+- Maintains 200px minimum width per field
+
+#### Form Buttons
+
+```css
+.botones-formulario {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.botones-formulario a,
+.botones-formulario button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 150px;
+    justify-content: center;
+}
+```
+
+**Button variants:**
+
+| Button | Background | Text Color | Use Case |
+|--------|------------|------------|----------|
+| `#btn-volver` | `--border-light` | `--text-gray` | Back/Cancel |
+| `#btn-continuar` | `--primary-blue` | `--white` | Submit/Continue |
+
+### Summary Styles (`css/resumen.css`)
+
+#### Status Badge
+
+```css
+.estado-cita {
+    text-align: center;
+    padding: 30px;
+    margin-bottom: 40px;
+    background: linear-gradient(135deg, var(--bg-blue-light) 0%, var(--bg-blue-lighter) 100%);
+    border-radius: 12px;
+    border: 2px solid var(--border-blue);
+}
+```
+
+Gradient background from light to lighter blue (135° diagonal).
+
+#### Summary Tables
+
+```css
+.tabla-resumen {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.tabla-resumen td {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-lighter);
+    vertical-align: top;
+}
+
+.tabla-resumen td:first-child {
+    color: var(--text-gray-light);
+    font-weight: 500;
+    width: 35%;
+    padding-right: 20px;
+}
+
+.tabla-resumen td:last-child {
+    color: var(--text-gray);
+    font-weight: 400;
+}
+```
+
+**Layout:**
+- First column (labels): 35% width, gray, medium weight
+- Second column (values): 65% width, darker, normal weight
+- Bottom borders between rows
+- No border on last row
+
+#### Action Buttons
+
+```css
+#btn-modificar {
+    background-color: var(--neutral-light);
+    color: var(--text-gray);
+    border: 2px solid var(--border-light);
+}
+
+#btn-confirmar {
+    background-color: var(--success-green);
+    color: var(--white);
+}
+
+#btn-imprimir {
+    background-color: var(--primary-blue);
+    color: var(--white);
+}
+```
+
+Three distinct button styles:
+1. **Modify:** Neutral with border (secondary action)
+2. **Confirm:** Green (primary success action)
+3. **Print:** Blue (utility action)
+
+## Responsive Design Strategy
+
+The project uses **mobile-first breakpoints** with `@media` queries:
+
+### Breakpoints
+
+| Breakpoint | Target | Key Changes |
+|------------|--------|-------------|
+| **Default** | Mobile-first base | Optimized for small screens |
+| **481px - 1024px** | Tablets | Reduced padding, adjusted layouts |
+| **>1024px** | Desktop | Full layout with max-width constraints |
+
+<Tabs>
+  <Tab title="≤480px">
+    - Single column layouts
+    - Hamburger menu
+    - Stacked footer
+    - Reduced padding
+    - Touch-friendly targets (min 44x44px)
+  </Tab>
+  
+  <Tab title="481-1024px">
+    - Two-column grids where appropriate
+    - Visible navigation
+    - Reduced horizontal padding
+    - Optimized for tablets
+  </Tab>
+  
+  <Tab title=">1024px">
+    - Full desktop layout
+    - Max-width container (900px)
+    - Generous padding
+    - Multi-column layouts
+  </Tab>
+</Tabs>
+
+### Common Responsive Patterns
+
+**Padding reduction:**
+
+```css
+@media (width <=1024px) {
+    main {
+        padding-inline: 1rem;
+    }
+}
+```
+
+**Layout switching:**
+
+```css
+@media (width <=1024px) {
+    #opciones-cita {
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    #opciones-cita > div {
+        width: 100%;
+    }
+}
+```
+
+**Font size adjustments:**
+
+```css
+@media (width <=480px) {
+    .estado-cita h2 {
+        font-size: 1.3rem;
+    }
+}
+```
+
+## SVG Icons
+
+All icons are **inline SVG** elements, not external files:
+
+```html
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" 
+     fill="none" stroke="currentColor" stroke-width="2" 
+     stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+    <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+    <path d="M9 12l2 2l4 -4" />
+</svg>
+```
+
+<Tip>
+**Benefits of Inline SVG:**
+- No extra HTTP requests
+- Icons inherit `currentColor` (text color)
+- Easy to style with CSS
+- Scalable at any size
+
+The `stroke="currentColor"` attribute ensures icons match the text color of their parent element.
+</Tip>
+
+## Animations & Transitions
+
+Subtle animations enhance the user experience:
+
+### Transition Pattern
+
+```css
+transition: all 0.3s ease;
+```
+
+Used consistently across:
+- Button hover states
+- Input focus states
+- Link hover effects
+
+### Hover Effects
+
+**Buttons:**
+
+```css
+.opcion-cita > a:hover {
+    opacity: .9;
+    scale: .99;
+}
+```
+
+**Links:**
+
+```css
+header a:hover {
+    text-decoration: underline;
+}
+
+.enlaces-footer > a:hover {
+    opacity: .8;
+}
+```
+
+<Note>
+All transitions are kept to 0.3 seconds with `ease` timing for smooth, natural motion.
+</Note>
+
+## Performance Considerations
+
+<CardGroup cols={2}>
+  <Card title="No Build Step" icon="bolt">
+    Vanilla CSS loads instantly with no compilation required
+  </Card>
+  
+  <Card title="Minimal CSS" icon="file-lines">
+    Total CSS size < 10KB (all files combined)
+  </Card>
+  
+  <Card title="No External Dependencies" icon="link-slash">
+    No CSS frameworks or libraries to download
+  </Card>
+  
+  <Card title="Modern Features" icon="wand-magic-sparkles">
+    CSS custom properties, flexbox, modern selectors
+  </Card>
+</CardGroup>
+
+## Best Practices
+
+<Steps>
+  <Step title="Use Custom Properties">
+    Always reference color variables instead of hardcoding hex values:
+    
+    ```css
+    /* Good */
+    color: var(--primary-blue);
+    
+    /* Bad */
+    color: #003366;
+    ```
+  </Step>
+  
+  <Step title="Follow BEM-like Naming">
+    Use descriptive class names:
+    - `.seccion-formulario` (section)
+    - `.campo-formulario` (field)
+    - `.botones-formulario` (buttons)
+  </Step>
+  
+  <Step title="Keep Specificity Low">
+    Avoid deeply nested selectors:
+    
+    ```css
+    /* Good */
+    .tabla-resumen td { }
+    
+    /* Bad */
+    .contenedor-resumen .seccion-resumen .tabla-resumen tbody tr td { }
+    ```
+  </Step>
+  
+  <Step title="Mobile-First Approach">
+    Write base styles for mobile, then enhance for larger screens:
+    
+    ```css
+    /* Base (mobile) */
+    .elemento { width: 100%; }
+    
+    /* Enhanced (desktop) */
+    @media (width > 1024px) {
+        .elemento { width: 50%; }
+    }
+    ```
+  </Step>
+</Steps>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Project Structure" href="/development/structure">
+    Learn about the file and folder organization
+  </Card>
+  
+  <Card title="Customization Guide" href="/development/customization">
+    Customize colors, fonts, and layout to match your needs
+  </Card>
+</CardGroup>

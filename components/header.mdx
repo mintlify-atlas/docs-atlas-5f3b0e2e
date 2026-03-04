@@ -1,0 +1,426 @@
+---
+title: Header Component
+description: Documentation for the responsive header component with navigation and mobile menu toggle
+---
+
+## Overview
+
+The header component displays the government ministry logo and main navigation menu. It adapts responsively for mobile devices with a toggle menu.
+
+## HTML Structure
+
+The header component consists of three main parts:
+
+1. **Logo section** - Ministry logo with responsive image formats
+2. **Mobile menu toggle** - Button visible only on mobile devices
+3. **Navigation menu** - Links to main pages and external resources
+
+### Complete HTML
+
+```html
+<header>
+    <div>
+        <picture>
+            <source srcset="./images/logo-ministerio.avif" type="image/avif">
+            <source srcset="./images/logo-ministerio.webp" type="image/webp">
+            <img src="./images/logo-ministerio.png" alt="Logo ministerio del interior">
+        </picture>
+    </div>
+
+    <button id="menu-toggle"><img src="./images/menu.svg" alt="Logo menu"></button>
+
+    <nav id="nav-normal">
+        <ul>
+            <li><a href="./index.html">Inicio</a></li>
+            <li><a href="https://www.citapreviadnie.es/citaPreviaDni/doc/43CITAPREVIAnivelinternet.pdf"
+                    target="_blank" rel="noopener noreferrer">Ayuda</a></li>
+            <li><a href="https://www.citapreviadnie.es/citaPreviaDni/avisoLegal.jsp" target="_blank"
+                    rel="noopener noreferrer">Aviso legal</a></li>
+            <li><a href="https://www.citapreviadnie.es/citaPreviaDni/accesibilidad.jsp" target="_blank"
+                    rel="noopener noreferrer">Accesibilidad</a></li>
+            <li><a href="https://www.dnielectronico.es/portaldnie/prf1_cons02.action?pag=ref_9030" target="_blank"
+                    rel="noopener noreferrer">Mapa Web</a></li>
+        </ul>
+    </nav>
+</header>
+```
+
+## CSS Styles
+
+The header uses CSS custom properties defined in `style.css` and specific styles from `headerfooter.css`.
+
+### Desktop Styles
+
+```css
+header {
+    background-color: var(--header-yellow);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 25px 100px;
+    align-content: center;
+}
+
+header a:hover {
+    text-decoration: underline;
+}
+
+header img {
+    height: 55px;
+    aspect-ratio: 445/103;
+}
+
+header div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+#menu-toggle {
+    display: none;
+}
+```
+
+### Mobile Styles (480px and below)
+
+```css
+@media (width <= 480px) {
+    #menu-toggle {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background-color: transparent;
+    }
+
+    #menu-toggle > img {
+        width: 40px;
+        height: 40px;
+    }
+
+    nav {
+        display: none;
+        width: 100%;
+        background: var(--header-yellow);
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px 0;
+    }
+}
+
+.visible-nav {
+    display: block;
+}
+```
+
+### Tablet Styles (481px to 1024px)
+
+```css
+@media (width <= 1024px) {
+    header {
+        padding: 25px 45px;
+    }
+
+    header img {
+        height: 55px;
+    }
+
+    nav {
+        margin-top: 20px;
+        width: 100%;
+    }
+}
+
+@media (480px < width <= 1024px) {
+    header div {
+        width: 100%;
+    }
+}
+```
+
+## JavaScript Functionality
+
+The mobile menu toggle is controlled by JavaScript in `js/index.js`:
+
+```javascript
+const $button = document.getElementById('menu-toggle');
+const $nav = document.getElementById('nav-normal');
+
+let active = false;
+
+$button.addEventListener('click', function () {
+    active = !active;
+    if (active) {
+        $nav.classList.add("visible-nav");
+    } else {
+        $nav.classList.remove("visible-nav");
+    }
+});
+```
+
+## Usage Examples
+
+### Basic Implementation
+
+<CodeGroup>
+
+```html Basic Header
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/headerfooter.css">
+</head>
+<body>
+    <header>
+        <div>
+            <picture>
+                <source srcset="./images/logo-ministerio.avif" type="image/avif">
+                <source srcset="./images/logo-ministerio.webp" type="image/webp">
+                <img src="./images/logo-ministerio.png" alt="Logo ministerio del interior">
+            </picture>
+        </div>
+
+        <button id="menu-toggle"><img src="./images/menu.svg" alt="Logo menu"></button>
+
+        <nav id="nav-normal">
+            <ul>
+                <li><a href="./index.html">Inicio</a></li>
+                <li><a href="#">Ayuda</a></li>
+                <li><a href="#">Aviso legal</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <script src="./js/index.js"></script>
+</body>
+</html>
+```
+
+```html With Active Link
+<!-- Add 'active' class to current page link -->
+<nav id="nav-normal">
+    <ul>
+        <li><a href="./index.html" class="active">Inicio</a></li>
+        <li><a href="./iniciar-solicitud.html">Iniciar Solicitud</a></li>
+    </ul>
+</nav>
+
+<style>
+.active {
+    font-weight: bold;
+    text-decoration: underline;
+}
+</style>
+```
+
+</CodeGroup>
+
+## Customization
+
+### Changing Colors
+
+Modify the CSS custom properties in `css/style.css`:
+
+```css
+:root {
+    --header-yellow: #ffce00;  /* Change header background color */
+    --primary-blue: #003366;   /* Used for text/links */
+}
+```
+
+### Adding New Navigation Items
+
+```html
+<nav id="nav-normal">
+    <ul>
+        <li><a href="./index.html">Inicio</a></li>
+        <li><a href="./ayuda.html">Ayuda</a></li>
+        <!-- Add new item -->
+        <li><a href="./contacto.html">Contacto</a></li>
+    </ul>
+</nav>
+```
+
+### Custom Logo Size
+
+```css
+header img {
+    height: 60px;  /* Adjust height */
+    aspect-ratio: 445/103;  /* Maintain aspect ratio */
+}
+```
+
+### Changing Breakpoints
+
+```css
+/* Change mobile breakpoint from 480px to 768px */
+@media (width <= 768px) {
+    #menu-toggle {
+        display: flex;
+    }
+    
+    nav {
+        display: none;
+    }
+}
+```
+
+## Accessibility Features
+
+<Accordion title="Keyboard Navigation">
+  - All navigation links are keyboard accessible
+  - Tab order follows logical flow: logo → menu toggle → nav links
+  - Enter/Space activates menu toggle button
+  - Focus states are visible on interactive elements
+</Accordion>
+
+<Accordion title="Screen Reader Support">
+  - Logo has descriptive `alt` text
+  - Menu toggle button has descriptive `alt` text on icon
+  - External links include `rel="noopener noreferrer"` for security
+  - Semantic HTML (`<header>`, `<nav>`, `<ul>`) for proper structure
+</Accordion>
+
+<Accordion title="ARIA Enhancements (Optional)">
+  ```html
+  <button id="menu-toggle" 
+          aria-label="Toggle navigation menu" 
+          aria-expanded="false">
+      <img src="./images/menu.svg" alt="">
+  </button>
+
+  <nav id="nav-normal" aria-label="Main navigation">
+      <!-- navigation items -->
+  </nav>
+  ```
+  
+  Update JavaScript to toggle `aria-expanded`:
+  ```javascript
+  $button.addEventListener('click', function () {
+      active = !active;
+      $button.setAttribute('aria-expanded', active);
+      if (active) {
+          $nav.classList.add("visible-nav");
+      } else {
+          $nav.classList.remove("visible-nav");
+      }
+  });
+  ```
+</Accordion>
+
+## Responsive Behavior
+
+### Desktop (> 1024px)
+- Logo aligned left
+- Full navigation menu displayed inline
+- Menu toggle button hidden
+- Padding: 25px 100px
+
+### Tablet (481px - 1024px)
+- Logo spans full width
+- Navigation menu below logo
+- Menu items wrap if needed
+- Padding: 25px 45px
+
+### Mobile (≤ 480px)
+- Logo aligned left
+- Menu toggle button visible on right
+- Navigation hidden by default
+- Clicking toggle shows/hides vertical menu
+- Menu items stacked vertically
+
+## Image Optimization
+
+The logo uses modern image formats with fallbacks:
+
+```html
+<picture>
+    <!-- Modern format: smallest file size -->
+    <source srcset="./images/logo-ministerio.avif" type="image/avif">
+    
+    <!-- Widely supported modern format -->
+    <source srcset="./images/logo-ministerio.webp" type="image/webp">
+    
+    <!-- Fallback for older browsers -->
+    <img src="./images/logo-ministerio.png" alt="Logo ministerio del interior">
+</picture>
+```
+
+<Tip>
+  **Browser Support:**
+  - AVIF: Chrome 85+, Edge 85+, Firefox 93+, Safari 16+
+  - WebP: Chrome 32+, Edge 18+, Firefox 65+, Safari 14+
+  - PNG: All browsers
+  
+  Browsers automatically select the first supported format.
+</Tip>
+
+## Common Issues
+
+### Mobile Menu Not Toggling
+
+**Problem:** Clicking menu button doesn't show/hide navigation.
+
+**Solutions:**
+- Ensure `js/index.js` is loaded before `</body>`
+- Check browser console for JavaScript errors
+- Verify button has correct ID: `menu-toggle`
+- Verify nav has correct ID: `nav-normal`
+
+### Logo Not Displaying
+
+**Problem:** Logo appears as broken image.
+
+**Solutions:**
+- Check image paths are correct relative to HTML file
+- Verify image files exist in `images/` folder
+- Check file permissions (should be readable)
+- Inspect browser console for 404 errors
+
+### Navigation Links Not Working
+
+**Problem:** Clicking navigation items doesn't navigate.
+
+**Solutions:**
+- Verify href paths are correct
+- For external links, ensure full URL is used
+- Check for JavaScript errors that might prevent navigation
+
+## Related Components
+
+- [Footer Component](/components/footer) - Matching footer with similar styling
+- [Navigation Component](/components/navigation) - Detailed mobile navigation behavior
+- [Cards Component](/components/cards) - For page content structure
+
+## Examples in Project
+
+The header component is used on all pages:
+
+- `index.html` (Homepage) - index.html:18-43
+- `iniciar-solicitud.html` (Start Request) - iniciar-solicitud.html:18-43
+- `seleccionar-cita.html` (Select Appointment) - seleccionar-cita.html:18-43
+- `resumen.html` (Summary) - Similar implementation
+
+<Note>
+  The header component is identical across all pages to maintain consistency. Any changes should be applied to all instances.
+</Note>

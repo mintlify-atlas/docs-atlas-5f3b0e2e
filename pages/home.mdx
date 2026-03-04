@@ -1,0 +1,220 @@
+---
+title: "Home Page"
+description: "Landing page for the DNI Cita Previa system - Entry point for appointment booking"
+---
+
+# Home Page (index.html)
+
+The home page serves as the main landing page for the DNI Cita Previa redesign, providing users with clear entry points to book appointments for DNI (National ID) and passport services.
+
+## Purpose
+
+The home page serves as:
+- The initial entry point for all users
+- A navigation hub to start appointment requests or manage existing appointments
+- An information center about the appointment booking process
+- A trustworthy government service interface
+
+## Page Structure
+
+### Header
+
+The header contains the Ministry of Interior logo and navigation menu with links to:
+
+```html
+<nav id="nav-normal">
+    <ul>
+        <li><a href="./index.html">Inicio</a></li>
+        <li><a href="https://www.citapreviadnie.es/citaPreviaDni/doc/43CITAPREVIAnivelinternet.pdf"
+                target="_blank" rel="noopener noreferrer">Ayuda</a></li>
+        <li><a href="https://www.citapreviadnie.es/citaPreviaDni/avisoLegal.jsp" target="_blank"
+                rel="noopener noreferrer">Aviso legal</a></li>
+        <li><a href="https://www.citapreviadnie.es/citaPreviaDni/accesibilidad.jsp" target="_blank"
+                rel="noopener noreferrer">Accesibilidad</a></li>
+        <li><a href="https://www.dnielectronico.es/portaldnie/prf1_cons02.action?pag=ref_9030" target="_blank"
+                rel="noopener noreferrer">Mapa Web</a></li>
+    </ul>
+</nav>
+```
+
+The header also includes a mobile menu toggle button for responsive navigation.
+
+### Main Title Section
+
+```html
+<div id="titulo">
+    <h1>Cita Previa para DNI y Pasaporte</h1>
+    <p>Solicite, consulte o anule su cita para la expedición del Documento Nacional de Identidad y Pasaporte.</p>
+</div>
+```
+
+This section clearly communicates the purpose of the application to users.
+
+### Appointment Options
+
+The page presents two primary actions:
+
+<Accordion title="Iniciar Solicitud de Cita">
+  
+**Purpose**: Start a new appointment booking process
+
+**Description**: Users can initiate the request with or without their DNI/NIE data, accommodating cases of lost or stolen documents.
+
+```html
+<div class="opcion-cita">
+    <h2>Iniciar Solicitud de Cita</h2>
+    <p>Puede iniciar la solicitud con los datos de su DNI/NIE o sin ellos si lo ha perdido o se lo han robado.</p>
+    <a href="./iniciar-solicitud.html">
+        <span><svg>...</svg></span>
+        <span>Iniciar Solicitud</span>
+    </a>
+</div>
+```
+
+**Navigation**: Links to `iniciar-solicitud.html`
+
+</Accordion>
+
+<Accordion title="Anular / Consultar Cita">
+  
+**Purpose**: Manage existing appointments
+
+**Description**: Users with existing appointments can view details or cancel their appointments.
+
+```html
+<div class="opcion-cita">
+    <h2>Anular / Consultar Cita</h2>
+    <p>Si ya dispone de una cita, puede consultarla o anularla desde aquí.</p>
+    <a href="./iniciar-solicitud.html">
+        <span><svg>...</svg></span>
+        <span>Anular o Consultar</span>
+    </a>
+</div>
+```
+
+**Navigation**: Links to `iniciar-solicitud.html`
+
+</Accordion>
+
+### Information Section
+
+The page includes critical information for users:
+
+```html
+<div class="info">
+    <h3>
+        <svg>...</svg>
+        Información Importante
+    </h3>
+    <div>
+        <p>La cita para el DNI y/o Pasaporte es <strong>totalmente gratuita</strong>. Ningún organismo o persona
+            puede cobrarle por este servicio.</p>
+        <p>Asegúrese de tener a mano su DNI actual para el proceso de solicitud. Si es por pérdida o
+            sustracción, no será necesario.</p>
+        <p>El día de la cita deberá acudir a la oficina con la documentación necesaria.</p>
+        <p>Recuerde que el pago de las tasas se realiza preferentemente con tarjeta de crédito/débito en la
+            propia oficina de expedición.</p>
+    </div>
+</div>
+```
+
+<Note>
+**Key Messages**:
+- The appointment service is **completely free**
+- Users should have their current DNI available (unless lost/stolen)
+- Required documentation must be brought on appointment day
+- Fees are paid at the office, preferably by card
+</Note>
+
+### Footer
+
+The footer contains:
+- National Police logo
+- Government branding
+- Links to related services:
+  - Policía Nacional
+  - Portal del DNIe
+  - Sede Electrónica
+  - Office locator
+- Contact and help links:
+  - Help documentation
+  - Contact email
+  - Legal notice
+  - Accessibility information
+  - Site map
+
+## User Flow
+
+<Steps>
+
+<Step title="User arrives at home page">
+  Users land on the home page to access appointment services
+</Step>
+
+<Step title="Choose action">
+  Users select either:
+  - "Iniciar Solicitud" to book a new appointment
+  - "Anular / Consultar" to manage existing appointments
+</Step>
+
+<Step title="Read important information">
+  Users review critical information about the service being free, required documentation, and payment process
+</Step>
+
+<Step title="Navigate to next step">
+  Users click their chosen option to proceed to the next page
+</Step>
+
+</Steps>
+
+## Visual Design Elements
+
+### Images and Assets
+
+- **Logo**: Ministry of Interior logo in multiple formats (AVIF, WebP, PNG) for optimal performance
+- **Icons**: SVG icons for visual clarity and scalability
+- **Responsive Images**: Uses `<picture>` elements with modern image formats
+
+### Styling
+
+The page uses three CSS files:
+- `style.css` - Base styles
+- `headerfooter.css` - Header and footer styling
+- `index.css` - Home page-specific styles
+
+## Accessibility Features
+
+- Semantic HTML structure
+- External links open in new tabs with `rel="noopener noreferrer"`
+- SVG icons with proper stroke and viewBox attributes
+- Responsive design with mobile menu toggle
+- Clear visual hierarchy
+
+## Technical Implementation
+
+### Meta Information
+
+```html
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Rediseño de la web de cita previa DNI">
+<title>DNI - Inicio</title>
+```
+
+### JavaScript
+
+The page includes `index.js` for interactive functionality:
+- Mobile menu toggle
+- Additional UI enhancements
+
+### Performance Optimizations
+
+- Modern image formats (AVIF, WebP) with fallbacks
+- Efficient SVG icon usage
+- Minimal external dependencies
+
+## Related Pages
+
+- [Iniciar Solicitud](/pages/iniciar-solicitud) - Next step in the appointment booking process
+- [Seleccionar Cita](/pages/seleccionar-cita) - Appointment form
+- [Resumen](/pages/resumen) - Appointment summary and confirmation

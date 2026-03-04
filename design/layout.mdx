@@ -1,0 +1,504 @@
+---
+title: Layout
+description: Layout structure, grid systems, spacing, and responsive breakpoints in the DNI Cita Previa application
+---
+
+## Global Layout
+
+### CSS Reset
+
+The application applies a CSS reset to ensure consistent styling across browsers:
+
+```css
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+```
+
+### Body Layout
+
+```css
+body {
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--background-gray);
+}
+```
+
+### Main Container
+
+The main content area is centered with a maximum width constraint:
+
+```css
+main {
+    display: flex;
+    flex-direction: column;
+    margin: 0px auto;
+    max-width: 900px;
+}
+
+main > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+```
+
+**Responsive behavior:**
+
+```css
+@media (width <= 1024px) {
+    main {
+        padding-inline: 1rem;
+    }
+}
+```
+
+## Header Layout
+
+### Desktop Header
+
+```css
+header {
+    background-color: var(--header-yellow);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 25px 100px;
+    align-content: center;
+}
+
+header img {
+    height: 55px;
+    aspect-ratio: 445/103;
+}
+
+header div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+```
+
+### Tablet Header (481px - 1024px)
+
+```css
+@media (width <= 1024px) {
+    header {
+        padding: 25px 45px;
+    }
+
+    nav {
+        margin-top: 20px;
+        width: 100%;
+    }
+}
+
+@media (480px < width <= 1024px) {
+    header div {
+        width: 100%;
+    }
+}
+```
+
+### Mobile Header (≤480px)
+
+```css
+@media (width <= 480px) {
+    nav {
+        display: none;
+        width: 100%;
+        background: var(--header-yellow);
+    }
+
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px 0;
+    }
+}
+```
+
+## Footer Layout
+
+### Desktop Footer
+
+```css
+footer {
+    background-color: var(--footer-background-blue);
+    color: var(--white);
+    padding: 0 50px;
+}
+
+footer > #content {
+    display: flex;
+    flex-direction: row;
+    gap: 5%;
+    padding: 30px 50px;
+}
+
+footer > #content > div {
+    width: 30%;
+}
+
+footer > #copyright {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 20px 40px;
+    width: 100%;
+    border-top: 1px solid var(--white);
+    text-align: center;
+}
+```
+
+### Mobile Footer (≤480px)
+
+```css
+@media (width <= 480px) {
+    footer > #content {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        padding-inline: 0;
+    }
+
+    footer > #content > div {
+        width: 100%;
+    }
+
+    footer > #copyright {
+        padding: 20px 0;
+    }
+}
+```
+
+## Grid Systems
+
+### Two-Column Grid (Option Cards)
+
+Used for displaying selection options side-by-side:
+
+```css
+#opciones-cita {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 25px;
+}
+
+#opciones-cita > div {
+    width: 50%;
+    /* ... other styles ... */
+}
+```
+
+**Responsive behavior:**
+
+```css
+@media (width <= 1024px) {
+    #opciones-cita {
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    #opciones-cita > div {
+        width: 100%;
+    }
+}
+```
+
+### Flexible Form Grid
+
+Multi-column form layout that adapts to content:
+
+```css
+.campos-fila {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.campos-fila .campo-formulario {
+    flex: 1;
+    min-width: 200px;
+}
+```
+
+**Mobile behavior:**
+
+```css
+@media (width <= 768px) {
+    .campos-fila {
+        flex-direction: column;
+    }
+
+    .campos-fila .campo-formulario {
+        min-width: auto;
+    }
+}
+```
+
+## Spacing System
+
+### Margin Values
+
+| Size | Value | Usage |
+|------|-------|-------|
+| XS | `5px` | Small gaps between footer links |
+| S | `10px` | Element spacing, icon gaps |
+| M | `15px` | Text spacing, padding adjustments |
+| L | `20px` | Section spacing, form fields |
+| XL | `25px` | Card gaps, navigation spacing |
+| 2XL | `30px` | Container padding, section margins |
+| 3XL | `40px` | Large section spacing |
+| 4XL | `50px` | Card padding |
+
+### Padding Values
+
+**Container padding:**
+
+```css
+/* Large cards */
+#opciones-cita > div {
+    padding: 50px;
+}
+
+/* Standard containers */
+#formulario-cita {
+    padding: 30px;
+}
+
+/* Info boxes */
+.info {
+    padding: 30px;
+}
+
+/* Header */
+header {
+    padding: 25px 100px;
+}
+```
+
+**Responsive padding:**
+
+```css
+@media (width <= 768px) {
+    #formulario-cita {
+        padding: 20px;
+    }
+
+    .contenedor-resumen {
+        padding: 20px;
+    }
+}
+```
+
+### Gap Values
+
+Used in flexbox layouts:
+
+```css
+/* Small gaps */
+gap: 8px;   /* Button icon spacing */
+gap: 10px;  /* Info box items, form elements */
+
+/* Medium gaps */
+gap: 15px;  /* Info heading icons, action buttons */
+gap: 20px;  /* Form fields in rows, button groups */
+
+/* Large gaps */
+gap: 25px;  /* Option cards, navigation items */
+```
+
+## Responsive Breakpoints
+
+The application uses three main breakpoint ranges:
+
+<Tabs>
+  <Tab title="Desktop">
+    **> 1024px**
+    
+    - Full-width header with logo and navigation side-by-side
+    - Two-column option card layout
+    - Standard padding (100px horizontal header padding)
+    - Multi-column form fields
+  </Tab>
+  
+  <Tab title="Tablet">
+    **481px - 1024px**
+    
+    ```css
+    @media (width <= 1024px) {
+        header {
+            padding: 25px 45px;
+        }
+        
+        main {
+            padding-inline: 1rem;
+        }
+        
+        #opciones-cita > div {
+            width: 100%;
+        }
+    }
+    ```
+    
+    - Reduced header padding
+    - Single-column option cards
+    - Full-width navigation
+    - Content padding added to main
+  </Tab>
+  
+  <Tab title="Mobile">
+    **≤ 480px**
+    
+    ```css
+    @media (width <= 480px) {
+        nav {
+            display: none;
+        }
+        
+        #menu-toggle {
+            display: flex;
+        }
+        
+        footer > #content {
+            flex-direction: column;
+        }
+        
+        .botones-accion {
+            flex-direction: column;
+        }
+    }
+    ```
+    
+    - Hamburger menu navigation
+    - Stacked footer layout
+    - Single-column button groups
+    - Reduced padding and font sizes
+  </Tab>
+</Tabs>
+
+### Additional Responsive Breakpoint (≤768px)
+
+Used specifically for form layouts:
+
+```css
+@media (width <= 768px) {
+    .campos-fila {
+        flex-direction: column;
+    }
+
+    .botones-formulario {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .botones-formulario a,
+    .botones-formulario button {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+```
+
+## Flexbox Patterns
+
+### Centered Content
+
+```css
+main > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+```
+
+### Horizontal Navigation
+
+```css
+ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+```
+
+### Button Groups
+
+```css
+.botones-formulario {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+```
+
+### Icon + Text Alignment
+
+```css
+.seccion-formulario h2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+```
+
+## Shadow and Depth
+
+Subtle shadows are used to create depth:
+
+```css
+#formulario-cita,
+.contenedor-resumen {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+```
+
+Focus states add depth with colored shadows:
+
+```css
+.campo-formulario input:focus {
+    box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
+}
+```
+
+## Border Radius
+
+Consistent border radius values create a cohesive design:
+
+| Value | Usage |
+|-------|-------|
+| `8px` | Form inputs, small buttons, action buttons |
+| `10px` | Cards, info boxes, primary buttons |
+| `12px` | Special containers (estado-cita) |
+
+<Note>
+The layout system prioritizes mobile-first responsive design with content stacking on smaller screens and multi-column layouts on larger screens.
+</Note>

@@ -1,0 +1,156 @@
+---
+title: Colors
+description: Color palette and CSS custom properties used throughout the DNI Cita Previa application
+---
+
+## Overview
+
+The DNI Cita Previa design system uses CSS custom properties (CSS variables) to maintain a consistent color palette across the application. All colors are defined in the `:root` selector in `style.css`.
+
+## Color Palette
+
+### Header & Footer Colors
+
+These colors are specific to the application's header and footer components.
+
+<CodeGroup>
+```css Header Yellow
+--header-yellow: #ffce00;
+```
+
+```css Footer Background
+--footer-background-blue: #1f2937;
+```
+</CodeGroup>
+
+| Variable | Hex Value | Usage |
+|----------|-----------|-------|
+| `--header-yellow` | `#ffce00` | Header background color |
+| `--footer-background-blue` | `#1f2937` | Footer background color |
+
+### Primary Colors
+
+Core brand colors used for primary actions and branding elements.
+
+<CodeGroup>
+```css Primary Blue
+--primary-blue: #003366;
+```
+
+```css Primary Blue Dark
+--primary-blue-dark: #002244;
+```
+
+```css Background Gray
+--background-gray: #f5f5f5;
+```
+
+```css White
+--white: #ffffff;
+```
+</CodeGroup>
+
+| Variable | Hex Value | Usage |
+|----------|-----------|-------|
+| `--primary-blue` | `#003366` | Primary buttons, headings, brand elements |
+| `--primary-blue-dark` | `#002244` | Hover states for primary buttons |
+| `--background-gray` | `#f5f5f5` | Body background color |
+| `--white` | `#ffffff` | Card backgrounds, text on dark backgrounds |
+
+### Text Colors
+
+Color variations for text content throughout the application.
+
+```css
+--text-gray-light: #6a6f7b;
+--text-gray: #374151;
+--text-gray-dark: #1f2937;
+```
+
+| Variable | Hex Value | Usage |
+|----------|-----------|-------|
+| `--text-gray-light` | `#6a6f7b` | Descriptive text, secondary information |
+| `--text-gray` | `#374151` | Form labels, standard text |
+| `--text-gray-dark` | `#1f2937` | High-emphasis text |
+
+### Border & Background Colors
+
+Colors used for borders, dividers, and subtle background variations.
+
+```css
+--border-light: #e5e7eb;
+--border-lighter: #f3f4f6;
+--bg-blue-light: #eff6ff;
+--bg-blue-lighter: #dbeafe;
+--border-blue: #bfdbfe;
+```
+
+| Variable | Hex Value | Usage |
+|----------|-----------|-------|
+| `--border-light` | `#e5e7eb` | Input borders, section dividers |
+| `--border-lighter` | `#f3f4f6` | Table row borders, subtle dividers |
+| `--bg-blue-light` | `#eff6ff` | Info box backgrounds |
+| `--bg-blue-lighter` | `#dbeafe` | Gradient backgrounds for success states |
+| `--border-blue` | `#bfdbfe` | Borders on blue background elements |
+
+### State Colors
+
+Colors that indicate status or state changes.
+
+```css
+--success-green: #059669;
+--success-green-dark: #047857;
+```
+
+| Variable | Hex Value | Usage |
+|----------|-----------|-------|
+| `--success-green` | `#059669` | Success icons, confirmation buttons |
+| `--success-green-dark` | `#047857` | Hover state for success buttons |
+
+### Neutral Colors
+
+Neutral shades for backgrounds and subtle UI elements.
+
+```css
+--neutral-light: #f3f4f6;
+--neutral-dark: #d1d5db;
+```
+
+| Variable | Hex Value | Usage |
+|----------|-----------|-------|
+| `--neutral-light` | `#f3f4f6` | Secondary button backgrounds |
+| `--neutral-dark` | `#d1d5db` | Hover states for neutral elements |
+
+## Usage Example
+
+Colors are applied using CSS custom properties:
+
+```css
+.primary-button {
+    background-color: var(--primary-blue);
+    color: var(--white);
+}
+
+.primary-button:hover {
+    background-color: var(--primary-blue-dark);
+}
+
+body {
+    background-color: var(--background-gray);
+}
+```
+
+## Additional Color Values
+
+Some components use hardcoded color values for specific use cases:
+
+| Hex Value | Usage | Location |
+|-----------|-------|----------|
+| `#ef4444` | Invalid input border | `seleccionar-cita.css:82` |
+| `#9ca3af` | Input placeholder text | `seleccionar-cita.css:86` |
+| `rgba(0, 51, 102, 0.1)` | Focus ring shadow | `seleccionar-cita.css:78` |
+| `rgba(0, 0, 0, 0.1)` | Box shadow | `seleccionar-cita.css:6`, `resumen.css:6` |
+
+<Note>
+Whenever possible, use the CSS custom properties defined in `:root` rather than hardcoded color values to maintain consistency across the application.
+</Note>

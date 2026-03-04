@@ -1,0 +1,559 @@
+---
+title: Getting Started
+description: Step-by-step guide to set up and run the DNI Cita Previa redesign project locally, including installation, file structure, and customization options
+---
+
+## Prerequisites
+
+Before you begin, ensure you have the following:
+
+<CardGroup cols={2}>
+  <Card title="Web Browser" icon="browser">
+    Any modern browser (Chrome, Firefox, Safari, Edge)
+  </Card>
+  
+  <Card title="Text Editor" icon="code">
+    VS Code, Sublime Text, or your preferred editor
+  </Card>
+  
+  <Card title="Local Server" icon="server">
+    Optional: VS Code Live Server or Python's HTTP server
+  </Card>
+  
+  <Card title="Basic Knowledge" icon="book">
+    HTML, CSS, and basic JavaScript understanding
+  </Card>
+</CardGroup>
+
+<Note>
+  This is a **static HTML/CSS/JS project** with no build process or package dependencies required. You can open the files directly in your browser!
+</Note>
+
+## Quick Start
+
+<Steps>
+  <Step title="Clone or Download">
+    Get the project files from your repository:
+    
+    ```bash
+    git clone <repository-url>
+    cd dni-cita-previa-redesign
+    ```
+    
+    Or download and extract the ZIP file to your preferred location.
+  </Step>
+  
+  <Step title="Open in Browser">
+    Navigate to the project directory and open `index.html` in your web browser:
+    
+    ```bash
+    # Option 1: Open directly
+    open index.html  # macOS
+    start index.html # Windows
+    xdg-open index.html # Linux
+    
+    # Option 2: Use Python's HTTP server
+    python -m http.server 8000
+    # Then visit: http://localhost:8000
+    
+    # Option 3: Use VS Code Live Server extension
+    # Right-click index.html > Open with Live Server
+    ```
+  </Step>
+  
+  <Step title="Explore the Application">
+    Navigate through the appointment booking flow:
+    
+    1. Start at the landing page (`index.html`)
+    2. Click "Iniciar Solicitud" to begin
+    3. Select an authentication method (`iniciar-solicitud.html`)
+    4. Fill out the appointment form (`seleccionar-cita.html`)
+    5. Review the summary page (`resumen.html`)
+  </Step>
+</Steps>
+
+## Project Structure
+
+```
+dni-cita-previa-redesign/
+├── index.html                  # Landing page
+├── iniciar-solicitud.html      # Authentication selection
+├── seleccionar-cita.html       # Appointment form
+├── resumen.html                # Summary/confirmation
+├── css/
+│   ├── style.css              # Global styles & CSS variables
+│   ├── headerfooter.css       # Header & footer components
+│   ├── index.css              # Landing page styles
+│   ├── iniciar-solicitud.css  # Authentication page styles
+│   ├── seleccionar-cita.css   # Form page styles
+│   └── resumen.css            # Summary page styles
+├── js/
+│   └── index.js               # Mobile menu toggle
+└── images/
+    ├── logo.png               # Favicon
+    ├── logo-ministerio.*      # Ministry logo (PNG, WebP, AVIF)
+    ├── logo-polia-nacional.*  # Police logo (JPEG, WebP, AVIF)
+    └── menu.svg               # Hamburger menu icon
+```
+
+### File Descriptions
+
+<AccordionGroup>
+  <Accordion title="HTML Files">
+    Each HTML file represents a step in the appointment booking process:
+    
+    - **index.html**: Entry point with two main options (book new or manage existing)
+    - **iniciar-solicitud.html**: Choose between DNI/NIE or electronic certificate authentication
+    - **seleccionar-cita.html**: Multi-section form for appointment details
+    - **resumen.html**: Confirmation page with appointment summary and reference code
+    
+    All pages share the same header/footer structure for consistency.
+  </Accordion>
+  
+  <Accordion title="CSS Files">
+    Modular CSS architecture:
+    
+    - **style.css**: CSS custom properties, reset, and global styles
+    - **headerfooter.css**: Responsive header/footer with mobile menu
+    - **index.css**: Landing page specific styles
+    - **iniciar-solicitud.css**: Authentication options layout
+    - **seleccionar-cita.css**: Form styling with validation
+    - **resumen.css**: Summary page with tables and status display
+  </Accordion>
+  
+  <Accordion title="JavaScript Files">
+    Minimal JavaScript footprint:
+    
+    - **index.js**: 13-line mobile navigation toggle
+    
+    The project prioritizes CSS-based interactions over heavy JavaScript.
+  </Accordion>
+  
+  <Accordion title="Images Directory">
+    Optimized assets:
+    
+    - Multiple format support (PNG, WebP, AVIF) for performance
+    - SVG icons inline in HTML for styling flexibility
+    - Official government logos maintained for authenticity
+  </Accordion>
+</AccordionGroup>
+
+## Understanding the CSS System
+
+### CSS Custom Properties
+
+The entire design system is built on CSS variables defined in `style.css`:
+
+```css
+:root {
+    /* Colors */
+    --header-yellow: #ffce00;
+    --footer-background-blue: #1f2937;
+    --primary-blue: #003366;
+    --primary-blue-dark: #002244;
+    --background-gray: #f5f5f5;
+    --white: #ffffff;
+    
+    /* Text colors */
+    --text-gray-light: #6a6f7b;
+    --text-gray: #374151;
+    --text-gray-dark: #1f2937;
+    
+    /* Borders */
+    --border-light: #e5e7eb;
+    --bg-blue-light: #eff6ff;
+    
+    /* Status */
+    --success-green: #059669;
+}
+```
+
+<Tip>
+  To customize the color scheme, simply modify these CSS variables. All components will automatically update!
+</Tip>
+
+### Global Layout
+
+All main content uses a consistent centered layout:
+
+```css
+main {
+    display: flex;
+    flex-direction: column;
+    margin: 0px auto;
+    max-width: 900px;
+}
+
+@media (width <= 1024px) {
+    main {
+        padding-inline: 1rem;
+    }
+}
+```
+
+## Responsive Breakpoints
+
+The project uses two main breakpoints:
+
+<CodeGroup>
+```css Tablet (≤1024px)
+@media (width <= 1024px) {
+    /* Stack cards vertically */
+    #opciones-cita {
+        flex-wrap: wrap;
+        width: 100%;
+    }
+    
+    #opciones-cita > div {
+        width: 100%;
+    }
+}
+```
+
+```css Mobile (≤480px)
+@media (width <= 480px) {
+    /* Show hamburger menu */
+    #menu-toggle {
+        display: flex;
+    }
+    
+    /* Hide navigation by default */
+    nav {
+        display: none;
+        width: 100%;
+    }
+    
+    /* Stack footer sections */
+    footer > #content {
+        flex-direction: column;
+    }
+}
+```
+</CodeGroup>
+
+## Customization Guide
+
+### Changing Colors
+
+Edit the CSS variables in `css/style.css`:
+
+```css
+:root {
+    --primary-blue: #YOUR_COLOR;        /* Main buttons and headings */
+    --header-yellow: #YOUR_COLOR;       /* Header background */
+    --footer-background-blue: #YOUR_COLOR; /* Footer background */
+}
+```
+
+### Adding New Pages
+
+<Steps>
+  <Step title="Create HTML file">
+    Copy the structure from an existing page:
+    
+    ```html
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>DNI - Your Page Title</title>
+        
+        <link rel="stylesheet" href="./css/style.css">
+        <link rel="stylesheet" href="./css/headerfooter.css">
+        <link rel="stylesheet" href="./css/your-page.css">
+    </head>
+    <body>
+        <!-- Copy header from existing page -->
+        <header>...</header>
+        
+        <main>
+            <!-- Your content here -->
+        </main>
+        
+        <!-- Copy footer from existing page -->
+        <footer>...</footer>
+        
+        <script src="./js/index.js"></script>
+    </body>
+    </html>
+    ```
+  </Step>
+  
+  <Step title="Create corresponding CSS">
+    Add page-specific styles in `css/your-page.css`:
+    
+    ```css
+    /* Your page styles here */
+    /* Use existing CSS variables for consistency */
+    .your-component {
+        background-color: var(--white);
+        color: var(--text-gray);
+        border: 1px solid var(--border-light);
+    }
+    ```
+  </Step>
+  
+  <Step title="Update navigation">
+    Add links to your new page in the header navigation across all HTML files.
+  </Step>
+</Steps>
+
+### Modifying Forms
+
+The form structure in `seleccionar-cita.html` uses semantic HTML:
+
+```html
+<div class="seccion-formulario">
+    <h2>
+        <svg><!-- Section icon --></svg>
+        Section Title
+    </h2>
+    
+    <div class="campos-fila">
+        <div class="campo-formulario">
+            <label for="field-id">Field Label:</label>
+            <input type="text" 
+                   id="field-id" 
+                   name="field-name" 
+                   placeholder="Example"
+                   required>
+        </div>
+    </div>
+</div>
+```
+
+### Adding Form Fields
+
+<CodeGroup>
+```html Text Input
+<div class="campo-formulario">
+    <label for="field-name">Label:</label>
+    <input type="text" 
+           id="field-name" 
+           name="field-name" 
+           placeholder="Placeholder text"
+           required>
+</div>
+```
+
+```html Select Dropdown
+<div class="campo-formulario">
+    <label for="select-name">Label:</label>
+    <select id="select-name" name="select-name" required>
+        <option value="">-- Select option --</option>
+        <option value="opt1">Option 1</option>
+        <option value="opt2">Option 2</option>
+    </select>
+</div>
+```
+
+```html Radio Buttons
+<div class="campo-formulario">
+    <label>Group Label:</label>
+    <div class="opciones-radio">
+        <label class="label-radio">
+            <input type="radio" name="group" value="option1" required>
+            Option 1 Label
+        </label>
+        <label class="label-radio">
+            <input type="radio" name="group" value="option2">
+            Option 2 Label
+        </label>
+    </div>
+</div>
+```
+
+```html Checkbox
+<div class="campo-formulario">
+    <label class="label-checkbox">
+        <input type="checkbox" id="checkbox-id" name="checkbox-name" required>
+        Checkbox label text
+    </label>
+</div>
+```
+</CodeGroup>
+
+## Testing Responsive Design
+
+<Tabs>
+  <Tab title="Browser DevTools">
+    1. Open DevTools (F12 or Cmd/Ctrl + Shift + I)
+    2. Toggle device toolbar (Cmd/Ctrl + Shift + M)
+    3. Test different screen sizes:
+       - Desktop: 1920x1080
+       - Tablet: 768x1024
+       - Mobile: 375x667 (iPhone SE)
+       - Mobile: 390x844 (iPhone 12/13)
+  </Tab>
+  
+  <Tab title="Physical Devices">
+    1. Find your local IP address:
+       ```bash
+       # macOS/Linux
+       ifconfig | grep "inet "
+       
+       # Windows
+       ipconfig
+       ```
+    2. Start a local server:
+       ```bash
+       python -m http.server 8000
+       ```
+    3. Visit `http://YOUR_IP:8000` on mobile device
+  </Tab>
+  
+  <Tab title="Browser Window">
+    Simply resize your browser window to test responsive breakpoints:
+    - Full width: Desktop layout
+    - ≤1024px: Tablet layout (stacked cards)
+    - ≤480px: Mobile layout (hamburger menu)
+  </Tab>
+</Tabs>
+
+## Browser Compatibility
+
+The project uses modern CSS features with excellent browser support:
+
+<Note>
+  **Supported Browsers**:
+  - Chrome/Edge 88+
+  - Firefox 85+
+  - Safari 14+
+  - Opera 74+
+</Note>
+
+### CSS Features Used
+
+- **CSS Custom Properties**: Widely supported
+- **Flexbox**: Universal support
+- **Modern image formats**: Graceful fallbacks to PNG
+- **CSS Media Queries**: Universal support
+
+## Deployment
+
+### Static Hosting Options
+
+Since this is a static site, deployment is straightforward:
+
+<CardGroup cols={2}>
+  <Card title="GitHub Pages" icon="github">
+    ```bash
+    # Push to GitHub
+    git add .
+    git commit -m "Initial commit"
+    git push origin main
+    
+    # Enable Pages in repo settings
+    # Settings > Pages > Source: main branch
+    ```
+  </Card>
+  
+  <Card title="Netlify" icon="upload">
+    1. Drag and drop project folder to netlify.com
+    2. Or connect GitHub repository
+    3. No build settings needed
+    4. Site deploys instantly
+  </Card>
+  
+  <Card title="Vercel" icon="bolt">
+    ```bash
+    npm i -g vercel
+    vercel
+    # Follow prompts
+    ```
+    
+    Or connect GitHub repository via dashboard
+  </Card>
+  
+  <Card title="Traditional Hosting" icon="server">
+    Upload via FTP to any web hosting:
+    1. Upload all files to public_html/
+    2. Ensure index.html is in root
+    3. Check file permissions (644 for files)
+  </Card>
+</CardGroup>
+
+## Development Tips
+
+<Tip>
+  **Use Live Reloading**: Install the VS Code Live Server extension for automatic browser refresh on file save.
+</Tip>
+
+<Tip>
+  **Test Forms**: The form in `seleccionar-cita.html` uses HTML5 validation. Test with both valid and invalid data.
+</Tip>
+
+<Warning>
+  **File Paths**: Use relative paths (`./css/style.css`) to ensure files work when moved between environments.
+</Warning>
+
+## Common Issues
+
+<AccordionGroup>
+  <Accordion title="Styles not loading">
+    **Problem**: CSS files aren't applying.
+    
+    **Solutions**:
+    - Check file paths in `<link>` tags
+    - Clear browser cache (Cmd/Ctrl + Shift + R)
+    - Verify CSS files exist in `css/` directory
+    - Check browser console for 404 errors
+  </Accordion>
+  
+  <Accordion title="Images not displaying">
+    **Problem**: Logos or icons are broken.
+    
+    **Solutions**:
+    - Verify images exist in `images/` directory
+    - Check file paths in `<img>` tags
+    - Ensure file extensions match (case-sensitive on Linux)
+    - Check browser console for 404 errors
+  </Accordion>
+  
+  <Accordion title="Mobile menu not working">
+    **Problem**: Hamburger menu doesn't toggle.
+    
+    **Solutions**:
+    - Verify `js/index.js` is loaded
+    - Check browser console for JavaScript errors
+    - Ensure element IDs match: `menu-toggle` and `nav-normal`
+    - Test with browser DevTools console
+  </Accordion>
+  
+  <Accordion title="Form submission issues">
+    **Problem**: Form doesn't submit or validate.
+    
+    **Solutions**:
+    - This is a frontend prototype - form doesn't POST anywhere
+    - To add backend: modify `<form action="..." method="post">`
+    - HTML5 validation runs automatically on submit
+    - Use `pattern` attribute for custom validation
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+Now that you have the project running:
+
+<CardGroup cols={2}>
+  <Card title="Explore Features" icon="compass" href="/features">
+    Learn about all the features and see detailed code examples
+  </Card>
+  
+  <Card title="Customize Design" icon="palette">
+    Modify CSS variables to match your brand or preferences
+  </Card>
+  
+  <Card title="Add Backend" icon="database">
+    Connect forms to a backend API for real appointment booking
+  </Card>
+  
+  <Card title="Enhance Accessibility" icon="universal-access">
+    Add more ARIA labels and keyboard navigation improvements
+  </Card>
+</CardGroup>
+
+<Note>
+  **Need Help?** Open an issue in the project repository or consult the HTML comments in the source files for inline guidance.
+</Note>

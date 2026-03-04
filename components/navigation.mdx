@@ -1,0 +1,821 @@
+---
+title: Navigation Component
+description: Mobile navigation toggle functionality with vanilla JavaScript
+---
+
+## Overview
+
+The navigation component provides mobile-responsive menu functionality. On desktop, the navigation is always visible. On mobile devices (≤ 480px), it's hidden by default and toggles via a hamburger menu button.
+
+## JavaScript Implementation
+
+The navigation toggle is implemented in `js/index.js`:
+
+```javascript
+const $button = document.getElementById('menu-toggle');
+const $nav = document.getElementById('nav-normal');
+
+let active = false;
+
+$button.addEventListener('click', function () {
+    active = !active;
+    if (active) {
+        $nav.classList.add("visible-nav");
+    } else {
+        $nav.classList.remove("visible-nav");
+    }
+});
+```
+
+## How It Works
+
+### State Management
+
+1. **Initial State:** Navigation is hidden on mobile (`display: none`)
+2. **Button Click:** Toggles `active` boolean variable
+3. **Active State:** Adds `visible-nav` class to nav element
+4. **Inactive State:** Removes `visible-nav` class from nav element
+
+### CSS Control
+
+The JavaScript toggles a CSS class, while CSS handles the visual presentation:
+
+```css
+/* Mobile: Nav hidden by default */
+@media (width <= 480px) {
+    nav {
+        display: none;
+    }
+}
+
+/* Mobile: Nav visible when class added */
+.visible-nav {
+    display: block;
+}
+```
+
+## HTML Elements
+
+The navigation requires two key elements:
+
+### Menu Toggle Button
+
+```html
+<button id="menu-toggle">
+    <img src="./images/menu.svg" alt="Logo menu">
+</button>
+```
+
+**Requirements:**
+- Must have `id="menu-toggle"`
+- Visible only on mobile (CSS controls visibility)
+- Contains menu icon image
+
+### Navigation Menu
+
+```html
+<nav id="nav-normal">
+    <ul>
+        <li><a href="./index.html">Inicio</a></li>
+        <li><a href="#">Ayuda</a></li>
+        <li><a href="#">Aviso legal</a></li>
+        <li><a href="#">Accesibilidad</a></li>
+        <li><a href="#">Mapa Web</a></li>
+    </ul>
+</nav>
+```
+
+**Requirements:**
+- Must have `id="nav-normal"`
+- Can contain any number of menu items
+- Works with nested lists or other structures
+
+## Complete Implementation
+
+### HTML Structure
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/headerfooter.css">
+</head>
+<body>
+    <header>
+        <div>
+            <picture>
+                <img src="./images/logo-ministerio.png" alt="Logo">
+            </picture>
+        </div>
+
+        <!-- Mobile menu toggle button -->
+        <button id="menu-toggle">
+            <img src="./images/menu.svg" alt="Logo menu">
+        </button>
+
+        <!-- Navigation menu -->
+        <nav id="nav-normal">
+            <ul>
+                <li><a href="./index.html">Inicio</a></li>
+                <li><a href="./ayuda.html">Ayuda</a></li>
+                <li><a href="./aviso-legal.html">Aviso legal</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Page content -->
+
+    <!-- Load navigation script -->
+    <script src="./js/index.js"></script>
+</body>
+</html>
+```
+
+### CSS Styles
+
+From `css/headerfooter.css`:
+
+```css
+/* Desktop: Hide menu button */
+#menu-toggle {
+    display: none;
+}
+
+/* Desktop: Show navigation */
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+/* Mobile: Show menu button */
+@media (width <= 480px) {
+    #menu-toggle {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background-color: transparent;
+    }
+
+    #menu-toggle > img {
+        width: 40px;
+        height: 40px;
+    }
+
+    /* Mobile: Hide navigation by default */
+    nav {
+        display: none;
+        width: 100%;
+        background: var(--header-yellow);
+    }
+
+    /* Mobile: Vertical menu items */
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px 0;
+    }
+}
+
+/* Show navigation when toggled */
+.visible-nav {
+    display: block;
+}
+```
+
+## Usage Examples
+
+### Basic Toggle
+
+<CodeGroup>
+
+```html HTML
+<button id="menu-toggle">Menu</button>
+<nav id="nav-normal">
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+```
+
+```javascript JavaScript
+const $button = document.getElementById('menu-toggle');
+const $nav = document.getElementById('nav-normal');
+
+let active = false;
+
+$button.addEventListener('click', function () {
+    active = !active;
+    if (active) {
+        $nav.classList.add("visible-nav");
+    } else {
+        $nav.classList.remove("visible-nav");
+    }
+});
+```
+
+```css CSS
+@media (width <= 480px) {
+    #menu-toggle {
+        display: block;
+    }
+    
+    nav {
+        display: none;
+    }
+    
+    .visible-nav {
+        display: block;
+    }
+}
+```
+
+</CodeGroup>
+
+### Enhanced Toggle with Animation
+
+```css
+/* Smooth slide-down animation */
+nav {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+}
+
+.visible-nav {
+    max-height: 500px;  /* Adjust based on menu height */
+}
+```
+
+### Hamburger Icon Animation
+
+```html
+<button id="menu-toggle" class="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+</button>
+```
+
+```css
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: transparent;
+    border: none;
+    padding: 10px;
+}
+
+.hamburger span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: var(--primary-blue);
+    transition: all 0.3s ease;
+}
+
+/* Transform to X when active */
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+```
+
+```javascript
+$button.addEventListener('click', function () {
+    active = !active;
+    $button.classList.toggle('active');
+    if (active) {
+        $nav.classList.add("visible-nav");
+    } else {
+        $nav.classList.remove("visible-nav");
+    }
+});
+```
+
+## Advanced Features
+
+### Close Menu on Link Click
+
+Automatically close the mobile menu when a link is clicked:
+
+```javascript
+const $button = document.getElementById('menu-toggle');
+const $nav = document.getElementById('nav-normal');
+const $links = $nav.querySelectorAll('a');
+
+let active = false;
+
+function toggleMenu() {
+    active = !active;
+    if (active) {
+        $nav.classList.add("visible-nav");
+    } else {
+        $nav.classList.remove("visible-nav");
+    }
+}
+
+$button.addEventListener('click', toggleMenu);
+
+// Close menu when link is clicked
+$links.forEach(link => {
+    link.addEventListener('click', function() {
+        if (active) {
+            toggleMenu();
+        }
+    });
+});
+```
+
+### Close Menu on Outside Click
+
+Close the menu when clicking outside of it:
+
+```javascript
+const $button = document.getElementById('menu-toggle');
+const $nav = document.getElementById('nav-normal');
+
+let active = false;
+
+$button.addEventListener('click', function(e) {
+    e.stopPropagation();
+    active = !active;
+    if (active) {
+        $nav.classList.add("visible-nav");
+    } else {
+        $nav.classList.remove("visible-nav");
+    }
+});
+
+// Close menu when clicking outside
+document.addEventListener('click', function(e) {
+    if (active && !$nav.contains(e.target)) {
+        active = false;
+        $nav.classList.remove("visible-nav");
+    }
+});
+```
+
+### Close Menu on Escape Key
+
+Allow users to close the menu with the Escape key:
+
+```javascript
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && active) {
+        active = false;
+        $nav.classList.remove("visible-nav");
+    }
+});
+```
+
+### Prevent Body Scroll When Menu Open
+
+Prevent page scrolling when mobile menu is open:
+
+```javascript
+$button.addEventListener('click', function () {
+    active = !active;
+    if (active) {
+        $nav.classList.add("visible-nav");
+        document.body.style.overflow = 'hidden';
+    } else {
+        $nav.classList.remove("visible-nav");
+        document.body.style.overflow = '';
+    }
+});
+```
+
+## Accessibility Enhancements
+
+### ARIA Attributes
+
+Improve screen reader support:
+
+```html
+<button id="menu-toggle" 
+        aria-label="Toggle navigation menu" 
+        aria-expanded="false"
+        aria-controls="nav-normal">
+    <img src="./images/menu.svg" alt="" aria-hidden="true">
+</button>
+
+<nav id="nav-normal" aria-label="Main navigation">
+    <ul>
+        <li><a href="./index.html">Inicio</a></li>
+        <!-- more items -->
+    </ul>
+</nav>
+```
+
+```javascript
+const $button = document.getElementById('menu-toggle');
+const $nav = document.getElementById('nav-normal');
+
+let active = false;
+
+$button.addEventListener('click', function () {
+    active = !active;
+    
+    // Update ARIA attributes
+    $button.setAttribute('aria-expanded', active);
+    
+    if (active) {
+        $nav.classList.add("visible-nav");
+    } else {
+        $nav.classList.remove("visible-nav");
+    }
+});
+```
+
+### Focus Management
+
+Trap focus within the menu when open:
+
+```javascript
+const $button = document.getElementById('menu-toggle');
+const $nav = document.getElementById('nav-normal');
+const $links = $nav.querySelectorAll('a');
+
+let active = false;
+
+$button.addEventListener('click', function () {
+    active = !active;
+    if (active) {
+        $nav.classList.add("visible-nav");
+        // Focus first link when menu opens
+        if ($links.length > 0) {
+            $links[0].focus();
+        }
+    } else {
+        $nav.classList.remove("visible-nav");
+        // Return focus to toggle button
+        $button.focus();
+    }
+});
+
+// Trap focus within menu when open
+document.addEventListener('keydown', function(e) {
+    if (!active || e.key !== 'Tab') return;
+    
+    const firstLink = $links[0];
+    const lastLink = $links[$links.length - 1];
+    
+    // Shift+Tab on first link: go to last link
+    if (e.shiftKey && document.activeElement === firstLink) {
+        e.preventDefault();
+        lastLink.focus();
+    }
+    // Tab on last link: go to first link
+    else if (!e.shiftKey && document.activeElement === lastLink) {
+        e.preventDefault();
+        firstLink.focus();
+    }
+});
+```
+
+## Responsive Breakpoints
+
+### Desktop (> 480px)
+- Menu toggle button hidden
+- Navigation always visible
+- Horizontal menu layout
+- Items arranged in a row
+
+### Mobile (≤ 480px)
+- Menu toggle button visible
+- Navigation hidden by default
+- Vertical menu layout when toggled
+- Full-width menu
+- Items stacked vertically
+
+### Custom Breakpoints
+
+Adjust the breakpoint as needed:
+
+```css
+/* Change from 480px to 768px */
+@media (width <= 768px) {
+    #menu-toggle {
+        display: flex;
+    }
+    
+    nav {
+        display: none;
+    }
+}
+```
+
+## Customization Options
+
+### Different Toggle Icons
+
+<CodeGroup>
+
+```html SVG Icon
+<button id="menu-toggle">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" 
+         fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 6h16M4 12h16M4 18h16"/>
+    </svg>
+</button>
+```
+
+```html Text Label
+<button id="menu-toggle">
+    <span id="menu-text">Menu</span>
+</button>
+
+<script>
+const $button = document.getElementById('menu-toggle');
+const $menuText = document.getElementById('menu-text');
+
+$button.addEventListener('click', function () {
+    active = !active;
+    $menuText.textContent = active ? 'Close' : 'Menu';
+    // ... rest of toggle logic
+});
+</script>
+```
+
+```html Unicode Character
+<button id="menu-toggle">
+    <span class="icon">☰</span> <!-- Hamburger icon -->
+</button>
+
+<style>
+.icon {
+    font-size: 24px;
+}
+</style>
+```
+
+</CodeGroup>
+
+### Slide-in Menu Animation
+
+```css
+@media (width <= 480px) {
+    nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background: white;
+        box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+        transition: right 0.3s ease-in-out;
+        z-index: 1000;
+    }
+    
+    .visible-nav {
+        right: 0;
+    }
+}
+```
+
+### Overlay Background
+
+Add a dark overlay when menu is open:
+
+```html
+<div id="overlay" class="menu-overlay"></div>
+```
+
+```css
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+```
+
+```javascript
+const $overlay = document.getElementById('overlay');
+
+$button.addEventListener('click', function () {
+    active = !active;
+    if (active) {
+        $nav.classList.add("visible-nav");
+        $overlay.classList.add("active");
+    } else {
+        $nav.classList.remove("visible-nav");
+        $overlay.classList.remove("active");
+    }
+});
+
+// Close menu when clicking overlay
+$overlay.addEventListener('click', function() {
+    active = false;
+    $nav.classList.remove("visible-nav");
+    $overlay.classList.remove("active");
+});
+```
+
+## Common Issues
+
+### Menu Not Toggling
+
+**Problem:** Clicking button doesn't show/hide menu.
+
+**Solutions:**
+
+1. **Check JavaScript is loaded:**
+   ```html
+   <!-- Must be before </body> -->
+   <script src="./js/index.js"></script>
+   ```
+
+2. **Verify element IDs match:**
+   ```javascript
+   // IDs in JavaScript must match HTML
+   const $button = document.getElementById('menu-toggle');
+   const $nav = document.getElementById('nav-normal');
+   ```
+
+3. **Check browser console for errors:**
+   - Press F12 to open DevTools
+   - Look for red error messages
+
+4. **Verify CSS class exists:**
+   ```css
+   .visible-nav {
+       display: block;
+   }
+   ```
+
+### Menu Visible on Desktop
+
+**Problem:** Mobile menu appears on desktop screens.
+
+**Solution:** Check media query:
+
+```css
+@media (width <= 480px) {
+    /* Mobile styles only apply below 480px */
+    nav {
+        display: none;
+    }
+}
+```
+
+### Toggle Button Not Visible
+
+**Problem:** Menu button doesn't appear on mobile.
+
+**Solutions:**
+
+1. **Check media query:**
+   ```css
+   @media (width <= 480px) {
+       #menu-toggle {
+           display: flex;  /* Not 'none' */
+       }
+   }
+   ```
+
+2. **Verify z-index:**
+   ```css
+   #menu-toggle {
+       z-index: 100;  /* Above other elements */
+   }
+   ```
+
+3. **Check image path:**
+   ```html
+   <button id="menu-toggle">
+       <img src="./images/menu.svg" alt="Menu">
+   </button>
+   ```
+
+### Menu Doesn't Close
+
+**Problem:** Menu stays open and can't be closed.
+
+**Solution:** Ensure toggle logic properly reverses:
+
+```javascript
+$button.addEventListener('click', function () {
+    active = !active;  // Toggle boolean
+    if (active) {
+        $nav.classList.add("visible-nav");
+    } else {
+        $nav.classList.remove("visible-nav");  // Must remove class
+    }
+});
+```
+
+## Performance Considerations
+
+<Tip>
+  **Optimize for Performance:**
+  
+  1. **Use CSS for animations** instead of JavaScript
+  2. **Avoid layout thrashing** - batch DOM reads/writes
+  3. **Use `will-change`** for smoother animations:
+     ```css
+     nav {
+         will-change: transform;
+     }
+     ```
+  4. **Debounce resize events** if listening to window resize
+  5. **Use `requestAnimationFrame`** for complex animations
+</Tip>
+
+## Browser Compatibility
+
+The navigation component uses:
+
+- **querySelector/getElementById** - All modern browsers
+- **classList.add/remove** - IE10+
+- **addEventListener** - All browsers
+- **CSS Media Queries** - All modern browsers
+
+### Fallback for Older Browsers
+
+```javascript
+// For browsers without classList support (IE9 and below)
+function toggleClass(element, className) {
+    if (element.classList) {
+        element.classList.toggle(className);
+    } else {
+        var classes = element.className.split(' ');
+        var existingIndex = classes.indexOf(className);
+        if (existingIndex >= 0) {
+            classes.splice(existingIndex, 1);
+        } else {
+            classes.push(className);
+        }
+        element.className = classes.join(' ');
+    }
+}
+```
+
+## Testing Checklist
+
+- [ ] Menu toggles on button click
+- [ ] Menu closes when clicking toggle again
+- [ ] Menu is hidden by default on mobile
+- [ ] Menu is always visible on desktop
+- [ ] Toggle button is visible on mobile
+- [ ] Toggle button is hidden on desktop
+- [ ] Keyboard navigation works (Tab, Enter)
+- [ ] Screen reader announces menu state
+- [ ] Menu items are clickable
+- [ ] No JavaScript errors in console
+- [ ] Works on iOS Safari
+- [ ] Works on Android Chrome
+
+## Related Components
+
+- [Header Component](/components/header) - Contains the navigation component
+- [Footer Component](/components/footer) - Site footer with links
+- [Cards Component](/components/cards) - Interactive card elements
+
+## Example Files
+
+**JavaScript:** `js/index.js` (lines 1-13)
+
+**CSS:** `css/headerfooter.css` (lines 40-93)
+
+**HTML:** 
+- `index.html` (lines 27-42)
+- `iniciar-solicitud.html` (lines 27-42)
+- `seleccionar-cita.html` (lines 27-42)
+
+<Note>
+  The navigation JavaScript is simple and dependency-free, using vanilla JavaScript for maximum compatibility and performance.
+</Note>

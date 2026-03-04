@@ -1,0 +1,319 @@
+---
+title: "Project Structure"
+description: "Understanding the file and folder organization of the DNI Cita Previa redesign project"
+---
+
+## Overview
+
+The DNI Cita Previa redesign is a static HTML/CSS/JavaScript project with a clean, organized structure. The project uses vanilla web technologies without any build tools or frameworks, making it lightweight and easy to deploy.
+
+## Directory Structure
+
+```
+source/
+├── css/
+│   ├── style.css              # Global styles and CSS variables
+│   ├── headerfooter.css       # Header and footer layout
+│   ├── index.css              # Homepage-specific styles
+│   ├── iniciar-solicitud.css  # Start request page styles
+│   ├── seleccionar-cita.css   # Appointment selection form styles
+│   ├── resumen.css            # Summary page styles
+│   └── chatgpt.css            # Empty file (unused)
+├── images/
+│   ├── logo-ministerio.avif   # Ministry logo (AVIF format)
+│   ├── logo-ministerio.webp   # Ministry logo (WebP format)
+│   ├── logo-ministerio.png    # Ministry logo (PNG fallback)
+│   ├── logo-polia-nacional.avif  # National Police logo (AVIF)
+│   ├── logo-polia-nacional.webp  # National Police logo (WebP)
+│   ├── logo-polia-nacional.jpeg  # National Police logo (JPEG)
+│   ├── logo.png               # Favicon
+│   └── menu.svg               # Mobile menu icon
+├── js/
+│   └── index.js               # Mobile navigation toggle
+├── index.html                 # Homepage
+├── iniciar-solicitud.html     # Start request page
+├── seleccionar-cita.html      # Appointment selection form
+└── resumen.html               # Appointment summary page
+```
+
+## File Organization
+
+### HTML Pages
+
+The project consists of four main pages that form the user journey:
+
+<Steps>
+  <Step title="Homepage (index.html)">
+    Entry point with two main options:
+    - Iniciar Solicitud de Cita (Start appointment request)
+    - Anular/Consultar Cita (Cancel/check appointment)
+    
+    Location: `source/index.html`
+  </Step>
+  
+  <Step title="Start Request (iniciar-solicitud.html)">
+    Authentication method selection:
+    - With DNI/NIE data
+    - With electronic certificate (Cl@ve)
+    
+    Location: `source/iniciar-solicitud.html`
+  </Step>
+  
+  <Step title="Select Appointment (seleccionar-cita.html)">
+    Comprehensive form collecting:
+    - Type of procedure (DNI, Passport, or both)
+    - DNI data (number, expedition team, validity date, support number)
+    - Appointment details (province, office, date, time)
+    - Contact information (email, phone, observations)
+    - Renewal reason (expiration, loss, deterioration, etc.)
+    
+    Location: `source/seleccionar-cita.html`
+  </Step>
+  
+  <Step title="Summary (resumen.html)">
+    Confirmation page displaying:
+    - Appointment reference code
+    - All submitted data in organized sections
+    - Required documentation list
+    - Action buttons (modify, confirm, print)
+    
+    Location: `source/resumen.html`
+  </Step>
+</Steps>
+
+### CSS Architecture
+
+The styles are split across multiple files following a **component-based approach**:
+
+| File | Purpose | Used By |
+|------|---------|--------|
+| `style.css` | Global styles, CSS variables, reset, base layout | All pages |
+| `headerfooter.css` | Header and footer components | All pages |
+| `index.css` | Homepage-specific styles for option cards | `index.html` |
+| `iniciar-solicitud.css` | Authentication option cards | `iniciar-solicitud.html` |
+| `seleccionar-cita.css` | Form styling, input fields, buttons | `seleccionar-cita.html` |
+| `resumen.css` | Summary tables, status badge, action buttons | `resumen.html` |
+
+<Tip>
+Each page imports three CSS files in order:
+1. `style.css` (global)
+2. `headerfooter.css` (layout)
+3. Page-specific CSS file
+
+This ensures consistent styling while allowing page-specific customizations.
+</Tip>
+
+### JavaScript Files
+
+The project uses minimal JavaScript:
+
+**`js/index.js`** (13 lines)
+- Handles mobile navigation menu toggle
+- Adds/removes `visible-nav` class on button click
+- Shared across all pages
+
+```javascript
+const $button = document.getElementById('menu-toggle');
+const $nav = document.getElementById('nav-normal');
+
+let active = false;
+
+$button.addEventListener('click', function () {
+    active = !active;
+    if (active) {
+        $nav.classList.add("visible-nav");
+    } else {
+        $nav.classList.remove("visible-nav");
+    }
+});
+```
+
+### Image Assets
+
+The project implements **modern image optimization** using the `<picture>` element:
+
+```html
+<picture>
+    <source srcset="./images/logo-ministerio.avif" type="image/avif">
+    <source srcset="./images/logo-ministerio.webp" type="image/webp">
+    <img src="./images/logo-ministerio.png" alt="Logo ministerio del interior">
+</picture>
+```
+
+<Note>
+**Format Priority:**
+1. AVIF (best compression, modern browsers)
+2. WebP (good compression, wide support)
+3. PNG/JPEG (fallback for older browsers)
+
+This provides optimal performance while maintaining compatibility.
+</Note>
+
+## Component Structure
+
+All pages share common components:
+
+### Header Component
+
+- Yellow background (`--header-yellow`)
+- Ministry logo (responsive picture element)
+- Desktop navigation menu
+- Mobile hamburger menu (displays at ≤480px)
+- Links: Inicio, Ayuda, Aviso legal, Accesibilidad, Mapa Web
+
+### Footer Component
+
+- Dark background (`--footer-background-blue`)
+- Three-column layout (desktop) / stacked (mobile)
+- National Police logo
+- Enlaces de interés (Links of interest)
+- Contacto y ayuda (Contact and help)
+- Copyright notice
+
+### Main Content Container
+
+- Max-width: 900px
+- Centered layout
+- Responsive padding on tablets and smaller
+
+### Info Boxes
+
+All pages include information boxes with:
+- Light blue background (`--bg-blue-light`)
+- Info icon (SVG)
+- Important contextual information
+- Consistent styling via `.info` class
+
+## Page-Specific Components
+
+### Homepage Components
+
+**Option Cards** (`css/index.css:1-69`)
+- Two-column layout (stacks on mobile)
+- Primary action (blue button) + secondary action (gray button)
+- SVG icons inline
+- Hover effects (opacity and scale)
+
+### Form Components
+
+**Form Sections** (`css/seleccionar-cita.css:9-23`)
+- Section headings with icons
+- Bottom border separators
+- Organized field groups
+
+**Input Fields** (`css/seleccionar-cita.css:40-88`)
+- 2px border with focus states
+- Blue focus ring
+- Validation styling for invalid inputs
+- Consistent 12px padding
+
+**Two-Column Layout** (`css/seleccionar-cita.css:29-38`)
+- Flexbox-based responsive grid
+- Automatic wrapping on smaller screens
+- 20px gap between fields
+
+### Summary Components
+
+**Status Badge** (`css/resumen.css:10-44`)
+- Gradient background (light blue)
+- Success icon (green checkmark SVG)
+- Reference code display
+- Centered layout
+
+**Data Tables** (`css/resumen.css:73-104`)
+- Two-column key-value layout
+- 35% width for labels, 65% for values
+- Bottom borders between rows
+- Strong emphasis on values
+
+## Deployment
+
+This is a **static site** with no build process required.
+
+<Steps>
+  <Step title="Development">
+    Simply open any HTML file in a browser. All paths are relative.
+  </Step>
+  
+  <Step title="Production">
+    Deploy the entire `source/` directory to any web server or CDN:
+    - Apache/Nginx
+    - GitHub Pages
+    - Netlify/Vercel
+    - AWS S3 + CloudFront
+    - Any static hosting service
+  </Step>
+</Steps>
+
+<Warning>
+**Important:** Maintain the directory structure. The HTML files expect:
+- CSS files at `./css/`
+- Images at `./images/`
+- JavaScript at `./js/`
+
+Changing this structure will break asset references.
+</Warning>
+
+## HTML Structure Pattern
+
+All pages follow a consistent structure:
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="...">
+    <title>DNI - Page Title</title>
+    <link rel="shortcut icon" href="./images/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/headerfooter.css">
+    <link rel="stylesheet" href="./css/page-specific.css">
+</head>
+<body>
+    <header><!-- Shared header --></header>
+    <main><!-- Page content --></main>
+    <footer><!-- Shared footer --></footer>
+    <script src="./js/index.js"></script>
+</body>
+</html>
+```
+
+## Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Semantic HTML" icon="code">
+    Uses proper HTML5 elements: `<header>`, `<main>`, `<footer>`, `<nav>`, `<section>`
+  </Card>
+  
+  <Card title="Accessibility" icon="universal-access">
+    - Proper alt text on images
+    - Semantic form labels
+    - ARIA-friendly navigation
+  </Card>
+  
+  <Card title="Performance" icon="gauge-high">
+    - Modern image formats
+    - Minimal JavaScript
+    - No external dependencies
+  </Card>
+  
+  <Card title="Responsive Design" icon="mobile">
+    - Mobile-first breakpoints
+    - Flexible layouts
+    - Touch-friendly targets
+  </Card>
+</CardGroup>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Styling Guide" href="/development/styling">
+    Learn about the CSS architecture and custom properties system
+  </Card>
+  
+  <Card title="Customization" href="/development/customization">
+    Customize colors, fonts, layout, and content
+  </Card>
+</CardGroup>

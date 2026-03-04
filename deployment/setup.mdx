@@ -1,0 +1,267 @@
+---
+title: Local Development Setup
+description: Prerequisites, installation steps, and testing instructions for the DNI Cita Previa project
+---
+
+## Prerequisites
+
+Before setting up the project locally, ensure you have the following installed:
+
+- A modern web browser (Chrome, Firefox, Safari, or Edge)
+- A code editor (VS Code, Sublime Text, or similar)
+- A local web server (optional, but recommended for testing)
+- Git (for version control)
+
+## Project Structure
+
+The project follows a simple static website structure:
+
+```
+dni-cita-previa/
+├── index.html              # Homepage
+├── iniciar-solicitud.html  # Start request page
+├── seleccionar-cita.html   # Appointment selection page
+├── resumen.html            # Summary page
+├── css/
+│   ├── style.css           # Global styles
+│   ├── headerfooter.css    # Header and footer styles
+│   ├── index.css           # Homepage styles
+│   ├── iniciar-solicitud.css
+│   └── seleccionar-cita.css
+├── js/
+│   └── index.js            # Navigation functionality
+└── images/
+    ├── logo.png
+    ├── logo-ministerio.png
+    └── ...
+```
+
+## Installation
+
+### 1. Clone or Download the Repository
+
+```bash
+git clone <repository-url>
+cd dni-cita-previa
+```
+
+### 2. Set Up a Local Server
+
+<CodeGroup>
+
+```bash Python
+# Using Python 3
+python -m http.server 8000
+```
+
+```bash Node.js
+# Using Node.js with http-server
+npx http-server -p 8000
+```
+
+```bash PHP
+# Using PHP
+php -S localhost:8000
+```
+
+</CodeGroup>
+
+### 3. Open in Browser
+
+Navigate to `http://localhost:8000` in your web browser.
+
+<Note>
+  You can also open the HTML files directly in your browser by double-clicking them, but using a local server is recommended to avoid CORS issues and better simulate production behavior.
+</Note>
+
+## Development Workflow
+
+### Editing HTML Files
+
+All HTML files are located in the root directory. Open them in your code editor:
+
+```bash
+# Example: Edit the homepage
+code index.html
+```
+
+### Editing Styles
+
+CSS files are organized by page and component:
+
+- **style.css** - Global variables and reset styles
+- **headerfooter.css** - Header and footer component styles
+- **[page].css** - Page-specific styles
+
+```bash
+# Example: Edit global styles
+code css/style.css
+```
+
+### Live Reload (Optional)
+
+For automatic browser refresh on file changes, use a tool like Live Server:
+
+```bash
+# VS Code Extension
+# Install "Live Server" extension
+# Right-click HTML file and select "Open with Live Server"
+```
+
+## Testing
+
+### Visual Testing
+
+<Accordion title="Desktop Testing">
+  Test the application on desktop browsers:
+  - Chrome (latest)
+  - Firefox (latest)
+  - Safari (latest)
+  - Edge (latest)
+
+  Verify all pages render correctly at standard desktop resolutions (1920x1080, 1366x768).
+</Accordion>
+
+<Accordion title="Tablet Testing">
+  Test responsive behavior on tablet devices:
+  - iPad (768x1024)
+  - Android Tablets (various sizes)
+
+  Use browser DevTools to simulate tablet viewports:
+  ```
+  Chrome: F12 → Toggle Device Toolbar (Ctrl+Shift+M)
+  ```
+</Accordion>
+
+<Accordion title="Mobile Testing">
+  Test mobile responsiveness:
+  - iPhone (375x667, 390x844)
+  - Android phones (360x640, 412x915)
+
+  Verify:
+  - Mobile navigation toggle works
+  - Forms are usable on small screens
+  - Text is readable without zooming
+  - Buttons are easily tappable
+</Accordion>
+
+### Functional Testing
+
+#### Navigation Tests
+
+1. **Header Navigation**
+   - Click all header links
+   - Verify external links open in new tabs
+   - Test mobile menu toggle on small screens
+
+2. **Page Flow**
+   - Homepage → Iniciar Solicitud → Seleccionar Cita → Resumen
+   - Verify back buttons work correctly
+   - Test form submission flow
+
+#### Form Validation Tests
+
+```html
+<!-- Example form validation to test -->
+<input type="text" id="numero-dni" pattern="[0-9]{8}[A-Za-z]" required>
+```
+
+Test cases:
+- Empty fields (should show validation error)
+- Invalid DNI format (e.g., "123" instead of "12345678X")
+- Valid data submission
+- Date field constraints
+
+### Performance Testing
+
+<Tip>
+  Use browser DevTools to audit performance:
+  1. Open Chrome DevTools (F12)
+  2. Go to Lighthouse tab
+  3. Run audit for Performance, Accessibility, Best Practices, and SEO
+  4. Aim for scores above 90 in all categories
+</Tip>
+
+### Accessibility Testing
+
+#### Keyboard Navigation
+- Tab through all interactive elements
+- Verify focus indicators are visible
+- Test form submission with keyboard only
+
+#### Screen Reader Testing
+- Test with NVDA (Windows) or VoiceOver (Mac)
+- Verify all images have alt text
+- Check form labels are properly associated
+
+#### Color Contrast
+
+Verify color contrast ratios meet WCAG AA standards:
+- Normal text: 4.5:1 minimum
+- Large text: 3:1 minimum
+
+```css
+/* Example: Check these color combinations */
+--primary-blue: #003366;  /* Against white background */
+--text-gray-light: #6a6f7b;  /* Against white background */
+```
+
+## Common Issues
+
+### Images Not Loading
+
+**Problem:** Images appear broken or don't load.
+
+**Solution:** Verify image paths are correct and files exist:
+```bash
+ls images/
+```
+
+### CSS Not Applying
+
+**Problem:** Styles don't appear or are outdated.
+
+**Solution:** Hard refresh the browser:
+- Chrome/Firefox: `Ctrl + F5` (Windows) or `Cmd + Shift + R` (Mac)
+- Clear browser cache if issue persists
+
+### Mobile Menu Not Working
+
+**Problem:** Menu toggle button doesn't respond.
+
+**Solution:** Check JavaScript is loaded:
+```html
+<!-- Verify this line exists before </body> -->
+<script src="./js/index.js"></script>
+```
+
+## Browser Compatibility
+
+The project is compatible with:
+
+| Browser | Minimum Version |
+|---------|----------------|
+| Chrome  | 90+            |
+| Firefox | 88+            |
+| Safari  | 14+            |
+| Edge    | 90+            |
+
+<Note>
+  Modern CSS features like `:has()`, `@container`, and advanced flexbox/grid are used. Older browsers may require polyfills or fallbacks.
+</Note>
+
+## Next Steps
+
+Once your local environment is set up:
+
+1. **Explore Components** - Review the [Header](/components/header) and [Footer](/components/footer) documentation
+2. **Understand Forms** - Read about [Form Components](/components/forms)
+3. **Deploy** - Check [Hosting Options](/deployment/hosting) when ready to deploy
+
+## Support
+
+For development issues:
+- Check browser console for errors (F12)
+- Verify all file paths are correct
+- Ensure you're running a local server, not opening files directly
+- Review the [Components](/components/header) documentation for usage examples
